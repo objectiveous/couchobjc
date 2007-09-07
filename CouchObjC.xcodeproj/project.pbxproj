@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E75D3F820C90559900058F83 /* CouchUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D3F810C90559900058F83 /* CouchUnit.m */; };
+		E75D3F8D0C9055E000058F83 /* Couch.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D3F8A0C9055E000058F83 /* Couch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E75D3F8E0C9055E000058F83 /* SBCouch.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D3F8B0C9055E000058F83 /* SBCouch.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E75D3F8F0C9055E000058F83 /* SBCouch.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D3F8C0C9055E000058F83 /* SBCouch.m */; };
+		E75D3F950C90564900058F83 /* Couch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75D3F640C9054B600058F83 /* Couch.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E75D3F7B0C90555C00058F83 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E75D3F540C90549600058F83 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E75D3F630C9054B600058F83;
+			remoteInfo = Couch;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E75D3F640C9054B600058F83 /* Couch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Couch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75D3F660C9054B600058F83 /* Couch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Couch-Info.plist"; sourceTree = "<group>"; };
+		E75D3F740C90555700058F83 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E75D3F750C90555700058F83 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		E75D3F800C90559900058F83 /* CouchUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchUnit.h; sourceTree = "<group>"; };
+		E75D3F810C90559900058F83 /* CouchUnit.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CouchUnit.m; sourceTree = "<group>"; };
+		E75D3F8A0C9055E000058F83 /* Couch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Couch.h; sourceTree = "<group>"; };
+		E75D3F8B0C9055E000058F83 /* SBCouch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SBCouch.h; sourceTree = "<group>"; };
+		E75D3F8C0C9055E000058F83 /* SBCouch.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = SBCouch.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E75D3F620C9054B600058F83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75D3F710C90555700058F83 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75D3F950C90564900058F83 /* Couch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E75D3F520C90549600058F83 = {
+			isa = PBXGroup;
+			children = (
+				E75D3F6E0C90552000058F83 /* Unit Tests */,
+				E75D3F6D0C90551800058F83 /* Classes */,
+				E75D3F650C9054B600058F83 /* Products */,
+				E75D3F660C9054B600058F83 /* Couch-Info.plist */,
+				E75D3F750C90555700058F83 /* Tests-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		E75D3F650C9054B600058F83 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E75D3F640C9054B600058F83 /* Couch.framework */,
+				E75D3F740C90555700058F83 /* Tests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E75D3F6D0C90551800058F83 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E75D3F8A0C9055E000058F83 /* Couch.h */,
+				E75D3F8B0C9055E000058F83 /* SBCouch.h */,
+				E75D3F8C0C9055E000058F83 /* SBCouch.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		E75D3F6E0C90552000058F83 /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				E75D3F800C90559900058F83 /* CouchUnit.h */,
+				E75D3F810C90559900058F83 /* CouchUnit.m */,
+			);
+			path = "Unit Tests";
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E75D3F5F0C9054B600058F83 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75D3F8D0C9055E000058F83 /* Couch.h in Headers */,
+				E75D3F8E0C9055E000058F83 /* SBCouch.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E75D3F630C9054B600058F83 /* Couch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75D3F670C9054B600058F83 /* Build configuration list for PBXNativeTarget "Couch" */;
+			buildPhases = (
+				E75D3F5F0C9054B600058F83 /* Headers */,
+				E75D3F600C9054B600058F83 /* Resources */,
+				E75D3F610C9054B600058F83 /* Sources */,
+				E75D3F620C9054B600058F83 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Couch;
+			productName = Couch;
+			productReference = E75D3F640C9054B600058F83 /* Couch.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E75D3F730C90555700058F83 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E75D3F780C90555700058F83 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				E75D3F6F0C90555700058F83 /* Resources */,
+				E75D3F700C90555700058F83 /* Sources */,
+				E75D3F710C90555700058F83 /* Frameworks */,
+				E75D3F720C90555700058F83 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E75D3F7C0C90555C00058F83 /* PBXTargetDependency */,
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = E75D3F740C90555700058F83 /* Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E75D3F540C90549600058F83 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = E75D3F550C90549600058F83 /* Build configuration list for PBXProject "CouchObjC" */;
+			hasScannedForEncodings = 0;
+			mainGroup = E75D3F520C90549600058F83;
+			productRefGroup = E75D3F650C9054B600058F83 /* Products */;
+			projectDirPath = "";
+			targets = (
+				E75D3F630C9054B600058F83 /* Couch */,
+				E75D3F730C90555700058F83 /* Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E75D3F600C9054B600058F83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75D3F6F0C90555700058F83 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E75D3F720C90555700058F83 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E75D3F610C9054B600058F83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75D3F8F0C9055E000058F83 /* SBCouch.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E75D3F700C90555700058F83 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E75D3F820C90559900058F83 /* CouchUnit.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E75D3F7C0C90555C00058F83 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E75D3F630C9054B600058F83 /* Couch */;
+			targetProxy = E75D3F7B0C90555C00058F83 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E75D3F560C90549600058F83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		E75D3F570C90549600058F83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+			};
+			name = Release;
+		};
+		E75D3F680C9054B600058F83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Couch-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Couch;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		E75D3F690C9054B600058F83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/AppKit.framework/Headers/AppKit.h";
+				INFOPLIST_FILE = "Couch-Info.plist";
+				INSTALL_PATH = "$(HOME)/Library/Frameworks";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					AppKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Couch;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		E75D3F790C90555700058F83 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Debug;
+		};
+		E75D3F7A0C90555700058F83 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Cocoa,
+					"-framework",
+					SenTestingKit,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E75D3F550C90549600058F83 /* Build configuration list for PBXProject "CouchObjC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75D3F560C90549600058F83 /* Debug */,
+				E75D3F570C90549600058F83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E75D3F670C9054B600058F83 /* Build configuration list for PBXNativeTarget "Couch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75D3F680C9054B600058F83 /* Debug */,
+				E75D3F690C9054B600058F83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E75D3F780C90555700058F83 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E75D3F790C90555700058F83 /* Debug */,
+				E75D3F7A0C90555700058F83 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E75D3F540C90549600058F83 /* Project object */;
+}
