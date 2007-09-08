@@ -14,7 +14,7 @@
 
 - (void)setUp
 {
-    couch = [SBCouch newWithEndpoint:@"http://localhost:8888/"];
+    couch = [SBCouch new]; // Using CouchDB default: http://localhost:8888/
     dbs = [@"foo bar baz" componentsSeparatedByString:@" "];
 }
 
@@ -23,21 +23,9 @@
     [couch release];
 }
 
-- (void)test01init
+- (void)test01initWithoutEndpont
 {
-    STAssertThrows([SBCouch new], @"cannot use the default -init method");
-}
-
-- (void)test01initWithIllegalEndpoint
-{
-    STAssertThrows([SBCouch newWithEndpoint:@"http://localhost: 666/"], nil);
-
-    STAssertThrows([SBCouch newWithEndpoint:@"http://localhost: 666/"], nil);
-}
-
-- (void)test01initWithEndpoint
-{
-    STAssertNotNil(couch, nil);
+    STAssertThrows([SBCouch newWithEndpoint:nil], @"Must pass endpoint to init method" );
 }
 
 - (void)test02create
@@ -71,6 +59,5 @@
     [self test03delete];
     [self test04listEmpty];
 }
-
 
 @end

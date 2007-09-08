@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 @interface SBCouch : NSObject {
-    NSURL *url;
+    NSString *endpoint;
 }
 
 - (id)initWithEndpoint:(NSString *)x;
