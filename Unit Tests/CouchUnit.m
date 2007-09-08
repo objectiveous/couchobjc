@@ -15,7 +15,8 @@
 - (void)setUp
 {
     couch = [SBCouch new]; // Using CouchDB default: http://localhost:8888/
-    dbs = [@"foo bar baz" componentsSeparatedByString:@" "];
+    dbs = [[@"foo bar baz" componentsSeparatedByString:@" "]
+            sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (void)tearDown

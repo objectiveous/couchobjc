@@ -125,7 +125,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     NSError *error;
     NSHTTPURLResponse *response;
-    NSLog(@"request: %@", request);
     NSData *data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response
                                                      error:&error];
@@ -135,7 +134,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                         format:@"Listing databases failed with code: %u (%@)",
                             [response statusCode], error];
 
-    return [NSArray array];
+    NSMutableArray *dbs = [NSMutableArray array];
+
+    // XXX - horrible hack right here.
+    // XXX - It'll be gone when I get the more recent version with JSON support installed.
+    NSString *xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSScanner *scanner = [NSScanner scannerWithString:xmlString];
+    do {
+        // skip up to and including next <db> element.
+        if ([scanner scanUpToString:@"<db>" intoString:nil])
+            [scanner scanString:@"<db>" intoString:nil];
+        // Grab the DB name.
+        NSString *dbname;
+        if ([scanner scanUpToString:@"/</db>" intoString:&dbname])
+            [dbs addObject:dbname];
+    } while (![scanner isAtEnd]);
+
+    return dbs;
 }
 
 @end
