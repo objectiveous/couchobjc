@@ -75,7 +75,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                           returningResponse:&response
                                       error:nil];
 
-    if (201 != [response statusCode]) {
+    if (409 == [response statusCode]) {
+        [NSException raise:@"db-exist"
+                    format:@"The database '%@' already exist", x];
+
+   } else if (201 != [response statusCode]) {
         [NSException raise:@"unknown-error"
                     format:@"Creating database '%@' failed with code: %u", x, [response statusCode]];
     }
