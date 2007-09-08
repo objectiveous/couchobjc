@@ -70,23 +70,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSMutableURLRequest *request = [self requestWithDatabase:x];
     [request setHTTPMethod:@"PUT"];
     
-    NSError *error;
     NSHTTPURLResponse *response;
     [NSURLConnection sendSynchronousRequest:request
                           returningResponse:&response
-                                      error:&error];
+                                      error:nil];
 
-    switch ([response statusCode]) {
-        case 201:   // Success.
-            break;
-        case 409:   // Already exists.
-            [NSException raise:@"db-exists"
-                        format:@"The database '%@' already exists", x];
-            break;
-        default:
-            [NSException raise:@"unknown-error"
-                        format:@"Creating database '%@' failed with code: %lu", x, [response statusCode]];
-            break;
+    if (201 != [response statusCode]) {
+        [NSException raise:@"unknown-error"
+                    format:@"Creating database '%@' failed with code: %u", x, [response statusCode]];
     }
 }
 
@@ -95,24 +86,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSMutableURLRequest *request = [self requestWithDatabase:x];
     [request setHTTPMethod:@"DELETE"];
 
-    NSError *error;
     NSHTTPURLResponse *response;
     [NSURLConnection sendSynchronousRequest:request
                           returningResponse:&response
-                                      error:&error];
+                                      error:nil];
 
-    switch ([response statusCode]) {
-        case 202:   // Success.
-            break;
-        case 404:   // Doesn't exists.
-            [NSException raise:@"db-does-not-exist"
-                        format:@"The database '%@' doesn't exist", x];
-            break;
-        default:
-            [NSException raise:@"unknown-error"
-                        format:@"Creating database '%@' failed with code: %u", x, [error code]];
-            break;
-    }
+    if (404 == [response statusCode]) {
+        [NSException raise:@"db-does-not-exist"
+                    format:@"The database '%@' doesn't exist", x];
+
+    } else if (202 != [response statusCode]) {
+        [NSException raise:@"unknown-error"
+                    format:@"Deleting database '%@' failed with code: %u", x, [response statusCode]];
+     }
 }
 
 - (NSArray *)listDatabases
@@ -120,17 +106,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSMutableURLRequest *request = [self requestWithDatabase:nil];
     [request setHTTPMethod:@"GET"];
 
-    NSError *error;
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response
-                                                     error:&error];
+                                                     error:nil];
 
-    if (200 != [response statusCode]) 
+    if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
-                        format:@"Listing databases failed with code: %u (%@)",
-                            [response statusCode], error];
-
+                        format:@"Listing databases failed with code: %u",
+                            [response statusCode]];
+    }
+    
     NSMutableArray *dbs = [NSMutableArray array];
 
     // XXX - horrible hack right here.
