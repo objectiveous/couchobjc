@@ -15,8 +15,6 @@
 - (void)setUp
 {
     couch = [SBCouch new]; // Using CouchDB default: http://localhost:8888/
-    dbs = [[@"foo bar baz" componentsSeparatedByString:@" "]
-            sortedArrayUsingSelector:@selector(compare:)];
 }
 
 - (void)tearDown
@@ -29,36 +27,30 @@
     STAssertThrows([SBCouch newWithEndpoint:nil], @"Must pass endpoint to init method" );
 }
 
-- (void)test02create
+- (void)test02basics
 {
-    NSEnumerator *e = [dbs objectEnumerator];
-    for (NSString *s; s = [e nextObject]; )
-        [couch createDatabase:s];
-}
+    NSString *db = [NSString stringWithFormat:@"z%u", random()]; // our sentinel
+    NSArray *dbs = [couch listDatabases];
+    unsigned cnt = [dbs count];
 
-- (void)test03delete
-{
-    NSEnumerator *e = [dbs objectEnumerator];
-    for (NSString *s; s = [e nextObject]; )
-        [couch deleteDatabase:s];
-}
+    STAssertFalse([dbs containsObject:db], @"%@ is not in %@", db, dbs);
+    STAssertNoThrow([couch createDatabase:db], @"Can create db %@", db);
 
-- (void)test04listEmpty
-{
-    STAssertEqualObjects([couch listDatabases], [NSArray array], nil);
-}
+    dbs = [couch listDatabases];
+    STAssertTrue([dbs containsObject:db], @"%@ is in %@", db, dbs);
+    STAssertEquals([dbs count], cnt+1, @"Count has increased by one");
+    STAssertThrows([couch createDatabase:db], @"Cannot create DB again");
 
-- (void)test05listNotEmpty
-{
-    [self test02create];
-    STAssertEqualObjects([couch listDatabases], dbs, nil);
-}
+    dbs = [couch listDatabases];
+    STAssertTrue([dbs containsObject:db], @"%@ is in %@", db, dbs);
+    STAssertEquals([dbs count], cnt+1, @"Didn't change number of dbs");
 
-- (void)test06listEmptyAfterDelete
-{
-    [self test05listNotEmpty];
-    [self test03delete];
-    [self test04listEmpty];
+    STAssertNoThrow([couch deleteDatabase:db], @"Can delete db %@", db);
+
+    dbs = [couch listDatabases];
+    STAssertFalse([dbs containsObject:db], @"%@ is not in %@", db, dbs);
+    STAssertEquals([dbs count], cnt, @"Back to original number of dbs");
+    STAssertThrows([couch deleteDatabase:db], @"Cannot delete %@ again", db);
 }
 
 @end

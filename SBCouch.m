@@ -80,8 +80,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         case 201:   // Success.
             break;
         case 409:   // Already exists.
-            NSLog(@"The database '%@' already exists", x);
-
             [NSException raise:@"db-exists"
                         format:@"The database '%@' already exists", x];
             break;
@@ -107,7 +105,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         case 202:   // Success.
             break;
         case 404:   // Doesn't exists.
-            NSLog(@"The database '%@' doesn't exist.", x);
             [NSException raise:@"db-does-not-exist"
                         format:@"The database '%@' doesn't exist", x];
             break;

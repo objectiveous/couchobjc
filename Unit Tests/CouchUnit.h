@@ -12,7 +12,6 @@
 
 @interface CouchUnit : SenTestCase {
     SBCouch *couch;
-    NSArray *dbs;
 }
 
 @end
