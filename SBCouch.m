@@ -140,4 +140,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return dbs;
 }
 
+- (void)selectDatabase:(NSString *)x
+{
+    if (![[self listDatabases] containsObject:x])
+        [NSException raise:@"select-illegal-db"
+                    format:@"Cannot select '%@': database doesn't exist", x];
+    
+    if (currentDatabase != x) {
+        [currentDatabase release];
+        currentDatabase = [x retain];
+    }
+}
+
+
 @end

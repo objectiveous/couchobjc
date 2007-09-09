@@ -15,10 +15,14 @@
 - (void)setUp
 {
     couch = [SBCouch new]; // Using CouchDB default: http://localhost:8888/
+    
+    srandom(time(NULL));   // seed the random number generator
+    db = [[NSString alloc] initWithFormat:@"z%u", random()];
 }
 
 - (void)tearDown
 {
+    [db release];
     [couch release];
 }
 
@@ -29,7 +33,6 @@
 
 - (void)test02basics
 {
-    NSString *db = [NSString stringWithFormat:@"z%u", random()]; // our sentinel
     NSArray *dbs = [couch listDatabases];
     unsigned cnt = [dbs count];
 
@@ -51,6 +54,13 @@
     STAssertFalse([dbs containsObject:db], @"%@ is not in %@", db, dbs);
     STAssertEquals([dbs count], cnt, @"Back to original number of dbs");
     STAssertThrows([couch deleteDatabase:db], @"Cannot delete %@ again", db);
+}
+
+- (void)test03select
+{
+    STAssertThrows([couch selectDatabase:db], @"Cannot select non-existing db %@", db);
+    STAssertNoThrow([couch createDatabase:db], @"Can create db %@", db);
+    STAssertNoThrow([couch selectDatabase:db], @"Can select %@ now", db);
 }
 
 @end

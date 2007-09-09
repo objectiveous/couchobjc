@@ -32,13 +32,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @interface SBCouch : NSObject {
     NSString *endpoint;
+    NSString *currentDatabase;
 }
 
-- (id)initWithEndpoint:(NSString *)x;
 + (id)newWithEndpoint:(NSString *)x;
+- (id)initWithEndpoint:(NSString *)x;
 
+- (NSArray *)listDatabases;
 - (void)createDatabase:(NSString *)x;
 - (void)deleteDatabase:(NSString *)x;
-- (NSArray *)listDatabases;
+- (void)selectDatabase:(NSString *)x;
+
 
 @end

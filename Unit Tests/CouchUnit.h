@@ -12,6 +12,7 @@
 
 @interface CouchUnit : SenTestCase {
     SBCouch *couch;
+    NSString *db;
 }
 
 @end
