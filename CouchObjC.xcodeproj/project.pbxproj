@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53D2293A0C94548000276605 /* CouchDocumentUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229380C94548000276605 /* CouchDocumentUnit.m */; };
+		53D229440C9455B500276605 /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D229420C9455B500276605 /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		53D229450C9455B500276605 /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229430C9455B500276605 /* SBCouchDocument.m */; };
 		E75D3F820C90559900058F83 /* CouchUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D3F810C90559900058F83 /* CouchUnit.m */; };
 		E75D3F8D0C9055E000058F83 /* Couch.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D3F8A0C9055E000058F83 /* Couch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E75D3F8E0C9055E000058F83 /* SBCouch.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D3F8B0C9055E000058F83 /* SBCouch.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -25,6 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53D229380C94548000276605 /* CouchDocumentUnit.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CouchDocumentUnit.m; sourceTree = "<group>"; };
+		53D229390C94548000276605 /* CouchDocumentUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchDocumentUnit.h; sourceTree = "<group>"; };
+		53D229420C9455B500276605 /* SBCouchDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDocument.h; sourceTree = "<group>"; };
+		53D229430C9455B500276605 /* SBCouchDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocument.m; sourceTree = "<group>"; };
 		E75D3F640C9054B600058F83 /* Couch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Couch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75D3F660C9054B600058F83 /* Couch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Couch-Info.plist"; sourceTree = "<group>"; };
 		E75D3F740C90555700058F83 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +88,8 @@
 				E75D3F8A0C9055E000058F83 /* Couch.h */,
 				E75D3F8B0C9055E000058F83 /* SBCouch.h */,
 				E75D3F8C0C9055E000058F83 /* SBCouch.m */,
+				53D229420C9455B500276605 /* SBCouchDocument.h */,
+				53D229430C9455B500276605 /* SBCouchDocument.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -88,6 +97,8 @@
 		E75D3F6E0C90552000058F83 /* Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
+				53D229380C94548000276605 /* CouchDocumentUnit.m */,
+				53D229390C94548000276605 /* CouchDocumentUnit.h */,
 				E75D3F800C90559900058F83 /* CouchUnit.h */,
 				E75D3F810C90559900058F83 /* CouchUnit.m */,
 			);
@@ -103,6 +114,7 @@
 			files = (
 				E75D3F8D0C9055E000058F83 /* Couch.h in Headers */,
 				E75D3F8E0C9055E000058F83 /* SBCouch.h in Headers */,
+				53D229440C9455B500276605 /* SBCouchDocument.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E75D3F8F0C9055E000058F83 /* SBCouch.m in Sources */,
+				53D229450C9455B500276605 /* SBCouchDocument.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E75D3F820C90559900058F83 /* CouchUnit.m in Sources */,
+				53D2293A0C94548000276605 /* CouchDocumentUnit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
