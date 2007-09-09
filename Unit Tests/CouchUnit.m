@@ -6,7 +6,7 @@
 //  Copyright 2007 Stig Brautaset. All rights reserved.
 //
 
-#import <Couch/SBCouch.h>
+#import <Couch/Couch.h>
 
 #import "CouchUnit.h"
 
