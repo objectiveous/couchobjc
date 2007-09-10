@@ -30,7 +30,7 @@
 
     STAssertNil([doc documentId], @"No name");
     STAssertNil([doc revisionId], @"No revision");
-    STAssertEqualObjects([doc description], @"{value = {}; }", nil);
+    STAssertEqualObjects([doc description], @"{}", nil);
 
     [self propertyHandlingInDocument:doc];
 }
@@ -43,7 +43,7 @@
 
     STAssertEqualObjects([doc documentId], name, @"Expected name");
     STAssertNil([doc revisionId], @"No revision");
-    STAssertEqualObjects([doc description], @"{documentId = mydoc; value = {}; }", nil);
+    STAssertEqualObjects([doc description], @"{\"_id\" = mydoc; }", nil);
 
     [self propertyHandlingInDocument:doc];
 }

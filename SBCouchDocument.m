@@ -51,7 +51,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     if (self = [super init]) {
         document = [NSMutableDictionary new];
-        [document setObject:[NSMutableDictionary dictionary] forKey:@"value"];
     }
     return self;
 }
@@ -59,7 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (id)initWithName:(NSString *)x
 {
     if (self = [self init]) {
-        [document setObject:x forKey:@"documentId"];
+        [document setObject:x forKey:@"_id"];
     }
     return self;
 }
@@ -71,27 +70,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)documentId
 {
-    return [document valueForKey:@"documentId"];
+    return [document valueForKey:@"_id"];
 }
 
 - (NSString *)revisionId
 {
-    return [document valueForKey:@"revisionId"];
+    return [document valueForKey:@"_rev"];
 }
 
 - (void)setObject:(id)x forProperty:(NSString *)prop
 {
-    [[document objectForKey:@"value"] setObject:x forKey:prop];
+    [document setObject:x forKey:prop];
 }
 
 - (id)objectForProperty:(NSString *)prop
 {
-    return [[document objectForKey:@"value"] objectForKey:prop];
+    return [document objectForKey:prop];
 }
 
 - (void)removeProperty:(NSString *)prop
 {
-    return [[document objectForKey:@"value"] removeObjectForKey:prop];
+    return [document removeObjectForKey:prop];
 }
 
 
