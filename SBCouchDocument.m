@@ -29,8 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBCouchDocument.h"
 
-NSString *nameKey = @"_id";
-NSString *revisionKey = @"_rev";
+#define nameKey @"_id"
+#define revisionKey @"_rev"
 
 @implementation SBCouchDocument
 
