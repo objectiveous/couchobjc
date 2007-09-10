@@ -140,9 +140,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return dbs;
 }
 
+- (BOOL)isDatabaseAvailable:(NSString *)x
+{
+    NSMutableURLRequest *request = [self requestWithDatabase:x];
+    [request setHTTPMethod:@"GET"];
+
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:nil];
+
+    unsigned status = [response statusCode];
+    if (200 == status)
+        return YES;
+    if (404 != status)
+        NSLog(@"Unexpected response code (%u) from server", status);
+
+    return NO;
+}
+
 - (void)selectDatabase:(NSString *)x
 {
-    if (![[self listDatabases] containsObject:x])
+    // It is possible to check if a DB exists with a GET call to the path of that DB.
+    // I haven't implemented that yet. 
+    if (![self isDatabaseAvailable:x])
         [NSException raise:@"select-illegal-db"
                     format:@"Cannot select '%@': database doesn't exist", x];
     

@@ -36,8 +36,10 @@
     NSArray *dbs = [couch listDatabases];
     unsigned cnt = [dbs count];
 
+    STAssertFalse([couch isDatabaseAvailable:db], @"%@ is not available", db);
     STAssertFalse([dbs containsObject:db], @"%@ is not in %@", db, dbs);
     STAssertNoThrow([couch createDatabase:db], @"Can create db %@", db);
+    STAssertTrue([couch isDatabaseAvailable:db], @"%@ is available", db);
 
     dbs = [couch listDatabases];
     STAssertTrue([dbs containsObject:db], @"%@ is in %@", db, dbs);
@@ -49,6 +51,7 @@
     STAssertEquals([dbs count], cnt+1, @"Didn't change number of dbs");
 
     STAssertNoThrow([couch deleteDatabase:db], @"Can delete db %@", db);
+    STAssertFalse([couch isDatabaseAvailable:db], @"%@ is not available", db);
 
     dbs = [couch listDatabases];
     STAssertFalse([dbs containsObject:db], @"%@ is not in %@", db, dbs);
