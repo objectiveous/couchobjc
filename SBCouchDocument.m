@@ -29,6 +29,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBCouchDocument.h"
 
+NSString *nameKey = @"_id";
+NSString *revisionKey = @"_rev";
 
 @implementation SBCouchDocument
 
@@ -58,7 +60,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (id)initWithName:(NSString *)x
 {
     if (self = [self init]) {
-        [document setObject:x forKey:@"_id"];
+        [document setObject:x forKey:nameKey];
     }
     return self;
 }
@@ -70,12 +72,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)documentId
 {
-    return [document valueForKey:@"_id"];
+    return [document valueForKey:nameKey];
 }
 
 - (NSString *)revisionId
 {
-    return [document valueForKey:@"_rev"];
+    return [document valueForKey:revisionKey];
 }
 
 - (void)setObject:(id)x forProperty:(NSString *)prop

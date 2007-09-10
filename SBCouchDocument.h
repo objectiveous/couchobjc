@@ -29,6 +29,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <Cocoa/Cocoa.h>
 
+extern NSString *nameKey;
+extern NSString *revisionKey;
+
 @interface SBCouchDocument : NSObject {
     NSMutableDictionary *document;
 }
