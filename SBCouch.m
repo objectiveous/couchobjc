@@ -50,14 +50,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return self;
 }
 
-- (NSMutableURLRequest *)requestWithDatabase:(NSString *)database
+- (NSMutableURLRequest *)mutableURLRequestWithURLString:(NSString *)urlstring
 {
-    NSString *path = database
-        ? [endpoint stringByAppendingFormat:@"%@/", database]
-        : [endpoint stringByAppendingString:@"$all_dbs"];
-    NSString *escaped = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *escaped = [urlstring stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:escaped];
     return [NSMutableURLRequest requestWithURL:url];
+}
+
+- (NSMutableURLRequest *)mutableURLRequestWithDatabaseName:(NSString *)dbname
+{
+    NSString *dbpath = [endpoint stringByAppendingFormat:@"%@/", dbname];
+    return [self mutableURLRequestWithURLString:dbpath];
 }
 
 + (id)newWithEndpoint:(NSString *)x
@@ -65,9 +68,38 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [[self alloc] initWithEndpoint:x];
 }
 
+- (NSString *)serverVersionString
+{
+    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:endpoint];
+    [request setHTTPMethod:@"GET"];
+
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:nil];
+
+    if (200 != [response statusCode]) {
+            [NSException raise:@"unknown-error"
+                        format:@"Listing databases failed with code: %u",
+                            [response statusCode]];
+    }
+
+    // XXX - such.. a.. hack..
+    NSString *version;
+    NSString *xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSScanner *scanner = [NSScanner scannerWithString:xmlString];
+
+    NSCharacterSet *vsSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
+    if ([scanner scanUpToCharactersFromSet:vsSet intoString:nil])
+        if ([scanner scanCharactersFromSet:vsSet intoString:&version])
+            return version;
+    return @"unknown version";
+}
+
+
 - (void)createDatabase:(NSString *)x
 {
-    NSMutableURLRequest *request = [self requestWithDatabase:x];
+    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:x];
     [request setHTTPMethod:@"PUT"];
     
     NSHTTPURLResponse *response;
@@ -87,7 +119,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)deleteDatabase:(NSString *)x
 {
-    NSMutableURLRequest *request = [self requestWithDatabase:x];
+    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:x];
     [request setHTTPMethod:@"DELETE"];
 
     NSHTTPURLResponse *response;
@@ -107,7 +139,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSArray *)listDatabases
 {
-    NSMutableURLRequest *request = [self requestWithDatabase:nil];
+    NSString *all_dbs = [endpoint stringByAppendingString:@"_all_dbs"];
+    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:all_dbs];
     [request setHTTPMethod:@"GET"];
 
     NSHTTPURLResponse *response;
@@ -128,13 +161,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSString *xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSScanner *scanner = [NSScanner scannerWithString:xmlString];
     do {
-        // skip up to and including next <db> element.
-        if ([scanner scanUpToString:@"<db>" intoString:nil])
-            [scanner scanString:@"<db>" intoString:nil];
-        // Grab the DB name.
         NSString *dbname;
-        if ([scanner scanUpToString:@"/</db>" intoString:&dbname])
+        // skip up to and including next <db> element.
+        NSCharacterSet *set = [NSCharacterSet alphanumericCharacterSet];
+
+        // Skip surrounding crap.
+        [scanner scanUpToCharactersFromSet:set intoString:nil];
+
+        // Grab the DB name, if there is one.
+        if ([scanner scanCharactersFromSet:set intoString:&dbname])
             [dbs addObject:dbname];
+
     } while (![scanner isAtEnd]);
 
     return dbs;
@@ -142,7 +179,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)isDatabaseAvailable:(NSString *)x
 {
-    NSMutableURLRequest *request = [self requestWithDatabase:x];
+    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:x];
     [request setHTTPMethod:@"GET"];
 
     NSHTTPURLResponse *response;
@@ -154,7 +191,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (200 == status)
         return YES;
     if (404 != status)
-        NSLog(@"Unexpected response code (%u) from server", status);
+        NSLog(@"Unexpected response code (%u) from server: %@", status, request);
 
     return NO;
 }

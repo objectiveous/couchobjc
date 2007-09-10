@@ -38,6 +38,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 + (id)newWithEndpoint:(NSString *)x;
 - (id)initWithEndpoint:(NSString *)x;
 
+- (NSString *)serverVersionString;
+
 - (BOOL)isDatabaseAvailable:(NSString *)x;
 - (NSArray *)listDatabases;
 - (void)createDatabase:(NSString *)x;
