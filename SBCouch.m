@@ -102,7 +102,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                       error:nil];
 
     if (409 == [response statusCode]) {
-        [NSException raise:@"db-exist"
+        [NSException raise:@"edbexists"
                     format:@"The database '%@' already exist", x];
 
    } else if (201 != [response statusCode]) {
@@ -122,7 +122,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                       error:nil];
 
     if (404 == [response statusCode]) {
-        [NSException raise:@"db-does-not-exist"
+        [NSException raise:@"enodatabase"
                     format:@"The database '%@' doesn't exist", x];
 
     } else if (202 != [response statusCode]) {
@@ -176,7 +176,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     // It is possible to check if a DB exists with a GET call to the path of that DB.
     // I haven't implemented that yet. 
     if (![self isDatabaseAvailable:x])
-        [NSException raise:@"select-illegal-db"
+        [NSException raise:@"enodatabase"
                     format:@"Cannot select '%@': database doesn't exist", x];
     
     if (currentDatabase != x) {

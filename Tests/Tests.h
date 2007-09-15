@@ -25,4 +25,5 @@
 @end
 
 @interface Errors : SenTestCase
+    SBCouch *couch;
 @end
