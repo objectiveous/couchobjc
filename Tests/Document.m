@@ -84,5 +84,26 @@
     eq([arr count], (unsigned)10);
 }
 
+- (void)testUpdateUnchanged
+{
+    NSDictionary *doc1 = [couch saveDocument:[NSDictionary dictionary]];
+    NSDictionary *doc2 = [couch saveDocument:doc1];
+    eq([doc1 count], (unsigned)2);
+    eq([doc2 count], (unsigned)2);
+    eqo([doc2 objectForKey:@"_id"], [doc1 objectForKey:@"_id"]);
+    neqo([doc2 objectForKey:@"_rev"], [doc1 objectForKey:@"_rev"]);
+}
+
+- (void)testUpdateChanged
+{
+    NSDictionary *doc1 = [couch saveDocument:[NSDictionary dictionary]];
+    id doc2 = [NSMutableDictionary dictionaryWithDictionary:doc1];
+    [doc2 setObject:@"bar" forKey:@"foo"];
+    doc2 = [couch saveDocument:doc2];
+
+    STAssertFalse([[doc2 objectForKey:@"_rev"] isEqual:[doc1 objectForKey:@"_rev"]], nil);
+    eqo([doc2 objectForKey:@"_id"], [doc1 objectForKey:@"_id"]);
+    eqo([doc2 objectForKey:@"foo"], @"bar");
+}
 
 @end

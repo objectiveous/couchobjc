@@ -206,10 +206,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 
     NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSMutableDictionary *r = [json objectFromJSON];
-    [r removeObjectForKey:@"ok"];
-    [r addEntriesFromDictionary:x];
-    return r;
+    NSDictionary *r = [json objectFromJSON];
+
+    NSMutableDictionary *y = [NSMutableDictionary dictionaryWithDictionary:x];
+    [y setObject:[r objectForKey:@"_id"] forKey:@"_id"];
+    [y setObject:[r objectForKey:@"_rev"] forKey:@"_rev"];
+    return y;
 }
 
 - (NSDictionary *)retrieveDocument:(NSString *)x

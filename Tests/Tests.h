@@ -11,6 +11,7 @@
 
 #define eq(x, y) STAssertEquals(x, y, nil)
 #define eqo(x, y) STAssertEqualObjects(x, y, nil)
+#define neqo(x, y) STAssertFalse([x isEqual:y], nil)
 
 @interface Database : SenTestCase {
     SBCouch *couch;
