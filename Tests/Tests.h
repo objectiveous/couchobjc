@@ -10,11 +10,11 @@
 
 #import <Couch/Couch.h>
 
-@interface CouchUnit : SenTestCase {
+@interface Database : SenTestCase {
     SBCouch *couch;
     NSString *db;
 }
 @end
 
-@interface CouchDocumentUnit : SenTestCase
+@interface Document : SenTestCase
 @end

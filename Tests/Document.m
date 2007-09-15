@@ -1,5 +1,5 @@
 //
-//  CouchUnit.m
+//  Document.m
 //  CouchObjC
 //
 //  Created by Stig Brautaset on 06/09/2007.
@@ -8,7 +8,7 @@
 
 #import "Tests.h"
 
-@implementation CouchDocumentUnit
+@implementation Document
 
 - (void)propertyHandlingInDocument:(SBCouchDocument *)doc
 {
