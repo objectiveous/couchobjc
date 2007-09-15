@@ -28,7 +28,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		53C45BCE0C9C056100546F66 /* CouchUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchUnit.h; sourceTree = "<group>"; };
 		53D229380C94548000276605 /* CouchDocumentUnit.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CouchDocumentUnit.m; sourceTree = "<group>"; };
 		53D229390C94548000276605 /* CouchDocumentUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchDocumentUnit.h; sourceTree = "<group>"; };
 		53D229420C9455B500276605 /* SBCouchDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDocument.h; sourceTree = "<group>"; };
@@ -100,7 +99,6 @@
 			children = (
 				53D229380C94548000276605 /* CouchDocumentUnit.m */,
 				53D229390C94548000276605 /* CouchDocumentUnit.h */,
-				53C45BCE0C9C056100546F66 /* CouchUnit.h */,
 				E75D3F800C90559900058F83 /* Tests.h */,
 				E75D3F810C90559900058F83 /* CouchUnit.m */,
 			);
