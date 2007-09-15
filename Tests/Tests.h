@@ -13,6 +13,11 @@
 #define eqo(x, y) STAssertEqualObjects(x, y, nil)
 #define neqo(x, y) STAssertFalse([x isEqual:y], nil)
 
+// The ST guys sure like typing. Personally, I don't.
+#define tn(expr, name) \
+    STAssertThrowsSpecificNamed(expr, NSException, name, nil)
+
+
 @interface Database : SenTestCase {
     SBCouch *couch;
     NSString *db;

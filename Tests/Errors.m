@@ -8,10 +8,6 @@
 
 #import "Tests.h"
 
-// The ST guys sure like typing. Personally, I don't.
-#define tn(expr, name) \
-    STAssertThrowsSpecificNamed(expr, NSException, name, @"ieee!")
-
 @implementation Errors
 
 - (void)setUp
