@@ -28,25 +28,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import <Cocoa/Cocoa.h>
-#import <JSON/JSON.h>
+#import <JSON/NSObject+SBJSON.h>
+#import <JSON/NSString+SBJSON.h>
 
-
-@interface SBCouch : NSObject {
-    NSString *endpoint;
-    NSString *currentDatabase;
-}
-
-+ (id)newWithURLString:(NSString *)x;
-- (id)initWithURLString:(NSString *)x;
-
-- (NSString *)serverVersion;
-
-- (BOOL)isDatabaseAvailable:(NSString *)x;
-
-- (NSArray *)listDatabases;
-- (void)createDatabase:(NSString *)x;
-- (void)deleteDatabase:(NSString *)x;
-- (void)selectDatabase:(NSString *)x;
-
-
-@end

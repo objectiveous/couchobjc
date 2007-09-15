@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007, Stig Brautaset. All rights reserved.
+Copyright (C) 2007 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -28,25 +28,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import <Cocoa/Cocoa.h>
-#import <JSON/JSON.h>
 
 
-@interface SBCouch : NSObject {
-    NSString *endpoint;
-    NSString *currentDatabase;
-}
+@interface NSObject (NSObject_SBJSON)
 
-+ (id)newWithURLString:(NSString *)x;
-- (id)initWithURLString:(NSString *)x;
-
-- (NSString *)serverVersion;
-
-- (BOOL)isDatabaseAvailable:(NSString *)x;
-
-- (NSArray *)listDatabases;
-- (void)createDatabase:(NSString *)x;
-- (void)deleteDatabase:(NSString *)x;
-- (void)selectDatabase:(NSString *)x;
-
+- (NSString *)JSONString;
 
 @end

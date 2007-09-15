@@ -84,16 +84,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                             [response statusCode]];
     }
 
-    // XXX - such.. a.. hack..
-    NSString *version;
-    NSString *xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSScanner *scanner = [NSScanner scannerWithString:xmlString];
-
-    NSCharacterSet *vsSet = [NSCharacterSet characterSetWithCharactersInString:@"0123456789."];
-    if ([scanner scanUpToCharactersFromSet:vsSet intoString:nil])
-        if ([scanner scanCharactersFromSet:vsSet intoString:&version])
-            return version;
-    return @"unknown version";
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSDictionary *document = [json objectFromJSON];
+    return [document valueForKey:@"version"];
 }
 
 
@@ -153,28 +146,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                         format:@"Listing databases failed with code: %u",
                             [response statusCode]];
     }
-    
-    NSMutableArray *dbs = [NSMutableArray array];
 
-    // XXX - horrible hack right here.
-    // XXX - It'll be gone when I get the more recent version with JSON support installed.
-    NSString *xmlString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSScanner *scanner = [NSScanner scannerWithString:xmlString];
-    do {
-        NSString *dbname;
-        // skip up to and including next <db> element.
-        NSCharacterSet *set = [NSCharacterSet alphanumericCharacterSet];
-
-        // Skip surrounding crap.
-        [scanner scanUpToCharactersFromSet:set intoString:nil];
-
-        // Grab the DB name, if there is one.
-        if ([scanner scanCharactersFromSet:set intoString:&dbname])
-            [dbs addObject:dbname];
-
-    } while (![scanner isAtEnd]);
-
-    return dbs;
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [json objectFromJSON];
 }
 
 - (BOOL)isDatabaseAvailable:(NSString *)x
