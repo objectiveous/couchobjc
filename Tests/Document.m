@@ -23,7 +23,7 @@
     [couch release];
 }
 
-- (void)testCreateEmpty
+- (void)testSaveEmpty
 {
     NSDictionary *doc = [couch saveDocument:[NSDictionary dictionary]];
     eq([doc count], (unsigned)2);
@@ -31,7 +31,7 @@
     STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSNumber class]], nil);
 }
 
-- (void)testCreateNamed
+- (void)testSaveNamed
 {
     NSDictionary *doc = [NSDictionary dictionaryWithObject:@"Stig" forKey:@"_id"];
     doc = [couch saveDocument:doc];
@@ -40,7 +40,7 @@
     STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSNumber class]], nil);
 }
 
-- (void)testCreateFilled
+- (void)testSaveFilled
 {
     NSDictionary *doc = [NSDictionary dictionaryWithObject:@"Stig" forKey:@"Awesome"];
     doc = [couch saveDocument:doc];
@@ -48,14 +48,6 @@
     eqo([doc objectForKey:@"Awesome"], @"Stig");
     STAssertTrue([[doc objectForKey:@"_id"] isKindOfClass:[NSString class]], nil);
     STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSNumber class]], nil);
-}
-
-- (void)testListEmpty
-{
-    NSDictionary *docs = [couch listDocuments];
-    eq([docs count], (unsigned)2);
-    eqo([docs objectForKey:@"view"], @"_all_docs");
-    eqo([docs objectForKey:@"rows"], [NSArray array]);
 }
 
 - (void)testRetrieve
@@ -69,6 +61,27 @@
 {
     NSDictionary *doc = [couch saveDocument:[NSDictionary dictionary]];
     eqo([couch retrieveDocument:[doc objectForKey:@"_id"]], doc);
+}
+
+- (void)testListEmpty
+{
+    NSDictionary *docs = [couch listDocuments];
+    eq([docs count], (unsigned)2);
+    eqo([docs objectForKey:@"view"], @"_all_docs");
+    eqo([docs objectForKey:@"rows"], [NSArray array]);
+}
+
+- (void)testList10
+{
+    for (int i = 0; i < 10; i++)
+        [couch saveDocument:[NSDictionary dictionary]];
+
+    NSDictionary *docs = [couch listDocuments];
+    eq([docs count], (unsigned)2);
+    eqo([docs objectForKey:@"view"], @"_all_docs");
+    
+    NSArray *arr = [docs objectForKey:@"rows"];
+    eq([arr count], (unsigned)10);
 }
 
 
