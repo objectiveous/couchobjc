@@ -48,5 +48,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (void)deleteDatabase:(NSString *)x;
 - (void)selectDatabase:(NSString *)x;
 
+- (NSDictionary *)saveDocument:(NSDictionary *)x;
+- (NSDictionary *)retrieveDocument:(NSString *)x;
+
+- (NSDictionary *)listDocuments;
+- (NSDictionary *)listDocumentsInView:(NSString *)x;
 
 @end

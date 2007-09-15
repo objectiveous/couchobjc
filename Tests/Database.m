@@ -26,7 +26,7 @@
 
 - (void)test01version
 {
-    STAssertEqualObjects([couch serverVersion], @"0.6.4", @"Is a supported expected version");
+    STAssertEqualObjects([couch serverVersion], @"0.6.4", @"Is a supported version");
 }
 
 - (void)test02basics
@@ -51,7 +51,7 @@
     STAssertThrows([couch selectDatabase:db], @"Cannot select non-existing db %@", db);
     STAssertNoThrow([couch createDatabase:db], @"Can create db %@", db);
     STAssertNoThrow([couch selectDatabase:db], @"Can select %@ now", db);
-    STAssertNoThrow([couch deleteDatabase:db], @"Can create db %@", db);
+    STAssertNoThrow([couch deleteDatabase:db], @"Can delete db %@", db);
     STAssertThrows([couch selectDatabase:db], @"Cannot select non-existing db %@", db);
 }
 

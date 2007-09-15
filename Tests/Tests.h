@@ -7,12 +7,19 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
 #import <Couch/Couch.h>
+
+#define eq(x, y) STAssertEquals(x, y, nil)
+#define eqo(x, y) STAssertEqualObjects(x, y, nil)
 
 @interface Database : SenTestCase {
     SBCouch *couch;
     NSString *db;
+}
+@end
+
+@interface Document : SenTestCase {
+    SBCouch *couch;
 }
 @end
 

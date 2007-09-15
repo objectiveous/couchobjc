@@ -89,6 +89,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [document valueForKey:@"version"];
 }
 
+#pragma mark Database
 
 - (void)createDatabase:(NSString *)x
 {
@@ -184,5 +185,78 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     }
 }
 
+
+#pragma mark Document
+
+- (NSDictionary *)saveDocument:(NSDictionary *)x
+{
+    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:currentDatabase];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:[[x JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
+
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:nil];
+
+    if (201 != [response statusCode]) {
+            [NSException raise:@"unknown-error"
+                        format:@"Listing databases failed with code: %u",
+                            [response statusCode]];
+    }
+
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSMutableDictionary *r = [json objectFromJSON];
+    [r removeObjectForKey:@"ok"];
+    [r addEntriesFromDictionary:x];
+    return r;
+}
+
+- (NSDictionary *)retrieveDocument:(NSString *)x
+{
+    NSString *doc = [endpoint stringByAppendingFormat:@"%@/%@", currentDatabase, x];
+    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:doc];
+    [request setHTTPMethod:@"GET"];
+
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:nil];
+
+    if (200 != [response statusCode]) {
+            [NSException raise:@"unknown-error"
+                       format:@"Retrieving document failed with code: %u",
+                            [response statusCode]];
+    }
+
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [json objectFromJSON];
+}
+
+- (NSDictionary *)listDocuments
+{
+    NSString *db = [endpoint stringByAppendingFormat:@"%@/_all_docs", currentDatabase];
+    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:db];
+    [request setHTTPMethod:@"GET"];
+
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:nil];
+
+    if (200 != [response statusCode]) {
+            [NSException raise:@"unknown-error"
+                        format:@"Listing documents failed with code: %u",
+                            [response statusCode]];
+    }
+
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [json objectFromJSON];
+}
+
+- (NSDictionary *)listDocumentsInView:(NSString *)x
+{
+    return [NSArray array];
+}
 
 @end
