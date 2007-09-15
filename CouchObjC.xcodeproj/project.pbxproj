@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53A62D510C9C0BCA000F9C9B /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A62D500C9C0BCA000F9C9B /* Errors.m */; };
 		53D2293A0C94548000276605 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229380C94548000276605 /* Document.m */; };
 		53D229440C9455B500276605 /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D229420C9455B500276605 /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53D229450C9455B500276605 /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229430C9455B500276605 /* SBCouchDocument.m */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53A62D500C9C0BCA000F9C9B /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		53D229380C94548000276605 /* Document.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		53D229420C9455B500276605 /* SBCouchDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDocument.h; sourceTree = "<group>"; };
 		53D229430C9455B500276605 /* SBCouchDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocument.m; sourceTree = "<group>"; };
@@ -96,9 +98,10 @@
 		E75D3F6E0C90552000058F83 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				53D229380C94548000276605 /* Document.m */,
 				E75D3F800C90559900058F83 /* Tests.h */,
 				E75D3F810C90559900058F83 /* Database.m */,
+				53D229380C94548000276605 /* Document.m */,
+				53A62D500C9C0BCA000F9C9B /* Errors.m */,
 			);
 			path = Tests;
 			sourceTree = SOURCE_ROOT;
@@ -222,6 +225,7 @@
 			files = (
 				E75D3F820C90559900058F83 /* Database.m in Sources */,
 				53D2293A0C94548000276605 /* Document.m in Sources */,
+				53A62D510C9C0BCA000F9C9B /* Errors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

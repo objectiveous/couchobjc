@@ -18,3 +18,6 @@
 
 @interface Document : SenTestCase
 @end
+
+@interface Errors : SenTestCase
+@end

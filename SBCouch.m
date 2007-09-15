@@ -40,7 +40,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (id)initWithEndpoint:(NSString *)x
 {
     if (!x)
-        [NSException raise:@"no-endpoint" format:@"Must pass an endpoint"];
+        [NSException raise:@"enoendpoint" format:@"Must pass an endpoint"];
 
     if (self = [super init]) {
         // Make sure endpoint always ends in a slash.
