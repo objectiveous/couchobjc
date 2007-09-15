@@ -1,5 +1,5 @@
 //
-//  CouchUnit.h
+//  Tests.h
 //  CouchObjC
 //
 //  Created by Stig Brautaset on 06/09/2007.
@@ -8,11 +8,13 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@class SBCouch;
+#import <Couch/Couch.h>
 
 @interface CouchUnit : SenTestCase {
     SBCouch *couch;
     NSString *db;
 }
+@end
 
+@interface CouchDocumentUnit : SenTestCase
 @end

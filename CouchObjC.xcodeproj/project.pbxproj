@@ -28,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		53C45BCE0C9C056100546F66 /* CouchUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchUnit.h; sourceTree = "<group>"; };
 		53D229380C94548000276605 /* CouchDocumentUnit.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CouchDocumentUnit.m; sourceTree = "<group>"; };
 		53D229390C94548000276605 /* CouchDocumentUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchDocumentUnit.h; sourceTree = "<group>"; };
 		53D229420C9455B500276605 /* SBCouchDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDocument.h; sourceTree = "<group>"; };
@@ -36,7 +37,7 @@
 		E75D3F660C9054B600058F83 /* Couch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Couch-Info.plist"; sourceTree = "<group>"; };
 		E75D3F740C90555700058F83 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75D3F750C90555700058F83 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		E75D3F800C90559900058F83 /* CouchUnit.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = CouchUnit.h; sourceTree = "<group>"; };
+		E75D3F800C90559900058F83 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		E75D3F810C90559900058F83 /* CouchUnit.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = CouchUnit.m; sourceTree = "<group>"; };
 		E75D3F8A0C9055E000058F83 /* Couch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = Couch.h; sourceTree = "<group>"; };
 		E75D3F8B0C9055E000058F83 /* SBCouch.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = SBCouch.h; sourceTree = "<group>"; };
@@ -99,7 +100,8 @@
 			children = (
 				53D229380C94548000276605 /* CouchDocumentUnit.m */,
 				53D229390C94548000276605 /* CouchDocumentUnit.h */,
-				E75D3F800C90559900058F83 /* CouchUnit.h */,
+				53C45BCE0C9C056100546F66 /* CouchUnit.h */,
+				E75D3F800C90559900058F83 /* Tests.h */,
 				E75D3F810C90559900058F83 /* CouchUnit.m */,
 			);
 			path = Tests;
