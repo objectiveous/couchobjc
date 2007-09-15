@@ -65,8 +65,8 @@
 		E75D3F520C90549600058F83 = {
 			isa = PBXGroup;
 			children = (
-				E75D3F6E0C90552000058F83 /* Unit Tests */,
 				E75D3F6D0C90551800058F83 /* Classes */,
+				E75D3F6E0C90552000058F83 /* Tests */,
 				E75D3F650C9054B600058F83 /* Products */,
 				E75D3F660C9054B600058F83 /* Couch-Info.plist */,
 				E75D3F750C90555700058F83 /* Tests-Info.plist */,
@@ -94,7 +94,7 @@
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		E75D3F6E0C90552000058F83 /* Unit Tests */ = {
+		E75D3F6E0C90552000058F83 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				53D229380C94548000276605 /* CouchDocumentUnit.m */,
@@ -102,8 +102,7 @@
 				E75D3F800C90559900058F83 /* CouchUnit.h */,
 				E75D3F810C90559900058F83 /* CouchUnit.m */,
 			);
-			name = "Unit Tests";
-			path = UnitTests;
+			path = Tests;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
