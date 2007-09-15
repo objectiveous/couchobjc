@@ -38,9 +38,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 + (id)newWithURLString:(NSString *)x;
 - (id)initWithURLString:(NSString *)x;
 
-- (NSString *)serverVersionString;
+- (NSString *)serverVersion;
 
 - (BOOL)isDatabaseAvailable:(NSString *)x;
+
 - (NSArray *)listDatabases;
 - (void)createDatabase:(NSString *)x;
 - (void)deleteDatabase:(NSString *)x;

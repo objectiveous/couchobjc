@@ -68,7 +68,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [[self alloc] initWithURLString:x];
 }
 
-- (NSString *)serverVersionString
+- (NSString *)serverVersion
 {
     NSMutableURLRequest *request = [self mutableURLRequestWithURLString:endpoint];
     [request setHTTPMethod:@"GET"];

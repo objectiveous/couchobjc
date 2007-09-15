@@ -26,7 +26,7 @@
 
 - (void)test01version
 {
-    STAssertEqualObjects([couch serverVersionString], @"0.6.4", @"Is a supported expected version");
+    STAssertEqualObjects([couch serverVersion], @"0.6.4", @"Is a supported expected version");
 }
 
 - (void)test02basics
