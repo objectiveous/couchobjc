@@ -30,4 +30,3 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <Cocoa/Cocoa.h>
 
 #import <Couch/SBCouch.h>
-#import <Couch/SBCouchDocument.h>
