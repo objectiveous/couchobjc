@@ -35,8 +35,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSString *currentDatabase;
 }
 
-+ (id)newWithEndpoint:(NSString *)x;
-- (id)initWithEndpoint:(NSString *)x;
++ (id)newWithURLString:(NSString *)x;
+- (id)initWithURLString:(NSString *)x;
 
 - (NSString *)serverVersionString;
 

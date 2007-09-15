@@ -34,10 +34,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)init
 {
-    return [self initWithEndpoint:@"http://localhost:8888/"];
+    return [self initWithURLString:@"http://localhost:8888/"];
 }
 
-- (id)initWithEndpoint:(NSString *)x
+- (id)initWithURLString:(NSString *)x
 {
     if (!x)
         [NSException raise:@"enoendpoint" format:@"Must pass an endpoint"];
@@ -63,9 +63,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [self mutableURLRequestWithURLString:dbpath];
 }
 
-+ (id)newWithEndpoint:(NSString *)x
++ (id)newWithURLString:(NSString *)x
 {
-    return [[self alloc] initWithEndpoint:x];
+    return [[self alloc] initWithURLString:x];
 }
 
 - (NSString *)serverVersionString

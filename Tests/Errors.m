@@ -16,7 +16,7 @@
 
 - (void)testInitNoEndpoint
 {
-    tn( [SBCouch newWithEndpoint:nil], @"enoendpoint" );
+    tn( [SBCouch newWithURLString:nil], @"enoendpoint" );
 }
 
 @end
