@@ -54,6 +54,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [[self alloc] initWithHost:h port:p];
 }
 
+#pragma mark Private
+
 - (NSString *)serverURL
 {
     return [NSString stringWithFormat:@"http://%@:%u/", host, port];
@@ -80,14 +82,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [NSMutableURLRequest requestWithURL:[NSURL URLWithString:escaped]];
 }
 
+- (id)performRequest:(NSMutableURLRequest *)request
+              method:(NSString *)method
+                body:(id)body
+   returningResponse:(NSHTTPURLResponse **)response
+{
+    [request setHTTPMethod:method];
+    if (body)
+        [request setHTTPBody:body];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:response
+                                                     error:nil];
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [json objectFromJSON];
+}
+
+- (id)performRequest:(NSMutableURLRequest *)request
+              method:(NSString *)method
+   returningResponse:(NSHTTPURLResponse **)response
+{
+    return [self performRequest:request method:method body:nil returningResponse:response];
+}
+
+#pragma mark Server
+
 - (NSString *)serverVersion
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self serverURL]];
-
     NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:nil];
+    NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];
 
     if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
@@ -95,24 +118,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                             [response statusCode]];
     }
 
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSDictionary *document = [json objectFromJSON];
-    return [document valueForKey:@"version"];
+    return [dict valueForKey:@"version"];
 }
 
 #pragma mark Database
-
-- (id)performRequest:(NSMutableURLRequest *)request
-                          method:(NSString *)method
-               returningResponse:(NSHTTPURLResponse **)response
-{
-    [request setHTTPMethod:method];
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:response
-                                                     error:nil];
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return [json objectFromJSON];
-}
 
 - (void)createDatabase:(NSString *)x
 {
@@ -135,7 +144,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
     NSHTTPURLResponse *response;
     (void)[self performRequest:request method:@"DELETE" returningResponse:&response];
-
 
     if (404 == [response statusCode]) {
         [NSException raise:@"enodatabase"
@@ -197,21 +205,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSDictionary *)saveDocument:(NSDictionary *)x
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self curDbURL]];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:[[x JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
-
     NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:nil];
-
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    NSDictionary *r = [json objectFromJSON];
+    NSDictionary *r = [self performRequest:request
+                                    method:@"POST"
+                                      body:[[x JSONString] dataUsingEncoding:NSUTF8StringEncoding]
+                         returningResponse:&response];
 
     if (201 != [response statusCode]) {
             [NSException raise:@"unknown-error"
-                        format:@"Saving document failed with code: %u - %@ - %@",
-                            [response statusCode], json, x];
+                        format:@"Saving document failed with code: %u", [response statusCode]];
     }
 
     NSMutableDictionary *y = [NSMutableDictionary dictionaryWithDictionary:x];
