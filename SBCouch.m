@@ -265,8 +265,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSHTTPURLResponse *response;
     NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];
 
-    NSLog(@"Document: %@", [self retrieveDocument:@"views"]);
-
     if (404 == [response statusCode]) {
         [NSException raise:@"notfound"
                     format:@"View %@ not found", x];
