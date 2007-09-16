@@ -14,39 +14,38 @@
 - (void)setUp
 {
     [super setUp];
+    id view = [NSDictionary dictionaryWithObject:@"function (o) { if (o.Type == 'Cat') return o; }"
+                                          forKey:@"cats"];
     id views = [NSDictionary dictionaryWithObjectsAndKeys:
-        @"function (o) { if (o.Type == 'Cat') return o; }", @"_view_cats",
-        @"views", @"_id",
+        view, @"views",
+        @"_design_views", @"_id",
         nil];
     [couch saveDocument:views];
-    
-    NSLog(@"%@", [couch retrieveDocument:@"views"]);
 }
 
-- (void)XXXtestListEmpty
+- (void)testListEmpty
 {
-    NSDictionary *docs = [couch listDocumentsInView:@"views:cats"];
-    eq([docs count], (unsigned)2);
-    eqo([docs objectForKey:@"view"], @"views:cats");
+    NSDictionary *docs = [couch listDocumentsInView:@"_design_views:cats"];
+    eq([docs count], (unsigned)3);
+    eqo([docs objectForKey:@"view"], @"_design_views:cats");
+    eqo([docs objectForKey:@"total_rows"], [NSNumber numberWithInt:0]);
     eqo([docs objectForKey:@"rows"], [NSArray array]);
 }
 
-- (void)KKKtestListMany
+- (void)testListMany
 {
     for (unsigned i = 0; i < 5; i++) {
         [couch saveDocument:[NSDictionary dictionaryWithObject:@"Cat" forKey:@"Type"]];
         [couch saveDocument:[NSDictionary dictionaryWithObject:@"Dog" forKey:@"Type"]];
     }
-    
-    NSLog(@"Retrieved: %@", [couch retrieveDocument:@"views"]);
-    NSLog(@"Documents: %@", [couch listDocuments]);
 
-    NSDictionary *docs = [couch listDocumentsInView:@"views:cats"];
-    eq([docs count], (unsigned)2);
-    eqo([docs objectForKey:@"view"], @"view:cats");
-    
+    NSDictionary *docs = [couch listDocumentsInView:@"_design_views:cats"];
+    eq([docs count], (unsigned)4);
+    eqo([docs objectForKey:@"view"], @"_design_views:cats");
+    eqo([docs objectForKey:@"offset"], [NSNumber numberWithInt:0]);
+    eqo([docs objectForKey:@"total_rows"], [NSNumber numberWithInt:5]);
     NSArray *arr = [docs objectForKey:@"rows"];
-    eq([arr count], 5);
+    eq([arr count], (unsigned)5);
 }
 
 @end

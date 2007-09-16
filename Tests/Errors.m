@@ -33,7 +33,7 @@
 
 - (void)testViewNotFound
 {
-    tn( [couch listDocumentsInView:@"views:cats"], @"notfound" );
+    tn( [couch listDocumentsInView:@"_design_views:cats"], @"notfound" );
 }
 
 
