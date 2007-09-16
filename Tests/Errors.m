@@ -45,5 +45,10 @@
     tn( [couch selectDatabase:@"bar"], @"enodatabase");
 }
 
+- (void)testViewNotFound
+{
+    tn( [couch listDocumentsInView:@"views:cats"], @"notfound" );
+}
+
 
 @end

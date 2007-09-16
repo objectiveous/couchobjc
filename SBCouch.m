@@ -228,7 +228,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSHTTPURLResponse *response;
     NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];
 
-    if (200 != [response statusCode]) {
+    if (404 == [response statusCode]) {
+        [NSException raise:@"notfound"
+                    format:@"Document %@ not found", x];
+    
+    } else if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
                        format:@"Retrieving document failed with code: %u",
                             [response statusCode]];
@@ -253,9 +257,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return dict;
 }
 
+#pragma mark View
+
 - (NSDictionary *)listDocumentsInView:(NSString *)x
 {
-    return [NSArray array];
+    NSMutableURLRequest *request = [self requestWithURLString:[self docURL:x]];
+    NSHTTPURLResponse *response;
+    NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];
+
+    NSLog(@"Document: %@", [self retrieveDocument:@"views"]);
+
+    if (404 == [response statusCode]) {
+        [NSException raise:@"notfound"
+                    format:@"View %@ not found", x];
+    
+    } else if (200 != [response statusCode]) {
+        [NSException raise:@"unknown-error"
+                    format:@"Listing documents in view %@ failed with code: %u",
+                        x, [response statusCode]];
+    }
+
+    return dict;
 }
 
 @end
