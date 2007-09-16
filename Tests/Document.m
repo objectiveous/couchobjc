@@ -71,17 +71,18 @@
     eqo([docs objectForKey:@"rows"], [NSArray array]);
 }
 
-- (void)testList10
+- (void)testListMany
 {
-    for (int i = 0; i < 10; i++)
+    for (unsigned i = 1; i < 10; i++) {
         [couch saveDocument:[NSDictionary dictionary]];
 
-    NSDictionary *docs = [couch listDocuments];
-    eq([docs count], (unsigned)2);
-    eqo([docs objectForKey:@"view"], @"_all_docs");
-    
-    NSArray *arr = [docs objectForKey:@"rows"];
-    eq([arr count], (unsigned)10);
+        NSDictionary *docs = [couch listDocuments];
+        eq([docs count], (unsigned)2);
+        eqo([docs objectForKey:@"view"], @"_all_docs");
+        
+        NSArray *arr = [docs objectForKey:@"rows"];
+        eq([arr count], i);
+    }
 }
 
 - (void)testUpdateUnchanged
