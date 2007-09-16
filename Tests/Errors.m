@@ -10,20 +10,6 @@
 
 @implementation Errors
 
-- (void)setUp
-{
-    couch = [SBCouch new];
-    [couch createDatabase:@"foo"];
-    [couch selectDatabase:@"foo"];
-}
-
-- (void)tearDown
-{
-    if ([couch isDatabaseAvailable:@"foo"])
-        [couch deleteDatabase:@"foo"];
-    [couch release];
-}
-
 - (void)testInitNoEndpoint
 {
     tn( [SBCouch newWithHost:nil port:8888], @"enoendpoint" );

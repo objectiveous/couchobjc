@@ -16,7 +16,8 @@
 - (void)setUp
 {
     couch = [SBCouch new];
-    [couch createDatabase:@"foo"];
+    if (![couch isDatabaseAvailable:@"foo"])
+        [couch createDatabase:@"foo"];
     [couch selectDatabase:@"foo"];
 }
 
