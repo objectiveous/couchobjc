@@ -26,7 +26,8 @@
 
 - (void)testInitNoEndpoint
 {
-    tn( [SBCouch newWithURLString:nil], @"enoendpoint" );
+    tn( [SBCouch newWithHost:nil port:8888], @"enoendpoint" );
+    tn( [SBCouch newWithHost:@"localhost" port:0], @"enoendpoint" );
 }
 
 - (void)testCreateExistingDatabase

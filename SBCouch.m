@@ -34,44 +34,55 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)init
 {
-    return [self initWithURLString:@"http://localhost:8888/"];
+    return [self initWithHost:@"localhost" port:8888];
 }
 
-- (id)initWithURLString:(NSString *)x
+- (id)initWithHost:(NSString *)newHost port:(unsigned)newPort
 {
-    if (!x)
-        [NSException raise:@"enoendpoint" format:@"Must pass an endpoint"];
+    if (!(newHost && newPort))
+        [NSException raise:@"enoendpoint" format:@"Must pass host & port for endpoint"];
 
     if (self = [super init]) {
-        // Make sure endpoint always ends in a slash.
-        endpoint = [x hasSuffix:@"/"] ? x : [x stringByAppendingString:@"/"];
-        [endpoint retain];
+        host = [newHost retain];
+        port = newPort;
     }
     return self;
 }
 
-- (NSMutableURLRequest *)mutableURLRequestWithURLString:(NSString *)urlstring
++ (id)newWithHost:(NSString *)h port:(unsigned)p
+{
+    return [[self alloc] initWithHost:h port:p];
+}
+
+- (NSString *)serverURL
+{
+    return [NSString stringWithFormat:@"http://%@:%u/", host, port];
+}
+
+- (NSString *)databaseURL:(NSString *)x
+{
+    return [[self serverURL] stringByAppendingFormat:@"%@/", x];
+}
+
+- (NSString *)curDbURL
+{
+    return [self databaseURL:currentDatabase];
+}
+
+- (NSString *)docURL:(NSString *)doc
+{
+    return [[self curDbURL] stringByAppendingString:doc];
+}
+
+- (NSMutableURLRequest *)requestWithURLString:(NSString *)urlstring
 {
     NSString *escaped = [urlstring stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [NSURL URLWithString:escaped];
-    return [NSMutableURLRequest requestWithURL:url];
-}
-
-- (NSMutableURLRequest *)mutableURLRequestWithDatabaseName:(NSString *)dbname
-{
-    NSString *dbpath = [endpoint stringByAppendingFormat:@"%@/", dbname];
-    return [self mutableURLRequestWithURLString:dbpath];
-}
-
-+ (id)newWithURLString:(NSString *)x
-{
-    return [[self alloc] initWithURLString:x];
+    return [NSMutableURLRequest requestWithURL:[NSURL URLWithString:escaped]];
 }
 
 - (NSString *)serverVersion
 {
-    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:endpoint];
-    [request setHTTPMethod:@"GET"];
+    NSMutableURLRequest *request = [self requestWithURLString:[self serverURL]];
 
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request
@@ -93,7 +104,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)createDatabase:(NSString *)x
 {
-    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:x];
+    NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
     [request setHTTPMethod:@"PUT"];
     
     NSHTTPURLResponse *response;
@@ -113,7 +124,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)deleteDatabase:(NSString *)x
 {
-    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:x];
+    NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
     [request setHTTPMethod:@"DELETE"];
 
     NSHTTPURLResponse *response;
@@ -133,9 +144,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSArray *)listDatabases
 {
-    NSString *all_dbs = [endpoint stringByAppendingString:@"_all_dbs"];
-    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:all_dbs];
-    [request setHTTPMethod:@"GET"];
+    NSString *all_dbs = [[self serverURL] stringByAppendingString:@"_all_dbs"];
+    NSMutableURLRequest *request = [self requestWithURLString:all_dbs];
 
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request
@@ -154,8 +164,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (BOOL)isDatabaseAvailable:(NSString *)x
 {
-    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:x];
-    [request setHTTPMethod:@"GET"];
+    NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
 
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request
@@ -190,7 +199,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSDictionary *)saveDocument:(NSDictionary *)x
 {
-    NSMutableURLRequest *request = [self mutableURLRequestWithDatabaseName:currentDatabase];
+    NSMutableURLRequest *request = [self requestWithURLString:[self curDbURL]];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:[[x JSONString] dataUsingEncoding:NSUTF8StringEncoding]];
 
@@ -216,9 +225,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSDictionary *)retrieveDocument:(NSString *)x
 {
-    NSString *doc = [endpoint stringByAppendingFormat:@"%@/%@", currentDatabase, x];
-    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:doc];
-    [request setHTTPMethod:@"GET"];
+    NSMutableURLRequest *request = [self requestWithURLString:[self docURL:x]];
 
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request
@@ -237,9 +244,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSDictionary *)listDocuments
 {
-    NSString *db = [endpoint stringByAppendingFormat:@"%@/_all_docs", currentDatabase];
-    NSMutableURLRequest *request = [self mutableURLRequestWithURLString:db];
-    [request setHTTPMethod:@"GET"];
+    NSString *all_docs = [[self curDbURL] stringByAppendingString:@"_all_docs"];
+    NSMutableURLRequest *request = [self requestWithURLString:all_docs];
 
     NSHTTPURLResponse *response;
     NSData *data = [NSURLConnection sendSynchronousRequest:request

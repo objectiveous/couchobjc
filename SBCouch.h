@@ -32,12 +32,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 @interface SBCouch : NSObject {
-    NSString *endpoint;
+    NSString *host;
+    unsigned port;
     NSString *currentDatabase;
 }
 
-+ (id)newWithURLString:(NSString *)x;
-- (id)initWithURLString:(NSString *)x;
++ (id)newWithHost:(NSString *)host port:(unsigned)port;
+- (id)initWithHost:(NSString *)host port:(unsigned)port;
 
 - (NSString *)serverVersion;
 
