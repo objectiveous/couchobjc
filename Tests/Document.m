@@ -106,4 +106,18 @@
     eqo([doc2 objectForKey:@"foo"], @"bar");
 }
 
+- (void)TODOtestRename
+{
+    NSDictionary *doc1 = [couch saveDocument:[NSDictionary dictionary]];
+    id doc2 = [NSMutableDictionary dictionaryWithDictionary:doc1];
+    [doc2 setObject:@"bar" forKey:@"_id"];
+    STAssertNoThrow([couch saveDocument:doc2], nil);
+
+    NSDictionary *docs = [couch listDocuments];
+    docs = [docs objectForKey:@"rows"];
+    eq([docs count], (unsigned)1);
+    STAssertNoThrow([couch retrieveDocument:@"bar"], nil);
+    tn([couch retrieveDocument:[doc1 objectForKey:@"_id"]], @"enoducument");
+}
+
 @end

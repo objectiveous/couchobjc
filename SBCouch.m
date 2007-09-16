@@ -80,7 +80,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
-                        format:@"Listing databases failed with code: %u",
+                        format:@"Server version query failed with code: %u",
                             [response statusCode]];
     }
 
@@ -199,14 +199,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:&response
                                                      error:nil];
 
-    if (201 != [response statusCode]) {
-            [NSException raise:@"unknown-error"
-                        format:@"Listing databases failed with code: %u",
-                            [response statusCode]];
-    }
-
     NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSDictionary *r = [json objectFromJSON];
+
+    if (201 != [response statusCode]) {
+            [NSException raise:@"unknown-error"
+                        format:@"Saving document failed with code: %u - %@ - %@",
+                            [response statusCode], json, x];
+    }
 
     NSMutableDictionary *y = [NSMutableDictionary dictionaryWithDictionary:x];
     [y setObject:[r objectForKey:@"_id"] forKey:@"_id"];
