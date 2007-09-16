@@ -10,6 +10,8 @@
 		53A62D510C9C0BCA000F9C9B /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A62D500C9C0BCA000F9C9B /* Errors.m */; };
 		E7464EA20C9C5625009D6B34 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7464E9A0C9C55CC009D6B34 /* JSON.framework */; };
 		E7464EA80C9C594A009D6B34 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = E7464EA70C9C594A009D6B34 /* Document.m */; };
+		E7464ECA0C9D796E009D6B34 /* View.m in Sources */ = {isa = PBXBuildFile; fileRef = E7464EC90C9D796E009D6B34 /* View.m */; };
+		E7464ECE0C9D79D2009D6B34 /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = E7464ECD0C9D79D2009D6B34 /* Tests.m */; };
 		E75D3F820C90559900058F83 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = E75D3F810C90559900058F83 /* Database.m */; };
 		E75D3F8D0C9055E000058F83 /* Couch.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D3F8A0C9055E000058F83 /* Couch.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E75D3F8E0C9055E000058F83 /* SBCouch.h in Headers */ = {isa = PBXBuildFile; fileRef = E75D3F8B0C9055E000058F83 /* SBCouch.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -52,6 +54,8 @@
 		53A62D500C9C0BCA000F9C9B /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
 		E7464E910C9C55CC009D6B34 /* JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSON.xcodeproj; path = vendor/JSON/JSON.xcodeproj; sourceTree = "<group>"; };
 		E7464EA70C9C594A009D6B34 /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
+		E7464EC90C9D796E009D6B34 /* View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = View.m; sourceTree = "<group>"; };
+		E7464ECD0C9D79D2009D6B34 /* Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tests.m; sourceTree = "<group>"; };
 		E75D3F640C9054B600058F83 /* Couch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Couch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E75D3F660C9054B600058F83 /* Couch-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Couch-Info.plist"; sourceTree = "<group>"; };
 		E75D3F740C90555700058F83 /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,8 +131,10 @@
 			isa = PBXGroup;
 			children = (
 				E75D3F800C90559900058F83 /* Tests.h */,
+				E7464ECD0C9D79D2009D6B34 /* Tests.m */,
 				E75D3F810C90559900058F83 /* Database.m */,
 				E7464EA70C9C594A009D6B34 /* Document.m */,
+				E7464EC90C9D796E009D6B34 /* View.m */,
 				53A62D500C9C0BCA000F9C9B /* Errors.m */,
 			);
 			path = Tests;
@@ -276,6 +282,8 @@
 				E75D3F820C90559900058F83 /* Database.m in Sources */,
 				53A62D510C9C0BCA000F9C9B /* Errors.m in Sources */,
 				E7464EA80C9C594A009D6B34 /* Document.m in Sources */,
+				E7464ECA0C9D796E009D6B34 /* View.m in Sources */,
+				E7464ECE0C9D79D2009D6B34 /* Tests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

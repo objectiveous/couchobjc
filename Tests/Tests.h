@@ -17,18 +17,20 @@
 #define tn(expr, name) \
     STAssertThrowsSpecificNamed(expr, NSException, name, nil)
 
-
-@interface Database : SenTestCase {
-    SBCouch *couch;
-    NSString *db;
-}
-@end
-
-@interface Document : SenTestCase {
+@interface Tests : SenTestCase {
     SBCouch *couch;
 }
 @end
 
-@interface Errors : SenTestCase
-    SBCouch *couch;
+@interface Database : Tests
 @end
+
+@interface Document : Tests
+@end
+
+@interface View : Tests
+@end
+
+@interface Errors : Tests
+@end
+
