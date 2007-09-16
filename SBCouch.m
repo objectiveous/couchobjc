@@ -102,15 +102,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #pragma mark Database
 
+- (id)performRequest:(NSMutableURLRequest *)request
+                          method:(NSString *)method
+               returningResponse:(NSHTTPURLResponse **)response
+{
+    [request setHTTPMethod:method];
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:response
+                                                     error:nil];
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return [json objectFromJSON];
+}
+
 - (void)createDatabase:(NSString *)x
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
-    [request setHTTPMethod:@"PUT"];
-    
     NSHTTPURLResponse *response;
-    [NSURLConnection sendSynchronousRequest:request
-                          returningResponse:&response
-                                      error:nil];
+    (void)[self performRequest:request method:@"PUT" returningResponse:&response];
 
     if (409 == [response statusCode]) {
         [NSException raise:@"edbexists"
@@ -125,12 +133,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (void)deleteDatabase:(NSString *)x
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
-    [request setHTTPMethod:@"DELETE"];
-
     NSHTTPURLResponse *response;
-    [NSURLConnection sendSynchronousRequest:request
-                          returningResponse:&response
-                                      error:nil];
+    (void)[self performRequest:request method:@"DELETE" returningResponse:&response];
+
 
     if (404 == [response statusCode]) {
         [NSException raise:@"enodatabase"
@@ -146,11 +151,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     NSString *all_dbs = [[self serverURL] stringByAppendingString:@"_all_dbs"];
     NSMutableURLRequest *request = [self requestWithURLString:all_dbs];
-
     NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:nil];
+    NSArray *dbs = [self performRequest:request method:@"DELETE" returningResponse:&response];
 
     if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
@@ -158,24 +160,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                             [response statusCode]];
     }
 
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return [json objectFromJSON];
+    return dbs;
 }
 
 - (BOOL)isDatabaseAvailable:(NSString *)x
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
-
     NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:nil];
+    (void)[self performRequest:request method:@"GET" returningResponse:&response];
 
-    unsigned status = [response statusCode];
-    if (200 == status)
+    if (200 == [response statusCode])
         return YES;
-    if (404 != status)
-        NSLog(@"Unexpected response code (%u) from server: %@", status, request);
+    if (404 != [response statusCode])
+        NSLog(@"Unexpected response code (%u) from server: %@", [response statusCode], request);
 
     return NO;
 }
@@ -226,11 +223,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSDictionary *)retrieveDocument:(NSString *)x
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self docURL:x]];
-
     NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:nil];
+    NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];
 
     if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
@@ -238,19 +232,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                             [response statusCode]];
     }
 
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return [json objectFromJSON];
+    return dict;
 }
 
 - (NSDictionary *)listDocuments
 {
     NSString *all_docs = [[self curDbURL] stringByAppendingString:@"_all_docs"];
     NSMutableURLRequest *request = [self requestWithURLString:all_docs];
-
     NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:nil];
+    NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];
 
     if (200 != [response statusCode]) {
             [NSException raise:@"unknown-error"
@@ -258,8 +248,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                             [response statusCode]];
     }
 
-    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return [json objectFromJSON];
+    return dict;
 }
 
 - (NSDictionary *)listDocumentsInView:(NSString *)x
