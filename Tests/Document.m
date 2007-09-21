@@ -100,6 +100,21 @@
         eqo(o, [e2 nextObject]);
 }
 
+- (void)testListWithOffsetAndLimit
+{
+    for (unsigned i = 1; i < 10; i++)
+        [couch saveDocument:[NSDictionary dictionary]];
+
+    NSArray *all =  [[couch listDocuments] objectForKey:@"rows"];
+    NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"2", @"count", [[all objectAtIndex:3] objectForKey:@"_id"], @"startkey", nil];
+    NSArray *two =  [[couch listDocumentsWithArguments:args] objectForKey:@"rows"];
+
+    eq([two count], (unsigned)2);
+    eqo([two objectAtIndex:0], [all objectAtIndex:3]);
+    eqo([two objectAtIndex:1], [all objectAtIndex:4]);
+}
+
 - (void)testUpdateUnchanged
 {
     NSDictionary *doc1 = [couch saveDocument:[NSDictionary dictionary]];
