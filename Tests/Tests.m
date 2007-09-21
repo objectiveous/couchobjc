@@ -16,14 +16,14 @@
 - (void)setUp
 {
     couch = [SBCouch new];
-    if (![couch isDatabaseAvailable:@"foo"])
+    if (![couch databaseMeta:@"foo"])
         [couch createDatabase:@"foo"];
     [couch selectDatabase:@"foo"];
 }
 
 - (void)tearDown
 {
-    if ([couch isDatabaseAvailable:@"foo"])
+    if ([couch databaseMeta:@"foo"])
         [couch deleteDatabase:@"foo"];
     [couch release];
 }

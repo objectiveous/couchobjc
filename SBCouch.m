@@ -171,25 +171,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return dbs;
 }
 
-- (BOOL)isDatabaseAvailable:(NSString *)x
+- (NSDictionary *)databaseMeta:(NSString *)x
 {
     NSMutableURLRequest *request = [self requestWithURLString:[self databaseURL:x]];
     NSHTTPURLResponse *response;
-    (void)[self performRequest:request method:@"GET" returningResponse:&response];
+    NSDictionary *ret = [self performRequest:request method:@"GET" returningResponse:&response];
 
     if (200 == [response statusCode])
-        return YES;
+        return ret;
     if (404 != [response statusCode])
         NSLog(@"Unexpected response code (%u) from server: %@", [response statusCode], request);
 
-    return NO;
+    return nil;
 }
 
 - (void)selectDatabase:(NSString *)x
 {
     // It is possible to check if a DB exists with a GET call to the path of that DB.
     // I haven't implemented that yet. 
-    if (![self isDatabaseAvailable:x])
+    if (![self databaseMeta:x])
         [NSException raise:@"enodatabase"
                     format:@"Cannot select '%@': database doesn't exist", x];
     

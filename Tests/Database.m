@@ -15,7 +15,7 @@
     STAssertEqualObjects([couch serverVersion], @"0.6.4", @"Is a supported version");
 }
 
-- (void)testListDatabases
+- (void)testList
 {
     srandom(time(NULL));   // seed the random number generator
     NSString *db = [NSString stringWithFormat:@"z%u", random()];
@@ -31,10 +31,26 @@
     STAssertEquals([dbs count], cnt+1, @"Count has increased by one");
 
     STAssertNoThrow([couch deleteDatabase:db], @"Can delete db %@", db);
-    STAssertFalse([couch isDatabaseAvailable:db], @"%@ is not available", db);
+    STAssertNil([couch databaseMeta:db], @"%@ is not available", db);
 
     dbs = [couch listDatabases];
     STAssertEquals([dbs count], cnt, @"Back to original number of dbs");
+}
+
+- (void)testMetaEmpty
+{
+    NSDictionary *want = [@"{\"db_name\": \"foo\", \"doc_count\":0, \"update_seq\":0}" objectFromJSON];
+    NSDictionary *got = [couch databaseMeta:@"foo"];
+    eqo(got, want);
+}
+
+- (void)testInfoWithContent
+{
+    for (int i = 0; i < 9; i++)
+        [couch saveDocument:[NSDictionary dictionary]];
+    NSDictionary *want = [@"{\"db_name\": \"foo\", \"doc_count\":9, \"update_seq\":9}" objectFromJSON];
+    NSDictionary *got = [couch databaseMeta:@"foo"];
+    eqo(got, want);
 }
 
 @end

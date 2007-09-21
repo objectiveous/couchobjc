@@ -42,12 +42,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSString *)serverVersion;
 
-- (BOOL)isDatabaseAvailable:(NSString *)x;
-
 - (NSArray *)listDatabases;
 - (void)createDatabase:(NSString *)x;
 - (void)deleteDatabase:(NSString *)x;
 - (void)selectDatabase:(NSString *)x;
+
+- (NSDictionary *)databaseMeta:(NSString *)x;
 
 - (NSDictionary *)saveDocument:(NSDictionary *)x;
 - (NSDictionary *)retrieveDocument:(NSString *)x;
