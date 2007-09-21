@@ -243,7 +243,23 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (NSDictionary *)listDocuments
 {
+    return [self listDocumentsWithArguments:nil];
+}
+
+- (NSString *)argString:(NSDictionary *)x
+{
+    NSMutableArray *args = [NSMutableArray array];
+    NSEnumerator *e = [x keyEnumerator];
+    for (id k; k = [e nextObject]; )
+        [args addObject:[NSString stringWithFormat:@"%@=%@", k, [x objectForKey:k]]];
+    return [@"?" stringByAppendingString:[args componentsJoinedByString:@"&"]];
+}
+
+- (NSDictionary *)listDocumentsWithArguments:(NSDictionary *)x
+{
     NSString *all_docs = [[self curDbURL] stringByAppendingString:@"_all_docs"];
+    if (x)
+        all_docs = [all_docs stringByAppendingString:[self argString:x]];
     NSMutableURLRequest *request = [self requestWithURLString:all_docs];
     NSHTTPURLResponse *response;
     NSDictionary *dict = [self performRequest:request method:@"GET" returningResponse:&response];

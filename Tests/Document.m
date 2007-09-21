@@ -85,6 +85,21 @@
     }
 }
 
+- (void)testListReverse
+{
+    for (unsigned i = 1; i < 10; i++)
+        [couch saveDocument:[NSDictionary dictionary]];
+
+    NSDictionary *args = [NSDictionary dictionaryWithObject:@"true" forKey:@"reverse"];
+    NSArray *a1 =  [[couch listDocumentsWithArguments:args] objectForKey:@"rows"];
+    NSArray *a2 =  [[couch listDocuments] objectForKey:@"rows"];
+    
+    NSEnumerator *e1 = [a1 objectEnumerator];
+    NSEnumerator *e2 = [a2 reverseObjectEnumerator];
+    for (id o; o = [e1 nextObject]; )
+        eqo(o, [e2 nextObject]);
+}
+
 - (void)testUpdateUnchanged
 {
     NSDictionary *doc1 = [couch saveDocument:[NSDictionary dictionary]];

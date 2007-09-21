@@ -53,6 +53,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSDictionary *)retrieveDocument:(NSString *)x;
 
 - (NSDictionary *)listDocuments;
+- (NSDictionary *)listDocumentsWithArguments:(NSDictionary *)x;
 - (NSDictionary *)listDocumentsInView:(NSString *)x;
 
 @end
