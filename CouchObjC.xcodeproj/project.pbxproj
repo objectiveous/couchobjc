@@ -342,7 +342,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = Couch;
-				ZERO_LINK = YES;
+				ZERO_LINK = NO;
 			};
 			name = Debug;
 		};
