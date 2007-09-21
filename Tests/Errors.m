@@ -31,6 +31,13 @@
     tn( [couch selectDatabase:@"bar"], @"enodatabase");
 }
 
+- (void)testDocumentOutdated
+{
+    NSDictionary *d = [couch saveDocument:[NSDictionary dictionary]];
+    [couch saveDocument:d];
+    tn( [couch saveDocument:d], @"conflict" );
+}
+
 - (void)testViewNotFound
 {
     tn( [couch listDocumentsInView:@"_design_views:cats"], @"notfound" );

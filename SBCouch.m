@@ -211,7 +211,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                       body:[[x JSONString] dataUsingEncoding:NSUTF8StringEncoding]
                          returningResponse:&response];
 
-    if (201 != [response statusCode]) {
+    if (409 == [response statusCode]) {
+            [NSException raise:@"conflict"
+                        format:@"Document %@ is outdated; cannot save", [x objectForKey:@"_id"]];
+    } else if (201 != [response statusCode]) {
             [NSException raise:@"unknown-error"
                         format:@"Saving document failed with code: %u", [response statusCode]];
     }
