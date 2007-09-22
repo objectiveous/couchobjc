@@ -54,6 +54,52 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return NO;
 }
 
+- (BOOL)scanHexQuad:(unichar *)x
+{
+    *x = 0;
+    NSString *s = [self string];
+    unsigned loc = [self scanLocation];
+    for (int i = 0; i < 4; i++) {
+        unichar c = [s characterAtIndex:loc + i];
+        int d = (c >= '0' && c <= '9') ? c - '0'
+                : (c >= 'a' && c <= 'f') ? (c - 'a' + 10)
+                    : (c >= 'A' && c <= 'F') ? (c - 'A' + 10)
+                        : -1;
+        if (d == -1)
+            return NO;
+        *x *= 16;
+        *x += d;
+    }
+    [self setScanLocation:loc+4];
+    return YES;
+}
+
+- (BOOL)scanJSONUnicodeChar:(unichar *)x
+{
+    unichar hi, lo;
+
+    if (![self scanHexQuad:&hi])
+        return NO;
+
+    if (hi >= 0xd800) {     // high surrogate char?
+        if (hi < 0xdc00) {  // yes - expect a low char
+            if (!([self scanString:@"\\u" intoString:nil] && [self scanHexQuad:&lo]))
+                [NSException raise:@"no_low_surrogate_char" format:@"Missing low character in surrogate pair"];
+
+            if (lo < 0xdc00 || lo >= 0xdfff) 
+                [NSException raise:@"expected_low_surrogate" format:@"Expected low surrogate char"];
+
+            hi = (hi - 0xd800) * 0x400 + (lo - 0xdc00) + 0x10000;
+
+        } else if (hi < 0xe000) {
+            [NSException raise:@"no_high_surrogate_char" format:@"Missing high character in surrogate pair"];
+        }
+    }
+
+    *x = hi;
+    return YES;
+}
+
 - (BOOL)scanJSONString:(NSString **)x
 {
     if (![self scanString:@"\"" intoString:nil])
@@ -77,7 +123,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             [(NSMutableString *)*x appendFormat:@"%C", uc];
             continue;
         }
-
+        
         // Grab the next char after this one.
         uc = [str characterAtIndex:++loc];
         id c;
@@ -90,6 +136,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
             case 'r':   c = @"\r";  break;
             case 't':   c = @"\t";  break;
             case 'f':   c = @"\f";  break;
+            case 'u':   
+                {
+                    unichar u;
+                    [self setScanLocation:loc+1];
+                    if ([self scanJSONUnicodeChar:&u]) {
+                        c = [NSString stringWithFormat:@"%C", u];
+                        loc = [self scanLocation]-1;
+                    }
+                }
+                break;
             default:    [NSException raise:@"malformed"
                                     format:@"Found character '%C' in %@", uc, str];
         }
