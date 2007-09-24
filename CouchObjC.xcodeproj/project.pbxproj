@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		53A62D510C9C0BCA000F9C9B /* Errors.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A62D500C9C0BCA000F9C9B /* Errors.m */; };
+		E705A4CB0CA59F8F00FD0A97 /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7464E9A0C9C55CC009D6B34 /* JSON.framework */; };
 		E7464EA20C9C5625009D6B34 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7464E9A0C9C55CC009D6B34 /* JSON.framework */; };
 		E7464EA80C9C594A009D6B34 /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = E7464EA70C9C594A009D6B34 /* Document.m */; };
 		E7464ECA0C9D796E009D6B34 /* View.m in Sources */ = {isa = PBXBuildFile; fileRef = E7464EC90C9D796E009D6B34 /* View.m */; };
@@ -49,6 +50,19 @@
 			remoteInfo = Couch;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E705A4C90CA59F7400FD0A97 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E705A4CB0CA59F8F00FD0A97 /* JSON.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		53A62D500C9C0BCA000F9C9B /* Errors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Errors.m; sourceTree = "<group>"; };
@@ -163,6 +177,7 @@
 				E75D3F600C9054B600058F83 /* Resources */,
 				E75D3F610C9054B600058F83 /* Sources */,
 				E75D3F620C9054B600058F83 /* Frameworks */,
+				E705A4C90CA59F7400FD0A97 /* CopyFiles */,
 			);
 			buildRules = (
 			);
