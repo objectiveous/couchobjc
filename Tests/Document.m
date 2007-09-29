@@ -28,7 +28,7 @@
     NSDictionary *doc = [couch saveDocument:[NSDictionary dictionary]];
     eq([doc count], (unsigned)2);
     STAssertTrue([[doc objectForKey:@"_id"] isKindOfClass:[NSString class]], nil);
-    STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSNumber class]], nil);
+    STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSString class]], nil);
 }
 
 - (void)testSaveNamed
@@ -37,7 +37,7 @@
     doc = [couch saveDocument:doc];
     eq([doc count], (unsigned)2);
     eqo([doc objectForKey:@"_id"], @"Stig");
-    STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSNumber class]], nil);
+    STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSString class]], nil);
 }
 
 - (void)testSaveFilled
@@ -47,7 +47,7 @@
     eq([doc count], (unsigned)3);
     eqo([doc objectForKey:@"Awesome"], @"Stig");
     STAssertTrue([[doc objectForKey:@"_id"] isKindOfClass:[NSString class]], nil);
-    STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSNumber class]], nil);
+    STAssertTrue([[doc objectForKey:@"_rev"] isKindOfClass:[NSString class]], nil);
 }
 
 - (void)testRetrieve

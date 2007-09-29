@@ -12,7 +12,7 @@
 
 - (void)testServerVersion
 {
-    STAssertEqualObjects([couch serverVersion], @"0.6.4", @"Is a supported version");
+    STAssertEqualObjects([couch serverVersion], @"0.6.5a", @"Is a supported version");
 }
 
 - (void)testList
