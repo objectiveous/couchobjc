@@ -27,30 +27,9 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import "NSString+SBJSON.h"
-#import "NSScanner+SBJSON.h"
+#import <Cocoa/Cocoa.h>
 
-
-@implementation NSString (NSString_SBJSON)
-
-- (id)objectFromJSONFragment
-{
-    NSScanner *scanner = [NSScanner scannerWithString:self];
-    id o;
-    if ([scanner scanJSON:&o])
-        return o;
-
-    [NSException raise:@"enojson"
-                format:@"Failed to parse '%@' as JSON", self];
-}
-
-- (id)objectFromJSON
-{
-    id o = [self objectFromJSONFragment];
-    if (![o isKindOfClass:[NSDictionary class]] && ![o isKindOfClass:[NSArray class]])
-        [NSException raise:@"enoobject"
-                    format:@"Valid JSON fragment, but not full JSON"];
-    return o;
-}
-
+@interface NSString (NSString_SBJSON)
+- (id)JSONFragmentValue;
+- (id)JSONValue;
 @end

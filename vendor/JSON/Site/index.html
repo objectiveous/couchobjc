@@ -1,0 +1,219 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <title>Cocoa JSON Framework</title>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+</head>
+
+<body>
+
+<h1>Cocoa JSON Framework</h1>
+
+<div id="toc">
+<ul>
+<li><a href="#usage">Basic usage</a></li>
+<li><a href="#fragments">JSON fragments</a></li>
+<li><a href="#options">Options</a></li>
+<li><a href="#mappings">Mapping JSON types to Objective-C</a></li>
+<li><a href="#limitations">Limitations</a></li>
+<li><a href="#performance">Performance</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#bugs">Bugs</a></li>
+<li><a href="#author">Author</a></li>
+</ul>
+</div>
+
+<p>JSON (JavaScript Object Notation) is a lightweight data-interchange
+format. This framework contains a collection of categories adding full
+JSON support to Cocoa by extending existing Objective-C classes. This
+site documents version __VERSION__ of the framework.</p>
+
+
+<h2 id="usage">Basic usage</h2>
+
+<p>Linking to the <a href="__DMGURL__">JSON</a> framework and
+importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
+following main methods:</p>
+
+<dl>
+
+<dt>
+<pre>
+// Added to NSArray and NSDictionary
+- (NSString *)JSONRepresentation;
+- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
+</pre>
+</dt>
+
+<dd>Returns an NSString containing the receiver encoded in JSON.
+Please read the note on <a href="#mappings">mapping</a> NSDictionary
+instances to JSON objects. See also the list of <a
+href="#options">options</a>.</dd>
+
+<dt>
+<pre>
+// Added to NSString
+- (id)JSONValue;
+</pre>
+</dt>
+
+<dd>Returns either an NSArray or NSDictionary decoded from the JSON in
+the receiver. Throws an error if the receiver does not contain valid
+JSON text.</dd>
+
+</dl>
+
+<h2 id="fragments">JSON fragments</h2>
+
+<p>Strictly speaking JSON must have <strong>exactly one top-level
+container</strong>. (Either an array or an object.) Bare nulls,
+numbers, booleans and strings are not valid JSON on their own. It can
+be quite convenient to <em>pretend</em> that such fragments are valid
+JSON however. The following methods will let you do so:</p>
+
+<dl>
+
+<dt>
+<pre>
+// Added to NSNull, NSNumber & NSString
+- (NSString *)JSONFragment;
+</pre>
+</dt>
+
+<dd>Returns an NSString containing the receiver encoded into a JSON
+text fragment. (See <a href="#mappings">mapping</a> note on encoding
+NSNumbers.)</dd>
+
+<dt>
+<pre>
+// Added to NSString
+- (id)JSONFragmentValue;
+</pre>
+</dt>
+
+<dd>Returns the JSON fragment decoded into an instance of either
+NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
+
+</dl>
+
+<h2 id="options">Options</h2>
+
+<p>Options are turned on by providing an instance that will respond
+with a true value when sent -intValue. (Usually this would be an
+NSNumber, but it could be an NSString if you find it more convenient.)
+The valid options are:</p>
+
+<dl>
+
+<dt>SpaceBefore</dt>
+
+<dd>When encoding a dictionary, adds a space before the ':' that
+separates the key from its associated value.</dd>
+
+<dt>SpaceAfter</dt>
+
+<dd>When encoding a dictionary, adds a space <em>after</em> the ':'
+that separates the key from its associated value. Also adds a space
+between the ',' and the next item for both arrays and dictionaries.
+(Except when MultiLine is also active.)</dd>
+
+<dt>MultiLine</dt>
+
+<dd>Produces human-readable JSON by using a multi-line format. Each
+array member and dictionary key/value pair is output on its own line,
+indented properly.</dd>
+
+<dt>Pretty</dt>
+
+<dd>A short-cut that turns on SpaceBefore, SpaceAfter and MultiLine all
+in one go.</dd>
+
+</dl>
+
+
+<h2 id="mappings">Mapping between JSON and Objective-C types</h2>
+
+<p>Here's how the distinct JSON types map to Objective-C types.</p>
+
+<pre>
+Object  <=> NSDictionary[1]
+Array   <=> NSArray
+String  <=> NSString
+Null    <=> NSNull
+Boolean <=> NSNumber[2]
+Number  <=  NSNumber[3]
+Number   => NSDecimalNumber[4]
+</pre>
+
+<ol>
+
+<li>In JSON the keys of an object <strong>must</strong> be strings.
+NSDictionary keys need not be, but attempting to convert an
+NSDictionary with non-string keys into JSON will throw an
+exception.</li>
+
+<li>The JSON boolean "true" and "false" values are represented by
+NSNumber instances created with the +numberWithBool: method.</li>
+
+<li>Any NSNumber instance <strong>other than</strong> the previously
+mentioned booleans will be converted to a JSON number the way you
+would expect.</li>
+
+<li>JSON numbers turn into NSDecimalNumber instances. (Because it was
+simpler to implement the parser that way.)</li>
+
+</ol>
+
+
+<h2 id="limitations">Limitations</h2>
+
+<p>This framework is limited to parsing strict JSON. (Other than the
+above mentioned support for JSON fragments.) For example, it does not
+support trailing commas in arrays or objects.</p>
+
+<p>Though <code>\uXXXX</code> sequences are decoded properly there is
+no support to encode unicode into such sequences yet. This is planned
+in a later version.</p>
+
+
+<h2 id="performance">A note on performance</h2>
+
+<p>At the moment no work has gone into performance. <em>Correctness
+first, speed later</em> has very much been the angle of attack. That
+does not necessarily mean that the code is horribly slow, however. A
+deeply nested 400k JSON file I had lying arond was parsed 10 times in
+around 3 seconds. I don't really know how this measures up against
+other implementations though.</p>
+
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+<li><a href="http://code.brautaset.org/JSON/news.xml">News</a> (RSS).</li>
+<li><a href="__DMGURL__">JSON embedded framework</a> disk image.</li>
+<li>Subversion: <a href="http://svn.brautaset.org/JSON/trunk">http://svn.brautaset.org/JSON/trunk</a>.</li>
+<li>Guide to <a href="http://blog.brautaset.org/2007/09/22/embedding-cocoa-frameworks/">embedding frameworks in Cocoa</a>.</li>
+<li><a href="http://json.org/">Introducing JSON</a>.</li>
+<li><a href="http://www.ietf.org/rfc/rfc4627.txt?number=4627">RFC4627</a>.</li>
+</ul>
+
+<h2 id="bugs">Bugs</h2>
+
+<p>None known. Bug reports are very welcome and will be acted upon
+swiftly.</p>
+
+<h2 id="author">Author</h2>
+
+<p>Cocoa JSON Framework is written by <a
+href="mailto:stig@brautaset.org">Stig Brautaset</a> and released under
+the revised BSD license. You are welcome to email me.</p>
+
+<p><a href="http://code.brautaset.org/">http://code.brautaset.org</a>
+lists more code by me. I occasionally announce new projects on my <a
+href="http://blog.brautaset.org/">blog</a>. It also contains the
+definite list of ways to <a
+href="http://blog.brautaset.org/about/">contact me</a>. </p>
+
+</body>
+</html>

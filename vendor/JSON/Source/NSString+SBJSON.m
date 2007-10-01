@@ -27,9 +27,36 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import <Cocoa/Cocoa.h>
+#import "NSString+SBJSON.h"
+#import "NSScanner+SBJSON.h"
 
-@interface NSString (NSString_SBJSON)
-- (id)objectFromJSONFragment;
-- (id)objectFromJSON;
+
+@implementation NSString (NSString_SBJSON)
+
+- (id)JSONValue
+{
+    NSScanner *scanner = [NSScanner scannerWithString:self];
+    id o;
+
+    if ([scanner scanJSONObject:&o])
+        return o;
+    if ([scanner scanJSONArray:&o])
+        return o;
+
+    [NSException raise:@"enojson"
+                format:@"Failed to parse '%@' as JSON", self];
+}
+
+- (id)JSONFragmentValue
+{
+    NSScanner *scanner = [NSScanner scannerWithString:self];
+    id o;
+
+    if ([scanner scanJSONValue:&o])
+        return o;
+
+    [NSException raise:@"enofragment"
+                format:@"Failed to parse '%@' as a JSON fragment", self];
+}
+
 @end
