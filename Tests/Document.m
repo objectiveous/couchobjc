@@ -107,7 +107,9 @@
 
     NSArray *all =  [[couch listDocuments] objectForKey:@"rows"];
     NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:
-        @"2", @"count", [NSString stringWithFormat:@"\"%@\"", [[all objectAtIndex:3] objectForKey:@"_id"]], @"startkey", nil];
+        @"2", @"count",
+        [[[all objectAtIndex:3] objectForKey:@"_id"] JSONFragment], @"startkey",
+        nil];
     NSArray *two =  [[couch listDocumentsWithArguments:args] objectForKey:@"rows"];
 
     eq([two count], (unsigned)2);

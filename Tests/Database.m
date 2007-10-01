@@ -39,7 +39,7 @@
 
 - (void)testMetaEmpty
 {
-    NSDictionary *want = [@"{\"db_name\": \"foo\", \"doc_count\":0, \"update_seq\":0}" objectFromJSON];
+    NSDictionary *want = [@"{\"db_name\": \"foo\", \"doc_count\":0, \"update_seq\":0}" JSONValue];
     NSDictionary *got = [couch databaseMeta:@"foo"];
     eqo(got, want);
 }
@@ -48,7 +48,7 @@
 {
     for (int i = 0; i < 9; i++)
         [couch saveDocument:[NSDictionary dictionary]];
-    NSDictionary *want = [@"{\"db_name\": \"foo\", \"doc_count\":9, \"update_seq\":9}" objectFromJSON];
+    NSDictionary *want = [@"{\"db_name\": \"foo\", \"doc_count\":9, \"update_seq\":9}" JSONValue];
     NSDictionary *got = [couch databaseMeta:@"foo"];
     eqo(got, want);
 }

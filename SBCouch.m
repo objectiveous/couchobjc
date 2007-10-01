@@ -94,7 +94,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:response
                                                      error:nil];
     NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    return [json objectFromJSON];
+    return [json JSONValue];
 }
 
 - (id)performRequest:(NSMutableURLRequest *)request
@@ -208,7 +208,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSHTTPURLResponse *response;
     NSDictionary *r = [self performRequest:request
                                     method:@"POST"
-                                      body:[[x JSONString] dataUsingEncoding:NSUTF8StringEncoding]
+                                      body:[[x JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding]
                          returningResponse:&response];
 
     if (409 == [response statusCode]) {
