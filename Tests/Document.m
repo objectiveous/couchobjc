@@ -100,21 +100,20 @@
         eqo(o, [e2 nextObject]);
 }
 
-- (void)testListWithOffsetAndLimit
+#define id_for_idx(list, idx) [[[list objectAtIndex:idx] objectForKey:@"_id"] JSONFragment]
+
+- (void)testListStartkeyAndCount
 {
     for (unsigned i = 1; i < 10; i++)
         [couch saveDocument:[NSDictionary dictionary]];
 
-    NSArray *all =  [[couch listDocuments] objectForKey:@"rows"];
-    NSDictionary *args = [NSDictionary dictionaryWithObjectsAndKeys:
+    id all =  [[couch listDocuments] objectForKey:@"rows"];
+    id expected = [all subarrayWithRange:NSMakeRange(2,2)];
+    id args = [NSDictionary dictionaryWithObjectsAndKeys:
+        id_for_idx(all, 2), @"startkey",
         @"2", @"count",
-        [[[all objectAtIndex:3] objectForKey:@"_id"] JSONFragment], @"startkey",
         nil];
-    NSArray *two =  [[couch listDocumentsWithArguments:args] objectForKey:@"rows"];
-
-    eq([two count], (unsigned)2);
-    eqo([two objectAtIndex:0], [all objectAtIndex:3]);
-    eqo([two objectAtIndex:1], [all objectAtIndex:4]);
+    eqo([[couch listDocumentsWithArguments:args] objectForKey:@"rows"], expected);
 }
 
 - (void)testUpdateUnchanged
