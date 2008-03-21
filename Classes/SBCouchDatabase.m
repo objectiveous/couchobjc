@@ -9,6 +9,7 @@
 #import "SBCouchServer.h"
 #import "SBCouchDatabase.h"
 #import "SBCouchResponse.h"
+#import "NSDictionary+CouchObjC.h"
 
 #import <JSON/JSON.h>
 
@@ -96,6 +97,27 @@
     }
     
     return nil;    
+}
+
+- (id)deleteDocument:(NSDictionary*)doc
+{
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?rev=%@", server.host, server.port, self.name, doc.id, doc.rev];
+    NSURL *url = [NSURL URLWithString:urlString];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
+    [request setHTTPMethod:@"DELETE"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    if (202 == [response statusCode]) {
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+    }
+    
+    return nil;
 }
 
 @end

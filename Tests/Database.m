@@ -44,9 +44,26 @@
 - (void)testGetDocument {
     NSDictionary *doc = [NSDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
     SBCouchResponse *meta = [db postDocument:doc];
-
     doc = [db get:meta.id];
     STAssertEqualObjects([doc objectForKey:@"coolest"], @"Stig", nil);
+}
+
+- (void)testDeleteDocument {
+    NSMutableDictionary *doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
+    SBCouchResponse *meta = [db postDocument:doc];
+    
+    doc.id = meta.id;
+    SBCouchResponse *meta2 = [db deleteDocument:doc];
+    STAssertFalse(meta2.ok, nil);
+    NSDictionary *list = [db get:@"_all_docs"];
+    STAssertEquals([[list objectForKey:@"total_rows"] intValue], 1, nil);
+
+    doc.rev = meta.rev;
+    meta2 = [db deleteDocument:doc];
+    STAssertTrue(meta2.ok, nil);
+    
+    list = [db get:@"_all_docs"];
+    STAssertEquals([[list objectForKey:@"total_rows"] intValue], 0, nil);
 }
 
 - (void)testPutDocument {
