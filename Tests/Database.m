@@ -55,7 +55,21 @@
     STAssertTrue(meta.ok, nil);
     STAssertEqualObjects(meta.id, @"Stig", nil);
     STAssertNotNil(meta.rev, nil);
-}    
+}
+
+- (void)testUpdateDocument {
+    id doc = [NSDictionary dictionary];
+    SBCouchResponse *meta = [db postDocument:doc];
+    
+    doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
+    [doc setRev:meta.rev];
+    
+    meta = [db putDocument:doc withId:meta.id];
+    STAssertTrue(meta.ok, nil);
+
+    NSDictionary *list = [db get:@"_all_docs"];
+    STAssertEquals([[list objectForKey:@"total_rows"] intValue], 1, nil);
+}
 
 - (void)testListDocuments {
     NSArray *ducks = [@"hetti netti letti" componentsSeparatedByString:@" "];
