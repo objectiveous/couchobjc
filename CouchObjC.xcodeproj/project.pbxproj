@@ -139,7 +139,6 @@
 				089C1665FE841158C02AAC07 /* Resources */,
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
-				5315EE650D94078D001E3B2E /* Tests-Info.plist */,
 			);
 			name = CouchObjC;
 			sourceTree = "<group>";
@@ -158,6 +157,7 @@
 			children = (
 				8DC2EF5A0486A6940098B216 /* Info.plist */,
 				089C1666FE841158C02AAC07 /* InfoPlist.strings */,
+				5315EE650D94078D001E3B2E /* Tests-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
