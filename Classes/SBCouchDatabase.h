@@ -19,4 +19,6 @@
 
 - (id)initWithServer:(SBCouchServer*)server name:(NSString*)name;
 
+- (id)get:(NSString*)args;
+
 @end

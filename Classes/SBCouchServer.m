@@ -7,6 +7,8 @@
 //
 
 #import "SBCouchServer.h"
+#import "SBCouchDatabase.h"
+
 #import <JSON/JSON.h>
 
 @implementation SBCouchServer
@@ -111,6 +113,11 @@
     }
     
     return nil;    
+}
+
+- (SBCouchDatabase*)database:(NSString*)name
+{
+    return [[[SBCouchDatabase alloc] initWithServer:self name:name] autorelease];
 }
 
 @end
