@@ -42,6 +42,10 @@
     [doc addAttachmentNamed:@"bar.txt" ofType:@"text/plain" data:@"foo bar quux"];
     attachments = [doc attachments];
     STAssertEquals([attachments count], (NSUInteger)2, nil);
+
+    [doc addAttachmentNamed:@"foo.txt" ofType:@"text/plain" data:@"quux quux"];
+    attachments = [doc attachments];
+    STAssertEquals([attachments count], (NSUInteger)2, @"overwrote the existing one");
 }
 
 @end
