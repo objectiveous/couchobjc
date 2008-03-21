@@ -13,6 +13,9 @@
 		5315EE890D941077001E3B2E /* CouchObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CouchObjC.framework */; };
 		5315EE8B0D941085001E3B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		5315EEB20D94178E001E3B2E /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
+		53905A100D9429B4003D62CE /* NSMutableDictionary+CouchObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A0E0D9429B4003D62CE /* NSMutableDictionary+CouchObjC.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		53905A110D9429B4003D62CE /* NSMutableDictionary+CouchObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A0F0D9429B4003D62CE /* NSMutableDictionary+CouchObjC.m */; };
+		53905A140D9429CE003D62CE /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A130D9429CE003D62CE /* Document.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +77,10 @@
 		5315EE770D940818001E3B2E /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		5315EE780D940818001E3B2E /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		5315EEA00D941786001E3B2E /* JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSON.xcodeproj; path = vendor/JSON/JSON.xcodeproj; sourceTree = "<group>"; };
+		53905A0E0D9429B4003D62CE /* NSMutableDictionary+CouchObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSMutableDictionary+CouchObjC.h"; path = "../Tests/NSMutableDictionary+CouchObjC.h"; sourceTree = "<group>"; };
+		53905A0F0D9429B4003D62CE /* NSMutableDictionary+CouchObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSMutableDictionary+CouchObjC.m"; path = "../Tests/NSMutableDictionary+CouchObjC.m"; sourceTree = "<group>"; };
+		53905A120D9429CE003D62CE /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
+		53905A130D9429CE003D62CE /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CouchObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CouchObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -147,6 +154,8 @@
 			children = (
 				5315EE5B0D940717001E3B2E /* SBCouchServer.h */,
 				5315EE5C0D940717001E3B2E /* SBCouchServer.m */,
+				53905A0E0D9429B4003D62CE /* NSMutableDictionary+CouchObjC.h */,
+				53905A0F0D9429B4003D62CE /* NSMutableDictionary+CouchObjC.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -182,6 +191,8 @@
 			children = (
 				5315EE770D940818001E3B2E /* Server.h */,
 				5315EE780D940818001E3B2E /* Server.m */,
+				53905A120D9429CE003D62CE /* Document.h */,
+				53905A130D9429CE003D62CE /* Document.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -205,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5315EE5D0D940717001E3B2E /* SBCouchServer.h in Headers */,
+				53905A100D9429B4003D62CE /* NSMutableDictionary+CouchObjC.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5315EE790D940818001E3B2E /* Server.m in Sources */,
+				53905A140D9429CE003D62CE /* Document.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5315EE5E0D940717001E3B2E /* SBCouchServer.m in Sources */,
+				53905A110D9429B4003D62CE /* NSMutableDictionary+CouchObjC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,6 +15,10 @@
     couch = [SBCouchServer new];
 }
 
+- (void)tearDown {
+    [couch release];
+}
+
 - (void)testSupportedVersion {
     id v = [couch version];
     STAssertTrue([v isGreaterThanOrEqualTo:@"0.7.2"], @"Version not supported: %@", v);
