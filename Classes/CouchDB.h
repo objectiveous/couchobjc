@@ -8,4 +8,5 @@
 
 #import <CouchObjC/SBCouchServer.h>
 #import <CouchObjC/SBCouchDatabase.h>
-#import <CouchObjC/NSMutableDictionary+CouchObjC.h>
+#import <CouchObjC/SBCouchResponse.h>
+#import <CouchObjC/NSDictionary+CouchObjC.h>

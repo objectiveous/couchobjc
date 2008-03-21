@@ -6,29 +6,33 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import "NSMutableDictionary+CouchObjC.h"
+#import "NSDictionary+CouchObjC.h"
 
 
-@implementation NSMutableDictionary (NSMutableDictionary_CouchObjC)
+@implementation NSDictionary (NSMutableDictionary_CouchObjC)
 
 - (NSString*)id {
     return [self objectForKey:@"_id"];
-}
-
-- (void)setId:(NSString*)id {
-    [self setObject:id forKey:@"_id"];
 }
 
 - (NSString*)rev {
     return [self objectForKey:@"_rev"];
 }
 
-- (void)setRev:(NSString*)rev {
-    [self setObject:rev forKey:@"_rev"];
-}
-
 - (NSDictionary*)attachments {
     return [self objectForKey:@"_attachments"];
+}
+
+@end
+
+@implementation NSMutableDictionary (NSMutableDictionary_CouchObjC)
+
+- (void)setId:(NSString*)id {
+    [self setObject:id forKey:@"_id"];
+}
+
+- (void)setRev:(NSString*)rev {
+    [self setObject:rev forKey:@"_rev"];
 }
 
 - (void)addAttachmentNamed:(NSString*)name ofType:(NSString*)type data:(id)data {

@@ -9,15 +9,18 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface NSMutableDictionary (NSMutableDictionary_CouchObjC)
+@interface NSDictionary (NSDictionary_CouchObjC)
 
 - (NSString*)id;
-- (void)setId:(NSString*)id;
-
 - (NSString*)rev;
-- (void)setRev:(NSString*)rev;
-
 - (NSDictionary*)attachments;
+
+@end
+
+@interface NSMutableDictionary (NSMutableDictionary_CouchObjC)
+
+- (void)setId:(NSString*)id;
+- (void)setRev:(NSString*)rev;
 - (void)addAttachmentNamed:(NSString*)name ofType:(NSString*)type data:(id)data;
 
 @end

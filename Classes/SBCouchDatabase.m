@@ -6,8 +6,9 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import "SBCouchDatabase.h"
 #import "SBCouchServer.h"
+#import "SBCouchDatabase.h"
+#import "SBCouchResponse.h"
 
 #import <JSON/JSON.h>
 
@@ -22,6 +23,13 @@
         name = [n copy];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [server release];
+    [name release];
+    [super dealloc];
 }
 
 - (id)get:(NSString*)args
@@ -43,5 +51,29 @@
     
     return nil;    
 }
+
+- (id)postDocument:(NSDictionary*)doc
+{
+    NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/", server.host, server.port, self.name];
+    NSURL *url = [NSURL URLWithString:urlString];    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
+    [request setHTTPBody:body];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    if (201 == [response statusCode]) {
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+    }
+    
+    return nil;    
+}
+
 
 @end
