@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class SBCouchDatabase;
 
 @interface SBCouchServer : NSObject {
     NSString *host;
@@ -25,7 +26,9 @@
 
 - (NSArray*)listDatabases;
 
-- (BOOL)createDatabase:(NSString*)n;
-- (BOOL)deleteDatabase:(NSString*)n;
+- (BOOL)createDatabase:(NSString*)x;
+- (BOOL)deleteDatabase:(NSString*)x;
+
+- (SBCouchDatabase*)database:(NSString*)x;
 
 @end

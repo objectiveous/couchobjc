@@ -7,7 +7,7 @@
 //
 
 #import "Server.h"
-#import <CouchObjC/SBCouchServer.h>
+#import <CouchObjC/CouchDB.h>
 
 @implementation Server
 
