@@ -7,7 +7,7 @@
 //
 
 #import "Document.h"
-#import <CouchObjC/CouchDB.h>
+#import <CouchObjC/CouchObjC.h>
 
 @implementation Document
 

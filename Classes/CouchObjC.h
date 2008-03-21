@@ -1,5 +1,5 @@
 //
-//  SBCouchDatabase.h
+//  CouchObjC.h
 //  CouchObjC
 //
 //  Created by Stig Brautaset on 21/03/2008.
