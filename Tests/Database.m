@@ -16,12 +16,13 @@
 
     NSString *name = [NSString stringWithFormat:@"tmp%u", random()];
     [couch createDatabase:name];
-    db = [couch database:name];
+    db = [[couch database:name] retain];
 }
 
 - (void)tearDown {
-    [couch deleteDatabase:[db name]];
+    [couch deleteDatabase:db.name];
     [couch release];
+    [db release];
 }
 
 - (void)testDatabaseInfo {
@@ -38,6 +39,34 @@
     STAssertTrue(meta.ok, nil);
     STAssertNotNil(meta.id, nil);
     STAssertNotNil(meta.rev, nil);
+}
+
+- (void)testGetDocument {
+    NSDictionary *doc = [NSDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
+    SBCouchResponse *meta = [db postDocument:doc];
+
+    doc = [db get:meta.id];
+    STAssertEqualObjects([doc objectForKey:@"coolest"], @"Stig", nil);
+}
+
+- (void)testPutDocument {
+    NSDictionary *doc = [NSDictionary dictionary];
+    SBCouchResponse *meta = [db putDocument:doc withId:@"Stig"];
+    STAssertTrue(meta.ok, nil);
+    STAssertEqualObjects(meta.id, @"Stig", nil);
+    STAssertNotNil(meta.rev, nil);
+}    
+
+- (void)testListDocuments {
+    NSArray *ducks = [@"hetti netti letti" componentsSeparatedByString:@" "];
+    for (id duck in ducks) {
+        NSDictionary *doc = [NSDictionary dictionaryWithObject:duck forKey:@"name"];
+        [db postDocument:doc];
+    }
+
+    NSDictionary *list = [db get:@"_all_docs"];
+    STAssertEquals([[list objectForKey:@"offset"] intValue], 0, nil);
+    STAssertEquals([[list objectForKey:@"total_rows"] intValue], 3, nil);
 }
 
 @end

@@ -75,5 +75,27 @@
     return nil;    
 }
 
+- (id)putDocument:(NSDictionary*)doc withId:(NSString*)x
+{
+    NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, x];
+    NSURL *url = [NSURL URLWithString:urlString];    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
+    [request setHTTPBody:body];
+    [request setHTTPMethod:@"PUT"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    if (201 == [response statusCode]) {
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+    }
+    
+    return nil;    
+}
 
 @end

@@ -21,5 +21,6 @@
 
 - (id)get:(NSString*)args;
 - (id)postDocument:(NSDictionary*)doc;
+- (id)putDocument:(NSDictionary*)doc withId:(NSString*)x;
 
 @end
