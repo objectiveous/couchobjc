@@ -60,12 +60,17 @@
 - (void)testUpdateDocument {
     id doc = [NSDictionary dictionary];
     SBCouchResponse *meta = [db postDocument:doc];
+    doc = [db get:meta.id];
+    STAssertNil([doc objectForKey:@"coolest"], nil);
     
     doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
     [doc setRev:meta.rev];
     
     meta = [db putDocument:doc withId:meta.id];
     STAssertTrue(meta.ok, nil);
+
+    doc = [db get:meta.id];
+    STAssertEqualObjects([doc objectForKey:@"coolest"], @"Stig", nil);
 
     NSDictionary *list = [db get:@"_all_docs"];
     STAssertEquals([[list objectForKey:@"total_rows"] intValue], 1, nil);
