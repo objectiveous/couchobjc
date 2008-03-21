@@ -28,19 +28,31 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 #import "NSString+SBJSON.h"
-#import "NSScanner+SBJSON.h"
+#import "SBJSONScanner.h"
 
 
 @implementation NSString (NSString_SBJSON)
 
 - (id)JSONValue
 {
-    NSScanner *scanner = [NSScanner scannerWithString:self];
+    return [self JSONValueWithOptions:nil];
+}
+
+- (id)JSONValueWithOptions:(NSDictionary *)opts
+{
     id o;
 
-    if ([scanner scanJSONObject:&o])
-        return o;
-    if ([scanner scanJSONArray:&o])
+    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:self];
+    if (opts) {
+        id opt = [opts objectForKey:@"MaxDepth"];
+        if (opt)
+            [scanner setMaxDepth:[opt intValue]];
+    }
+
+    BOOL success = ([scanner scanDictionary:&o] || [scanner scanArray:&o]) && [scanner isAtEnd];
+    [scanner release];
+
+    if (success)
         return o;
 
     [NSException raise:@"enojson"
@@ -49,12 +61,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (id)JSONFragmentValue
 {
-    NSScanner *scanner = [NSScanner scannerWithString:self];
     id o;
 
-    if ([scanner scanJSONValue:&o])
-        return o;
+    SBJSONScanner *scanner = [[SBJSONScanner alloc] initWithString:self];
+    BOOL success = [scanner scanValue:&o] && [scanner isAtEnd];
+    [scanner release];
 
+    if (success)
+        return o;
+    
     [NSException raise:@"enofragment"
                 format:@"Failed to parse '%@' as a JSON fragment", self];
 }

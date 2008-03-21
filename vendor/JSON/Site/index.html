@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Cocoa JSON Framework</title>
-    <link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen">
 </head>
 
 <body>
@@ -34,34 +34,77 @@ site documents version __VERSION__ of the framework.</p>
 
 <p>Linking to the <a href="__DMGURL__">JSON</a> framework and
 importing the <code>&lt;JSON/JSON.h&gt;</code> header provides the
-following main methods:</p>
+following main methods.</p>
+
+<h3>Generating JSON</h3>
+
+<p>The following methods are added as a category on NSArray and NSDictionary:</p>
 
 <dl>
 
+<dt><code>- (NSString *)JSONRepresentation;</code></dt>
+<dd>Returns an NSString instance containing the receiver encoded in
+JSON. Please read the note on <a href="#mappings">mapping</a>
+NSDictionary instances to JSON objects.</dd>
+
+<dt><code>- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;</code></dt>
+
+<dd>Like -JSONRepresentation, but allows you to control the look of
+the produced JSON. Options are turned on by providing an instance that
+responds YES when sent -boolValue. (Usually this would be an NSNumber,
+but it could be an NSString if you find it more convenient.) Valid
+options are:</dd>
+
+<dd><dl>
+
+<dt>SpaceBefore</dt>
+<dd>When encoding a dictionary, adds a space before the ':' that
+separates the key from its associated value.</dd>
+
+<dt>SpaceAfter</dt>
+<dd>When encoding a dictionary, adds a space <em>after</em> the ':'
+that separates the key from its associated value. Also adds a space
+between the ',' and the next item for both arrays and dictionaries.
+(Except when MultiLine is also active.)</dd>
+
+<dt>MultiLine</dt>
+<dd>Produces human-readable JSON by using a multi-line format. Each
+array member and dictionary key/value pair is output on its own line,
+indented properly.</dd>
+
+<dt>Pretty</dt>
+<dd>A short-cut that turns on SpaceBefore, SpaceAfter and MultiLine all
+in one go.</dd>
+
+</dl>
+</dd>
+</dl>
+
+<h3>Parsing JSON</h3>
+
+<p>The following methods are added as a category on NSString.</p>
+
 <dt>
-<pre>
-// Added to NSArray and NSDictionary
-- (NSString *)JSONRepresentation;
-- (NSString *)JSONRepresentationWithOptions:(NSDictionary *)opts;
-</pre>
-</dt>
 
-<dd>Returns an NSString containing the receiver encoded in JSON.
-Please read the note on <a href="#mappings">mapping</a> NSDictionary
-instances to JSON objects. See also the list of <a
-href="#options">options</a>.</dd>
-
-<dt>
-<pre>
-// Added to NSString
-- (id)JSONValue;
-</pre>
-</dt>
-
+<dt><code>- (id)JSONValue;</code></dt>
 <dd>Returns either an NSArray or NSDictionary decoded from the JSON in
 the receiver. Throws an error if the receiver does not contain valid
 JSON text.</dd>
 
+<dt><code>- (id)JSONValueWithOptions:(NSDictionary *)opts;</code></dt>
+<dd>Like -JSONValue but allows you to set options
+controlling the parsing. Valid options are:</dd>
+
+<dd>
+<dl>
+
+<dt>MaxDepth</dt>
+<dd>Throws an exception if the JSON string that is decoded is nested
+deeper than the given level. Set it to zero for "unlimited" nesting.
+The default value is 512. </dd>
+
+</dl>
+</dd>
 </dl>
 
 <h2 id="fragments">JSON fragments</h2>
@@ -74,97 +117,44 @@ JSON however. The following methods will let you do so:</p>
 
 <dl>
 
-<dt>
-<pre>
-// Added to NSNull, NSNumber & NSString
-- (NSString *)JSONFragment;
-</pre>
-</dt>
+<dt><code>- (NSString *)JSONFragment;</code></dt>
+<dd>Added to NSNull, NSNumber &amp; NSString, and returns an NSString
+containing the receiver encoded into a JSON text fragment. (See <a
+href="#mappings">mapping</a> note on encoding NSNumbers.)</dd>
 
-<dd>Returns an NSString containing the receiver encoded into a JSON
-text fragment. (See <a href="#mappings">mapping</a> note on encoding
-NSNumbers.)</dd>
-
-<dt>
-<pre>
-// Added to NSString
-- (id)JSONFragmentValue;
-</pre>
-</dt>
-
-<dd>Returns the JSON fragment decoded into an instance of either
-NSArray, NSDictionary, NSNull, NSNumber, or NSString.</dd>
+<dt><code>- (id)JSONFragmentValue;</code></dt>
+<dd>Added to NSString, and returns the JSON fragment decoded into an
+instance of either NSArray, NSDictionary, NSNull, NSNumber, or
+NSString.</dd>
 
 </dl>
-
-<h2 id="options">Options</h2>
-
-<p>Options are turned on by providing an instance that will respond
-with a true value when sent -intValue. (Usually this would be an
-NSNumber, but it could be an NSString if you find it more convenient.)
-The valid options are:</p>
-
-<dl>
-
-<dt>SpaceBefore</dt>
-
-<dd>When encoding a dictionary, adds a space before the ':' that
-separates the key from its associated value.</dd>
-
-<dt>SpaceAfter</dt>
-
-<dd>When encoding a dictionary, adds a space <em>after</em> the ':'
-that separates the key from its associated value. Also adds a space
-between the ',' and the next item for both arrays and dictionaries.
-(Except when MultiLine is also active.)</dd>
-
-<dt>MultiLine</dt>
-
-<dd>Produces human-readable JSON by using a multi-line format. Each
-array member and dictionary key/value pair is output on its own line,
-indented properly.</dd>
-
-<dt>Pretty</dt>
-
-<dd>A short-cut that turns on SpaceBefore, SpaceAfter and MultiLine all
-in one go.</dd>
-
-</dl>
-
 
 <h2 id="mappings">Mapping between JSON and Objective-C types</h2>
 
 <p>Here's how the distinct JSON types map to Objective-C types.</p>
 
-<pre>
-Object  <=> NSDictionary[1]
-Array   <=> NSArray
-String  <=> NSString
-Null    <=> NSNull
-Boolean <=> NSNumber[2]
-Number  <=  NSNumber[3]
-Number   => NSDecimalNumber[4]
-</pre>
+<dl>
 
-<ol>
-
-<li>In JSON the keys of an object <strong>must</strong> be strings.
+<dt><code>Object  &lt;=&gt; NSDictionary</code></dt>
+<dd>In JSON the keys of an object <strong>must</strong> be strings.
 NSDictionary keys need not be, but attempting to convert an
 NSDictionary with non-string keys into JSON will throw an
-exception.</li>
+exception.</dd>
 
-<li>The JSON boolean "true" and "false" values are represented by
-NSNumber instances created with the +numberWithBool: method.</li>
+<dt><code>Array   &lt;=&gt; NSArray</code></dt>
+<dt><code>String  &lt;=&gt; NSString</code></dt>
+<dt><code>Null    &lt;=&gt; NSNull</code></dt>
+<dt><code>Boolean &lt;=&gt; NSNumber</code></dt>
+<dd>The JSON boolean "true" and "false" values are represented by
+NSNumber instances created with the +numberWithBool: method.</dd>
 
-<li>Any NSNumber instance <strong>other than</strong> the previously
+<dt><code>Number  &lt;=  NSNumber</code></dt>
+<dt><code>Number   =&gt; NSDecimalNumber</code></dt>
+<dd>Any NSNumber instance <strong>other than</strong> the previously
 mentioned booleans will be converted to a JSON number the way you
-would expect.</li>
+would expect. JSON numbers turn into NSDecimalNumber instances. </dd>
 
-<li>JSON numbers turn into NSDecimalNumber instances. (Because it was
-simpler to implement the parser that way.)</li>
-
-</ol>
-
+</dl>
 
 <h2 id="limitations">Limitations</h2>
 
@@ -172,20 +162,56 @@ simpler to implement the parser that way.)</li>
 above mentioned support for JSON fragments.) For example, it does not
 support trailing commas in arrays or objects.</p>
 
-<p>Though <code>\uXXXX</code> sequences are decoded properly there is
-no support to encode unicode into such sequences yet. This is planned
-in a later version.</p>
 
+<h2 id="performance">Performance</h2>
 
-<h2 id="performance">A note on performance</h2>
+<p>I strongly believe in <em>correctness first, speed later</em> and
+that was very much the angle of attack when creating this framework.
+Then out of the blue <a href="http://mooseyard.com/Jens">Jens
+Alfke</a> emailed me a couple of patches providing a serious
+performance boost. I've made sure to keep up this performance in any
+later changes.</p>
 
-<p>At the moment no work has gone into performance. <em>Correctness
-first, speed later</em> has very much been the angle of attack. That
-does not necessarily mean that the code is horribly slow, however. A
-deeply nested 400k JSON file I had lying arond was parsed 10 times in
-around 3 seconds. I don't really know how this measures up against
-other implementations though.</p>
+<p>Below are some performance measurements comparing this framework to
+Blake Seely's BSJSONAdditions. These are the same strings that Marc
+Lehmann used comparing <a
+href="http://search.cpan.org/dist/JSON-XS/XS.pm#SPEED">JSON::XS</a> to
+its competitors. These measurements were taken with the revision r3210
+of trunk. </p>
 
+<table>
+<tr>
+<th>&nbsp;</th>
+<th colspan="2">short string</th>
+<th colspan="2">long string (~12k)</th>
+</tr>
+<tr>
+<th>&nbsp;</th>
+<th>encode</th>
+<th>decode</th>
+<th>encode</th>
+<th>decode</th>
+</tr>
+<tr>
+<th>BSJSONAdditions</th>
+<td>10488.8</td>
+<td>4134.0</td>
+<td>70.5</td>
+<td>3.7</td>
+</tr>
+<tr>
+<th>SBJSON</th>
+<td>39858.1</td>
+<td>23319.8</td>
+<td>714.3</td>
+<td>555.8</td>
+</tr>
+</table>
+
+<p>In BSJSONAdditions' defence, its parser allows you to embed C-style
+comments in the JSON text. This can be very handy for configuration
+files, for example, but makes the parser a little more complicated.
+SBJSON does not support them as they are not part of the JSON spec.</p>
 
 <h2 id="resources">Resources</h2>
 
@@ -200,14 +226,13 @@ other implementations though.</p>
 
 <h2 id="bugs">Bugs</h2>
 
-<p>None known. Bug reports are very welcome and will be acted upon
-swiftly.</p>
+<p>Currently none known. If you find one, feel free to report it via email.</p>
 
 <h2 id="author">Author</h2>
 
-<p>Cocoa JSON Framework is written by <a
-href="mailto:stig@brautaset.org">Stig Brautaset</a> and released under
-the revised BSD license. You are welcome to email me.</p>
+<p>Cocoa JSON Framework is written by yours truly, <a
+href="mailto:stig@brautaset.org">Stig Brautaset</a>, and released
+under the revised BSD license. You are welcome to email me.</p>
 
 <p><a href="http://code.brautaset.org/">http://code.brautaset.org</a>
 lists more code by me. I occasionally announce new projects on my <a

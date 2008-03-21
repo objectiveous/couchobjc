@@ -9,7 +9,7 @@
 #import "Tests.h"
 
 #define testInt(x, y)   eq([[x JSONFragmentValue] intValue], (int)y)
-#define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], (BOOL)y)
+#define testBool(x, y)  eq([[x JSONFragmentValue] boolValue], y)
 #define testFloat(x, y) eq([[x JSONFragmentValue] floatValue], (float)y)
 
 @implementation Types
@@ -55,7 +55,7 @@
     testFloat(@"2.5", 2.5);
     testFloat(@"-333e+0", -333);
     testFloat(@"-333e+3", -333000);
-    testFloat(@"+666e-1", 66.6);
+    testFloat(@"666e-1", 66.6);
 
     id nums = [self splitString:@"-4 4 0.0001 10000 -9999 99.99 98877665544332211009988776655443322110"];
     for (id n; n = [nums nextObject]; ) {
@@ -76,7 +76,7 @@
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
         @" spaces  ",               @"\" spaces  \"",
         @"",                        @"\"\"",
-        @"/",                       @"\"\\/\"",
+//      @"/",                       @"\"\\/\"",
         @"\\ \" \\ \"",             @"\"\\\\ \\\" \\\\ \\\"\"",
         @"\b",                      @"\"\\b\"",
         @"\f",                      @"\"\\f\"",
@@ -111,6 +111,11 @@
     }
 }
 
+- (void)testStringsWithEscapedSlashes
+{
+    eqo([@"\"\\/test\\/path\"" JSONFragmentValue], @"/test/path");
+    eqo([@"\"\\\\/test\\\\/path\"" JSONFragmentValue], @"\\/test\\/path");
+}
 
 - (void)testStringsWithUnicodeEscapes
 {
@@ -135,6 +140,25 @@
 //        NSLog(@"'%@' => '%@'", key, val);
         eqo([key JSONFragmentValue], val);
         eqo([[val JSONFragment] JSONFragmentValue], val);
+    }
+}
+
+- (void)testStringsWithControlChars
+{
+    NSArray *array = [NSArray arrayWithObjects:
+        @"\\u0000", @"\\u0001", @"\\u0002", @"\\u0003", @"\\u0004",
+        @"\\u0005", @"\\u0006", @"\\u0007", @"\\b",     @"\\t",
+        @"\\n",     @"\\u000b", @"\\f",     @"\\r",     @"\\u000e",
+        @"\\u000f", @"\\u0010", @"\\u0011", @"\\u0012", @"\\u0013",
+        @"\\u0014", @"\\u0015", @"\\u0016", @"\\u0017", @"\\u0018",
+        @"\\u0019", @"\\u001a", @"\\u001b", @"\\u001c", @"\\u001d",
+        @"\\u001e", @"\\u001f", @" ", nil];
+
+    for (int i = 0; i < [array count]; i++) {
+        id string = [NSString stringWithFormat:@"%C", (unichar)i];
+        id fragment = [NSString stringWithFormat:@"\"%@\"", [array objectAtIndex:i]];
+        eqo([string JSONFragment], fragment);
+        eqo([fragment JSONFragmentValue], string);
     }
 }
 

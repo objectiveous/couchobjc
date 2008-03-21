@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2007, Stig Brautaset. All rights reserved.
+Copyright (C) 2007 Stig Brautaset. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
@@ -27,6 +27,26 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-#import <Couch/SBCouch.h>
+
+@interface SBJSONScanner : NSObject {
+    const char *start;
+    const char *c;
+    
+    unsigned depth;
+    unsigned maxDepth;
+}
+
+- (id)initWithString:(NSString *)s;
+
+- (BOOL)scanDictionary:(NSDictionary **)o;
+- (BOOL)scanArray:(NSArray **)o;
+
+- (BOOL)scanValue:(NSObject **)o;
+
+- (BOOL)isAtEnd;
+
+- (void)setMaxDepth:(unsigned)x;
+
+@end

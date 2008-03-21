@@ -1,39 +1,61 @@
-NAME=JSON
-VERSION=0.2
+# Project name from the X.xcodeproj directory
+PROJ    = $(subst .xcodeproj,,$(wildcard *.xcodeproj))
 
-RELEASENAME=$(NAME)_$(VERSION)
-DMG=$(RELEASENAME).dmg
+# Marketing version
+VERS    = $(strip $(shell agvtool mvers -terse1))
 
-UP=stig@brautaset.org:code/$(NAME)/files/
-DMGURL=http://code.brautaset.org/$(NAME)/files/$(DMG)
+DIST    = $(PROJ)_$(VERS)
+DMG     = $(DIST).dmg
+DMGURL  = http://code.brautaset.org/$(PROJ)/files/$(DMG)
+CONF    = Release
 
-site: Site/style.css Site/index.html Site/news.xml
-	rm -rf _site; cp -r Site _site
-	perl -pi -e 's{__DMGURL__}{$(DMGURL)}g' _site/*.html
-	perl -pi -e 's{__VERSION__}{$(VERSION)}g' _site/*.html
+OBJPATH = /tmp/build/$(CONF)/$(PROJDIR)
+LIB     = $(OBJPATH)/$(PROJ)
 
-upload-site: site
+
+FWKPATH = /tmp/Frameworks/$(PROJ).framework
+
+SITE    = $(shell find Site -type f)
+SRC     = $(shell find Source -type f)
+
+site: _site
+
+dmg: $(DMG)
+
+enclosure: $(DMG)
+	@echo    "<item>"
+	@echo    "    <title>$(NAME) $(VERSION)</title>"
+	@echo    "    <description><![CDATA["
+	@echo    "    ]]></description>"
+	@echo    "    <pubDate>`date +"%a, %b %e %Y %H:%M:%S %Z"`</pubDate>"
+	@echo    "    <enclosure url='$(DMGURL)' "
+	@echo    "        length='`stat $(DMG) | cut -d" "  -f8`'"
+	@echo    ' type="application/octet-stream"/>'
+	@echo    "</item>"
+
+_site: $(SITE)
+	-rm -rf _site
+	cp -R Site _site
+	find _site -type f | xargs perl -pi -e 's{__DMGURL__}{$(DMGURL)}g'
+	find _site -type f | xargs perl -pi -e 's{__VERSION__}{$(VERS)}g'
+
+upload-site: _site
 	curl --head $(DMGURL) 2>/dev/null | grep -q "200 OK" 
-	rsync -ruv --delete _site/ --exclude files stig@brautaset.org:code/$(NAME)/
+	rsync -ruv --delete _site/ --exclude files stig@brautaset.org:code/$(PROJ)/
 
-distclean:
-	rm -rf _site
-	rm -rf $(DMG)
-	-chmod -R +w dmg
-	rm -rf dmg
+$(DMG): $(SRC) _site
+	-rm $(DMG)
+	-chmod -R +w $(DIST)    && rm -rf $(DIST)
+	-chmod -R +w $(FWKPATH) && rm -rf $(FWKPATH)
+	xcodebuild -configuration $(CONF) -target $(PROJ) install
+	mkdir $(DIST)
+	cp -p -R $(FWKPATH) $(DIST)
+	cp -p -R _site $(DIST)/Documentation
+	rm $(DIST)/Documentation/news.xml
+	hdiutil create -fs HFS+ -volname $(DIST) -srcfolder $(DIST) $(DMG)
 
-dist: distclean site
-	setCFBundleVersion.pl $(VERSION) JSON-Info.plist
-	xcodebuild -target $(NAME) clean
-	xcodebuild -target Tests
-	xcodebuild -target $(NAME) install
-	mkdir dmg
-	mv /tmp/Frameworks/$(NAME).framework dmg
-	rm _site/news.xml
-	cp -r _site dmg/Documentation
-	hdiutil create -fs HFS+ -volname $(RELEASENAME) -srcfolder dmg $(DMG)
-
-upload-dist: dist
+upload-dmg: $(DMG)
 	curl --head $(DMGURL) 2>/dev/null | grep -q "404 Not Found" || false
-	scp $(DMG) $(UP)
+	scp $(DMG) stig@brautaset.org:code/$(PROJ)/files/$(DMG)
+
 
