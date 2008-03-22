@@ -10,18 +10,19 @@
 
 /// Encapsulates a response from SBCouchDatabase.
 @interface SBCouchResponse : NSObject {
-    BOOL ok;
-    NSString *name;
-    NSString *rev;
+@private
+    BOOL _ok;
+    NSString *_name;
+    NSString *_rev;
 }
 
 /// Whether the operation succeeded.
 @property (readonly) BOOL ok;
 
 /// The id of the new/updated document.
-@property (readonly) NSString *name;
+@property (readonly) NSString* name;
 
 /// The new revision id.
-@property (readonly) NSString *rev;
+@property (readonly) NSString* rev;
 
 @end

@@ -34,14 +34,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation SBCouchServer
 
-@synthesize host;
-@synthesize port;
+@synthesize host = _host;
+@synthesize port = _port;
 
 - (id)initWithHost:(NSString*)h port:(NSUInteger)p
 {
     if (self = [super init]) {
-        host = [h copy];
-        port = p;
+        _host = [h copy];
+        _port = p;
         
     }
     return self;
@@ -49,7 +49,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)dealloc
 {
-    [host release];
+    [_host release];
     [super dealloc];
 }
 

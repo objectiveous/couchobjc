@@ -31,24 +31,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation SBCouchResponse
 
-@synthesize ok;
-@synthesize name;
-@synthesize rev;
+@synthesize ok = _ok;
+@synthesize name = _name;
+@synthesize rev = _rev;
 
 - (id)initWithDictionary:(NSDictionary*)x
 {
     if (self = [super init]) {
-        ok = [[x objectForKey:@"ok"] boolValue];
-        name = [[x objectForKey:@"id"] copy];
-        rev = [[x objectForKey:@"rev"] copy];
+        _ok = [[x objectForKey:@"ok"] boolValue];
+        _name = [[x objectForKey:@"id"] copy];
+        _rev = [[x objectForKey:@"rev"] copy];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [name release];
-    [rev release];
+    [_name release];
+    [_rev release];
     [super dealloc];
 }
 

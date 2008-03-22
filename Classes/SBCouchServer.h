@@ -12,8 +12,9 @@
 
 /// Interface to a CouchDB server
 @interface SBCouchServer : NSObject {
-    NSString *host;
-    NSUInteger port;
+@private
+    NSString *_host;
+    NSUInteger _port;
 }
 
 
