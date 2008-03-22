@@ -29,7 +29,7 @@
 - (id)postDocument:(NSDictionary*)doc;
 
 /// Put a document to the database.
-- (id)putDocument:(NSDictionary*)doc withId:(NSString*)x;
+- (id)putDocument:(NSDictionary*)doc named:(NSString*)x;
 
 /// Delete a document.
 - (id)deleteDocument:(NSDictionary*)doc;

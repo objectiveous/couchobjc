@@ -68,7 +68,7 @@
 
 - (void)testPutDocument {
     NSDictionary *doc = [NSDictionary dictionary];
-    SBCouchResponse *meta = [db putDocument:doc withId:@"Stig"];
+    SBCouchResponse *meta = [db putDocument:doc named:@"Stig"];
     STAssertTrue(meta.ok, nil);
     STAssertEqualObjects(meta.name, @"Stig", nil);
     STAssertNotNil(meta.rev, nil);
@@ -83,7 +83,7 @@
     doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
     [doc setRev:meta.rev];
     
-    meta = [db putDocument:doc withId:meta.name];
+    meta = [db putDocument:doc named:meta.name];
     STAssertTrue(meta.ok, nil);
 
     doc = [db get:meta.name];

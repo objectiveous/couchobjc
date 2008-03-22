@@ -97,7 +97,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return nil;    
 }
 
-- (id)putDocument:(NSDictionary*)doc withId:(NSString*)x
+- (id)putDocument:(NSDictionary*)doc named:(NSString*)x
 {
     NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, x];
