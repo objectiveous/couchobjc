@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 @class SBCouchServer;
+@class SBCouchResponse;
 
 /// Interface to a CouchDB database.
 @interface SBCouchDatabase : NSObject {
@@ -26,12 +27,12 @@
 - (id)get:(NSString*)args;
 
 /// Post a document to the database.
-- (id)postDocument:(NSDictionary*)doc;
+- (SBCouchResponse*)postDocument:(NSDictionary*)doc;
 
-/// Put a document to the database.
-- (id)putDocument:(NSDictionary*)doc named:(NSString*)x;
+/// Put a document to the given name in the database.
+- (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x;
 
 /// Delete a document.
-- (id)deleteDocument:(NSDictionary*)doc;
+- (SBCouchResponse*)deleteDocument:(NSDictionary*)doc;
 
 @end

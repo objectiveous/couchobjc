@@ -54,7 +54,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     [super dealloc];
 }
 
-- (id)get:(NSString*)args
+/**
+ You can use this to query database information by simply passing an empty string. You can also
+ get documents, by passing the document names (ids).
+ */
+ - (id)get:(NSString*)args
 {
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, args];
     NSURL *url = [NSURL URLWithString:urlString];    
@@ -74,7 +78,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return nil;    
 }
 
-- (id)postDocument:(NSDictionary*)doc
+/**
+ Use this method to create documents when you don't care what their names (ids) will be.
+ */
+- (SBCouchResponse*)postDocument:(NSDictionary*)doc
 {
     NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/", server.host, server.port, self.name];
@@ -97,7 +104,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return nil;    
 }
 
-- (id)putDocument:(NSDictionary*)doc named:(NSString*)x
+/**
+ Use this method to create documents with a particular name, or updating documents.
+ */
+- (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x
 {
     NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, x];
@@ -120,7 +130,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return nil;    
 }
 
-- (id)deleteDocument:(NSDictionary*)doc
+/**
+ This method extracts the name and revision from the document and attempts to delete that.
+ */
+- (SBCouchResponse*)deleteDocument:(NSDictionary*)doc
 {
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?rev=%@", server.host, server.port, self.name, doc.name, doc.rev];
     NSURL *url = [NSURL URLWithString:urlString];
