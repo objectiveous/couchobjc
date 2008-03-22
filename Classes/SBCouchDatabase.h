@@ -25,7 +25,7 @@
 @property (readonly) NSString *name;
 
 /// Query the database in various ways.
-- (id)get:(NSString*)args;
+- (NSDictionary*)get:(NSString*)args;
 
 /// Post a document to the database.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc;

@@ -57,8 +57,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /**
  You can use this to query database information by simply passing an empty string. You can also
  get documents, by passing the document names (ids).
+ 
+ @code
+ // retrieve a document
+ NSDictionary *doc = [db get:@"document_name"];
+ 
+ // get a list of all documents
+ NSDictionary *list = [db get:@"_all_docs"];
+ @endcode
  */
- - (id)get:(NSString*)args
+ - (NSDictionary*)get:(NSString*)args
 {
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, args];
     NSURL *url = [NSURL URLWithString:urlString];    
