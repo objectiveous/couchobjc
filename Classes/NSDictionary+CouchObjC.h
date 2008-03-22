@@ -8,7 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-/// Convenience category on NSDictionary.
+/**
+ Convenience category on NSDictionary.
+
+ A CouchDB document is just a dictionary. This category provides some
+ convenience methods for accessing common attributes of a document.
+ */
 @interface NSDictionary (NSDictionary_CouchObjC)
 
 /// Returns the document's name.
@@ -22,7 +27,12 @@
 
 @end
 
-/// Convenience category on NSMutableDictionary.
+/**
+ Convenience category on NSMutableDictionary.
+
+ A CouchDB document is just a dictionary. This category provides some
+ convenience methods for setting common attributes of a document.
+ */
 @interface NSMutableDictionary (NSMutableDictionary_CouchObjC)
 
 /// Set the id of the document.

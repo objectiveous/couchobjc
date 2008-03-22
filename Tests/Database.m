@@ -25,7 +25,7 @@
     [db release];
 }
 
-- (void)testDatabaseInfo {
+- (void)testInfo {
     NSMutableDictionary *expected = [NSMutableDictionary dictionary];
     [expected setObject:[NSNumber numberWithInt:0] forKey:@"doc_count"];
     [expected setObject:[NSNumber numberWithInt:0] forKey:@"update_seq"];
