@@ -5,6 +5,9 @@ from Objective-C. This interface is in an alpha state and will likely
 change in the future. If you have an opinion on @em how it should
 change, feel free to tell me!
 
+CouchDB sends JSON across the wire, and this Framework bundles my <a
+href="http://code.brautaset.org/JSON/">JSON Framework</a> to that end.
+
 @section sec_download Download
 
 Download the <a href="__DMGURL__">CouchObjC __VERSION__</a> embedded
