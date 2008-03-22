@@ -20,15 +20,15 @@
 }
 
 - (void)testId {
-    STAssertNil([doc id], nil);
-    [doc setId:@"testing 123"];
-    STAssertNotNil([doc id], nil);
+    STAssertNil(doc.name, nil);
+    doc.name = @"testing 123";
+    STAssertNotNil(doc.name, nil);
 }
 
 - (void)testRev {
-    STAssertNil([doc rev], nil);
-    [doc setRev:@"testing 123"];
-    STAssertNotNil([doc rev], nil);
+    STAssertNil(doc.rev, nil);
+    doc.rev = @"testing 123";
+    STAssertNotNil(doc.rev, nil);
 }
 
 - (void)testAttachment {

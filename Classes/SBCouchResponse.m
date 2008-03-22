@@ -32,13 +32,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @implementation SBCouchResponse
 
 @synthesize ok;
+@synthesize name;
 @synthesize rev;
 
 - (id)initWithDictionary:(NSDictionary*)x
 {
     if (self = [super init]) {
         ok = [[x objectForKey:@"ok"] boolValue];
-        _id = [[x objectForKey:@"id"] copy];
+        name = [[x objectForKey:@"id"] copy];
         rev = [[x objectForKey:@"rev"] copy];
     }
     return self;
@@ -46,13 +47,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)dealloc
 {
-    [_id release];
+    [name release];
     [rev release];
     [super dealloc];
-}
-
-- (NSString*)id {
-    return [[_id retain] autorelease];
 }
 
 @end

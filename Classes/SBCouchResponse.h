@@ -8,15 +8,20 @@
 
 #import <Cocoa/Cocoa.h>
 
-
+/// Encapsulates a response from SBCouchDatabase.
 @interface SBCouchResponse : NSObject {
     BOOL ok;
-    NSString *_id;
+    NSString *name;
     NSString *rev;
 }
 
+/// Whether the operation succeeded.
 @property (readonly) BOOL ok;
-@property (readonly) NSString *id;
+
+/// The id of the new/updated document.
+@property (readonly) NSString *name;
+
+/// The new revision id.
 @property (readonly) NSString *rev;
 
 @end

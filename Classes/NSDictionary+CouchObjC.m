@@ -31,7 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation NSDictionary (NSMutableDictionary_CouchObjC)
 
-- (NSString*)id {
+- (NSString*)name {
     return [self objectForKey:@"_id"];
 }
 
@@ -47,8 +47,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 @implementation NSMutableDictionary (NSMutableDictionary_CouchObjC)
 
-- (void)setId:(NSString*)id {
-    [self setObject:id forKey:@"_id"];
+- (void)setName:(NSString*)name {
+    [self setObject:name forKey:@"_id"];
 }
 
 - (void)setRev:(NSString*)rev {

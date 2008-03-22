@@ -37,14 +37,14 @@
     NSDictionary *doc = [NSDictionary dictionary];
     SBCouchResponse *meta = [db postDocument:doc];
     STAssertTrue(meta.ok, nil);
-    STAssertNotNil(meta.id, nil);
+    STAssertNotNil(meta.name, nil);
     STAssertNotNil(meta.rev, nil);
 }
 
 - (void)testGetDocument {
     NSDictionary *doc = [NSDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
     SBCouchResponse *meta = [db postDocument:doc];
-    doc = [db get:meta.id];
+    doc = [db get:meta.name];
     STAssertEqualObjects([doc objectForKey:@"coolest"], @"Stig", nil);
 }
 
@@ -52,7 +52,7 @@
     NSMutableDictionary *doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
     SBCouchResponse *meta = [db postDocument:doc];
     
-    doc.id = meta.id;
+    doc.name = meta.name;
     SBCouchResponse *meta2 = [db deleteDocument:doc];
     STAssertFalse(meta2.ok, nil);
     NSDictionary *list = [db get:@"_all_docs"];
@@ -70,23 +70,23 @@
     NSDictionary *doc = [NSDictionary dictionary];
     SBCouchResponse *meta = [db putDocument:doc withId:@"Stig"];
     STAssertTrue(meta.ok, nil);
-    STAssertEqualObjects(meta.id, @"Stig", nil);
+    STAssertEqualObjects(meta.name, @"Stig", nil);
     STAssertNotNil(meta.rev, nil);
 }
 
 - (void)testUpdateDocument {
     id doc = [NSDictionary dictionary];
     SBCouchResponse *meta = [db postDocument:doc];
-    doc = [db get:meta.id];
+    doc = [db get:meta.name];
     STAssertNil([doc objectForKey:@"coolest"], nil);
     
     doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
     [doc setRev:meta.rev];
     
-    meta = [db putDocument:doc withId:meta.id];
+    meta = [db putDocument:doc withId:meta.name];
     STAssertTrue(meta.ok, nil);
 
-    doc = [db get:meta.id];
+    doc = [db get:meta.name];
     STAssertEqualObjects([doc objectForKey:@"coolest"], @"Stig", nil);
 
     NSDictionary *list = [db get:@"_all_docs"];
