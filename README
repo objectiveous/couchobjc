@@ -1,1 +1,4 @@
-Initial addition to test out commits. 
+* Changes Since 0.1 
+  - merged the Unit Test .h files into the .m files as per the google-toolbox-for-mac notes. 
+    http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting 
+  - Updated the Delete status code as per CouchDB's new standard -- 200 rather than 202 

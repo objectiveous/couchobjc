@@ -6,8 +6,14 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import "Document.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <CouchObjC/CouchObjC.h>
+
+@interface Document : SenTestCase {
+    NSMutableDictionary *doc;
+}
+
+@end
 
 @implementation Document
 

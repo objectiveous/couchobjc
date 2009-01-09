@@ -1,2 +1,4 @@
+.gitignore~
 build/
 vendor/JSON/build/
+CouchObjC.xcodeproj/robevans.pbxuser

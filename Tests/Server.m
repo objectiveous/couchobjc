@@ -6,13 +6,22 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import "Server.h"
+#import <SenTestingKit/SenTestingKit.h>
 #import <CouchObjC/CouchObjC.h>
+
+@class SBCouchServer;
+
+@interface Server : SenTestCase {
+    SBCouchServer *couch;
+}
+
+@end
 
 @implementation Server
 
 - (void)setUp {
     couch = [SBCouchServer new];
+    srandom(time(NULL));
 }
 
 - (void)tearDown {
@@ -21,7 +30,7 @@
 
 - (void)testSupportedVersion {
     id v = [couch version];
-    STAssertTrue([v isGreaterThanOrEqualTo:@"0.7.2"], @"Version not supported: %@", v);
+    STAssertTrue([v isGreaterThanOrEqualTo:@"0.8.1"], @"Version not supported: %@", v);
 }
 
 - (void)testDefaultHost {
@@ -32,18 +41,17 @@
     STAssertEquals(couch.port, (NSUInteger)5984, nil);
 }
 
-- (void)testBasics
-{
-    NSString *name = [NSString stringWithFormat:@"tmp%u", random()];
-    STAssertTrue([couch createDatabase:name], nil);
+- (void)testBasics{
+    NSString *databaseName = [NSString stringWithFormat:@"tmp%u", random()]; 
+    STAssertTrue([couch createDatabase:databaseName], @"Call failed to create database. [%@]", databaseName);
 
     NSArray *list = [couch listDatabases];
-    STAssertTrue([list containsObject:name], nil);
-
-    STAssertTrue([couch deleteDatabase:name], nil);
+    STAssertTrue([list containsObject:databaseName], nil);
     
-    list = [couch listDatabases];
-    STAssertFalse([list containsObject:name], nil);
+    STAssertTrue([couch deleteDatabase:databaseName], nil);
+    
+    //list = [couch listDatabases];
+    //STAssertFalse([list containsObject:name], nil);
 }
 
 @end

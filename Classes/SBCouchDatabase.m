@@ -153,8 +153,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSData *data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response
                                                      error:&error];
-    
-    if (202 == [response statusCode]) {
+    // 412 == conflict
+    // 200 == OK
+    NSLog(@"response code from the delete %i", [response statusCode]);
+    if (200 == [response statusCode]) {
         NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
     }

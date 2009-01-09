@@ -112,8 +112,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     (void)[NSURLConnection sendSynchronousRequest:request
                                 returningResponse:&response
                                             error:&error];
-    
-    return 202 == [response statusCode];
+
+    // http://wiki.apache.org/couchdb/Breaking_changes
+    return 200 == [response statusCode];
 }
 
 - (NSArray*)listDatabases

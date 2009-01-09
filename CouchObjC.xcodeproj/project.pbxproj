@@ -9,14 +9,11 @@
 /* Begin PBXBuildFile section */
 		5315EE5D0D940717001E3B2E /* SBCouchServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5315EE5B0D940717001E3B2E /* SBCouchServer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5315EE5E0D940717001E3B2E /* SBCouchServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5315EE5C0D940717001E3B2E /* SBCouchServer.m */; };
-		5315EE790D940818001E3B2E /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5315EE780D940818001E3B2E /* Server.m */; };
 		5315EE890D941077001E3B2E /* CouchObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CouchObjC.framework */; };
 		5315EE8B0D941085001E3B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		5315EEB20D94178E001E3B2E /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
 		53905A100D9429B4003D62CE /* NSDictionary+CouchObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53905A110D9429B4003D62CE /* NSDictionary+CouchObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A0F0D9429B4003D62CE /* NSDictionary+CouchObjC.m */; };
-		53905A140D9429CE003D62CE /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A130D9429CE003D62CE /* Document.m */; };
-		53905A510D9430CD003D62CE /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A500D9430CD003D62CE /* Database.m */; };
 		53905A580D943BD5003D62CE /* SBCouchDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A560D943BD5003D62CE /* SBCouchDatabase.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53905A590D943BD5003D62CE /* SBCouchDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A570D943BD5003D62CE /* SBCouchDatabase.m */; };
 		53905A830D943DF8003D62CE /* CouchObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A820D943DF8003D62CE /* CouchObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -24,6 +21,9 @@
 		53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */; };
 		53A9DBBC0D947A2F0019A94C /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
 		545E8DD90F17D31A00E96BEA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 545E8DD80F17D31A00E96BEA /* README */; };
+		54F38C920F18017600EE4B8A /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A500D9430CD003D62CE /* Database.m */; };
+		54F38CD00F18062E00EE4B8A /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A130D9429CE003D62CE /* Document.m */; };
+		54F38CD20F18063D00EE4B8A /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5315EE780D940818001E3B2E /* Server.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -95,14 +95,11 @@
 		5315EE5C0D940717001E3B2E /* SBCouchServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchServer.m; sourceTree = "<group>"; };
 		5315EE640D94078D001E3B2E /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5315EE650D94078D001E3B2E /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
-		5315EE770D940818001E3B2E /* Server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Server.h; sourceTree = "<group>"; };
 		5315EE780D940818001E3B2E /* Server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Server.m; sourceTree = "<group>"; };
 		5315EEA00D941786001E3B2E /* JSON.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = JSON.xcodeproj; path = vendor/JSON/JSON.xcodeproj; sourceTree = "<group>"; };
 		53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+CouchObjC.h"; sourceTree = "<group>"; };
 		53905A0F0D9429B4003D62CE /* NSDictionary+CouchObjC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+CouchObjC.m"; sourceTree = "<group>"; };
-		53905A120D9429CE003D62CE /* Document.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Document.h; sourceTree = "<group>"; };
 		53905A130D9429CE003D62CE /* Document.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Document.m; sourceTree = "<group>"; };
-		53905A4F0D9430CD003D62CE /* Database.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Database.h; sourceTree = "<group>"; };
 		53905A500D9430CD003D62CE /* Database.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Database.m; sourceTree = "<group>"; };
 		53905A560D943BD5003D62CE /* SBCouchDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDatabase.h; sourceTree = "<group>"; };
 		53905A570D943BD5003D62CE /* SBCouchDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDatabase.m; sourceTree = "<group>"; };
@@ -224,11 +221,8 @@
 		5315EE760D9407F0001E3B2E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				5315EE770D940818001E3B2E /* Server.h */,
 				5315EE780D940818001E3B2E /* Server.m */,
-				53905A4F0D9430CD003D62CE /* Database.h */,
 				53905A500D9430CD003D62CE /* Database.m */,
-				53905A120D9429CE003D62CE /* Document.h */,
 				53905A130D9429CE003D62CE /* Document.m */,
 			);
 			path = Tests;
@@ -399,9 +393,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5315EE790D940818001E3B2E /* Server.m in Sources */,
-				53905A140D9429CE003D62CE /* Document.m in Sources */,
-				53905A510D9430CD003D62CE /* Database.m in Sources */,
+				54F38CD20F18063D00EE4B8A /* Server.m in Sources */,
+				54F38C920F18017600EE4B8A /* Database.m in Sources */,
+				54F38CD00F18062E00EE4B8A /* Document.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

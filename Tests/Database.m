@@ -6,12 +6,22 @@
 //  Copyright 2008 Stig Brautaset. All rights reserved.
 //
 
-#import "Database.h"
 #import <CouchObjC/CouchObjC.h>
+#import <SenTestingKit/SenTestingKit.h>
+
+@class SBCouchServer;
+@class SBCouchDatabase;
+@interface Database : SenTestCase {
+    SBCouchServer *couch;
+    SBCouchDatabase *db;
+}
+
+@end
 
 @implementation Database
 
 - (void)setUp {    
+    srandom(time(NULL));
     couch = [SBCouchServer new];
 
     NSString *name = [NSString stringWithFormat:@"tmp%u", random()];
@@ -25,11 +35,14 @@
     [db release];
 }
 
-- (void)testInfo {
+#pragma mark -
+- (void)estInfo {
     NSMutableDictionary *expected = [NSMutableDictionary dictionary];
     [expected setObject:[NSNumber numberWithInt:0] forKey:@"doc_count"];
     [expected setObject:[NSNumber numberWithInt:0] forKey:@"update_seq"];
     [expected setObject:db.name forKey:@"db_name"];
+    
+    // TODO FIXME
     STAssertEqualObjects([db get:@""], expected, nil);
 }
 
@@ -50,17 +63,19 @@
 
 - (void)testDeleteDocument {
     NSMutableDictionary *doc = [NSMutableDictionary dictionaryWithObject:@"Stig" forKey:@"coolest"];
-    SBCouchResponse *meta = [db postDocument:doc];
+    SBCouchResponse *couchResponse = [db postDocument:doc];
+    STAssertNotNil(couchResponse, @"Response was nil [%@]", couchResponse);
+    doc.name = couchResponse.name;
+    SBCouchResponse *couchReponse2= [db deleteDocument:doc];
+    STAssertFalse(couchReponse2.ok, nil);
     
-    doc.name = meta.name;
-    SBCouchResponse *meta2 = [db deleteDocument:doc];
-    STAssertFalse(meta2.ok, nil);
     NSDictionary *list = [db get:@"_all_docs"];
     STAssertEquals([[list objectForKey:@"total_rows"] intValue], 1, nil);
 
-    doc.rev = meta.rev;
-    meta2 = [db deleteDocument:doc];
-    STAssertTrue(meta2.ok, nil);
+    doc.rev = couchResponse.rev;
+    couchReponse2 = [db deleteDocument:doc];
+    
+    STAssertTrue(couchReponse2.ok, @"value was [%@]", couchReponse2);
     
     list = [db get:@"_all_docs"];
     STAssertEquals([[list objectForKey:@"total_rows"] intValue], 0, nil);
