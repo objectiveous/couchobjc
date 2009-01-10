@@ -21,9 +21,14 @@
 		53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */; };
 		53A9DBBC0D947A2F0019A94C /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
 		545E8DD90F17D31A00E96BEA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 545E8DD80F17D31A00E96BEA /* README */; };
-		54F38C920F18017600EE4B8A /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A500D9430CD003D62CE /* Database.m */; };
-		54F38CD00F18062E00EE4B8A /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A130D9429CE003D62CE /* Document.m */; };
-		54F38CD20F18063D00EE4B8A /* Server.m in Sources */ = {isa = PBXBuildFile; fileRef = 5315EE780D940818001E3B2E /* Server.m */; };
+		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; };
+		54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */; };
+		54962F9E0F182A7000A9B002 /* BBDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F9C0F182A7000A9B002 /* BBDebug.h */; };
+		54962F9F0F182A7000A9B002 /* BBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F9D0F182A7000A9B002 /* BBDebug.m */; };
+		54962FA20F182A8800A9B002 /* BBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F9D0F182A7000A9B002 /* BBDebug.m */; };
+		54962FD60F182F0100A9B002 /* STIGSBCouchDatabase+ViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */; };
+		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; };
+		549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -107,6 +112,13 @@
 		53A9DB1B0D94583C0019A94C /* SBCouchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchResponse.h; sourceTree = "<group>"; };
 		53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchResponse.m; sourceTree = "<group>"; };
 		545E8DD80F17D31A00E96BEA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STIGSBCouchDatabase+ViewTest.m"; sourceTree = "<group>"; };
+		54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBCouchDatabase+View.h"; sourceTree = "<group>"; };
+		54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBCouchDatabase+View.m"; sourceTree = "<group>"; };
+		54962F9C0F182A7000A9B002 /* BBDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDebug.h; sourceTree = "<group>"; };
+		54962F9D0F182A7000A9B002 /* BBDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDebug.m; sourceTree = "<group>"; };
+		5496302E0F18442600A9B002 /* SBCouchEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchEnumerator.h; sourceTree = "<group>"; };
+		5496302F0F18442600A9B002 /* SBCouchEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchEnumerator.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CouchObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CouchObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -179,6 +191,10 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				54962F9C0F182A7000A9B002 /* BBDebug.h */,
+				54962F9D0F182A7000A9B002 /* BBDebug.m */,
+				54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */,
+				54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */,
 				53905A820D943DF8003D62CE /* CouchObjC.h */,
 				5315EE5B0D940717001E3B2E /* SBCouchServer.h */,
 				5315EE5C0D940717001E3B2E /* SBCouchServer.m */,
@@ -188,6 +204,8 @@
 				53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */,
 				53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */,
 				53905A0F0D9429B4003D62CE /* NSDictionary+CouchObjC.m */,
+				5496302E0F18442600A9B002 /* SBCouchEnumerator.h */,
+				5496302F0F18442600A9B002 /* SBCouchEnumerator.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -221,6 +239,7 @@
 		5315EE760D9407F0001E3B2E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */,
 				5315EE780D940818001E3B2E /* Server.m */,
 				53905A500D9430CD003D62CE /* Database.m */,
 				53905A130D9429CE003D62CE /* Document.m */,
@@ -251,6 +270,9 @@
 				53905A580D943BD5003D62CE /* SBCouchDatabase.h in Headers */,
 				53905A830D943DF8003D62CE /* CouchObjC.h in Headers */,
 				53A9DB1D0D94583C0019A94C /* SBCouchResponse.h in Headers */,
+				54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */,
+				54962F9E0F182A7000A9B002 /* BBDebug.h in Headers */,
+				549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,9 +415,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54F38CD20F18063D00EE4B8A /* Server.m in Sources */,
-				54F38C920F18017600EE4B8A /* Database.m in Sources */,
-				54F38CD00F18062E00EE4B8A /* Document.m in Sources */,
+				54962FD60F182F0100A9B002 /* STIGSBCouchDatabase+ViewTest.m in Sources */,
+				54962FA20F182A8800A9B002 /* BBDebug.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +428,9 @@
 				53905A110D9429B4003D62CE /* NSDictionary+CouchObjC.m in Sources */,
 				53905A590D943BD5003D62CE /* SBCouchDatabase.m in Sources */,
 				53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */,
+				54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */,
+				54962F9F0F182A7000A9B002 /* BBDebug.m in Sources */,
+				549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
