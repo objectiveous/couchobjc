@@ -10,3 +10,5 @@
 #import <CouchObjC/SBCouchDatabase.h>
 #import <CouchObjC/SBCouchResponse.h>
 #import <CouchObjC/NSDictionary+CouchObjC.h>
+#import <CouchObjC/SBCouchEnumerator.h>
+#import <CouchObjC/SBCouchDatabase+View.h>

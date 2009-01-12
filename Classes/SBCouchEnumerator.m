@@ -8,6 +8,7 @@
 
 #import "SBCouchEnumerator.h"
 #import "SBCouchDatabase.h"
+#import "BBDebug.h"
 
 @implementation SBCouchEnumerator
 
@@ -16,19 +17,20 @@
 @synthesize batchSize;
 @synthesize viewPath;
 @synthesize rows;
-@synthesize index;
+@synthesize currentIndex;
 @synthesize startKey;
 @synthesize viewName;
 
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view{
     NSString *url = [NSString stringWithFormat:@"%@?count=%i&group=true", view, count];
-    
+    BBTraceInfo(@"url [%@]", url);
+
     NSDictionary *etf = [database get:url];
 
     self = [super init];
     if(self != nil){
         [self setViewName:view];
-        [self setIndex:0];
+        [self setCurrentIndex:0];
         [self setTotalRows:[[etf objectForKey:@"total_rows"] integerValue]];
         [self setBatchSize:count]; 
         [self setDb:database];
@@ -45,24 +47,42 @@
     [super dealloc];
 
 }
+-(id)itemAtIndex:(NSInteger)idx{
+    BBTraceInfo(@"row count [%i] totalRows [%i] idx [%i]", [rows count], totalRows, idx);
+    // trying to access something outside our range of options. 
+    if(idx > totalRows)
+        return nil;
 
+    // trying to access something that has not yet been fetched
+    if(idx >= [rows count]){
+        BBTraceInfo(@"Going to fetch more data. ");
+        [self fetchNextPage];
+        if( [self itemAtIndex:idx]){
+             return [rows objectAtIndex:idx];
+        }else{
+            return nil;
+        }
+    }
+    
+    return [rows objectAtIndex:idx];
+}
 - (id)nextObject{
-    if( (index >= [rows count]) && [rows count] < totalRows){
+    if( (currentIndex >= [rows count]) && [rows count] < totalRows){
     
         [self setStartKey:[[rows lastObject] objectForKey:@"id"]];
-        NSLog(@"new startKey [%@]", [self startKey]);
+        BBTraceInfo(@"new startKey [%@]", [self startKey]);
         [self fetchNextPage];
     }
     
-    if(index >= [rows count]){
+    if(currentIndex >= [rows count]){
         // free up the rows array
         [rows release], rows = nil;
         return nil;
     }
         
     
-    id object = [rows objectAtIndex:index];
-    [self setIndex:[self index] +1 ];
+    id object = [rows objectAtIndex:currentIndex];
+    [self setCurrentIndex:[self currentIndex] +1 ];
     return object;
 } 
 - (NSArray *)allObjects{

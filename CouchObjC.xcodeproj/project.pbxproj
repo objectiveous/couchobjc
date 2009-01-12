@@ -21,13 +21,13 @@
 		53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */; };
 		53A9DBBC0D947A2F0019A94C /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
 		545E8DD90F17D31A00E96BEA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 545E8DD80F17D31A00E96BEA /* README */; };
-		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; };
+		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */; };
 		54962F9E0F182A7000A9B002 /* BBDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F9C0F182A7000A9B002 /* BBDebug.h */; };
 		54962F9F0F182A7000A9B002 /* BBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F9D0F182A7000A9B002 /* BBDebug.m */; };
 		54962FA20F182A8800A9B002 /* BBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F9D0F182A7000A9B002 /* BBDebug.m */; };
 		54962FD60F182F0100A9B002 /* STIGSBCouchDatabase+ViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */; };
-		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; };
+		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
@@ -545,6 +545,7 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,

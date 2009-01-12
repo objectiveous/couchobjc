@@ -16,7 +16,7 @@
 
 
 -(NSEnumerator*)view:(NSString*)viewName;
--(NSEnumerator*)allDocsInBatchesOf:(NSInteger*)count;
+-(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
 -(NSEnumerator*)allDocs;
 
 @end

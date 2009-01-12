@@ -21,7 +21,7 @@
     SBCouchDatabase *db;
     NSString        *viewPath;
     NSMutableArray  *rows;
-    NSInteger       index;
+    NSInteger       currentIndex;
     NSString        *viewName;
     // This array will need to be managed somehow in order to prevent it from
     // chewing up loads of memory when paginating through a huge database
@@ -35,13 +35,14 @@
 @property (retain)   SBCouchDatabase *db;
 @property (retain) NSString        *viewPath;
 @property (retain) NSMutableArray  *rows;
-@property NSInteger                 index;
+@property NSInteger                 currentIndex;
 @property (copy) NSString          *viewName;
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view;
 
 
 #pragma mark Abstract Methods from NSEnumerator
 -(id)nextObject; 
-- (NSArray *)allObjects;
+-(NSArray *)allObjects;
 -(void)fetchNextPage;
+-(id)itemAtIndex:(NSInteger)idx;
 @end

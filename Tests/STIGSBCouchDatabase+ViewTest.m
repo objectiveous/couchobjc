@@ -25,17 +25,6 @@
     dataBase = [couchServer database:@"database-for-test"];
 }
 
--(void)estLibrary{            
-    NSDictionary *list = [dataBase get:@"_all_docs"];
-    
-    NSArray *keys = [list allKeys];
-    NSArray *values = [list allValues];
-    
-    
-    for(id o in list){
-        BBTraceInfo(@" --> [%@]", [list objectForKey:o]); 
-    }
-}
 
 - (void)estInteratorWithoutCount {
         
@@ -52,9 +41,28 @@
     }    
 }
 
-- (void)testInteratorUsingCount {
+-(void)testItemAtIndex{
+    SBCouchEnumerator *resultSet = (SBCouchEnumerator*) [dataBase allDocsInBatchesOf:10];
+    //STAssertNotNil([resultSet itemAtIndex:0], nil);
+    //STAssertNotNil([resultSet itemAtIndex:10], nil);
+    STAssertNotNil([resultSet itemAtIndex:203], nil);
+    //STAssertNil([resultSet itemAtIndex:1000], nil);
     
-    SBCouchEnumerator *iter = (SBCouchEnumerator*) [dataBase allDocsInBatchesOf:(NSInteger*)10];
+    id item = [resultSet itemAtIndex:0];
+    BBTraceInfo(@"object at index 0 %@", [item valueForKey:@"id"]);
+    
+    /*
+    id value;
+    while ((value = [resultSet nextObject])) {      
+        STAssertTrue([value isKindOfClass:[NSDictionary class]],nil);
+        BBTraceInfo(@"%@", [value valueForKey:@"id"] );
+    } 
+     */
+    
+}
+- (void)estInteratorUsingCount {
+    
+    SBCouchEnumerator *iter = (SBCouchEnumerator*) [dataBase allDocsInBatchesOf:10];
     STAssertNotNil(iter, nil);
     
     // Need a better way to control the number of items in the enumeration during test

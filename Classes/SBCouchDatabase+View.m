@@ -15,11 +15,7 @@
     return [[[STIGCouchViewEnumerator alloc] init] autorelease];
 }
 
--(NSEnumerator*)allDocsInBatchesOf:(NSInteger*)count{
-    //NSDictionary *entireResult = [self get:@"_all_docs"];
-    //assert(entireResult);
-    //NSLog(@"----------[%@]", entireResult);
-    //NSLog(@"self ----->>>>  [%@]", self);
+-(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
     SBCouchEnumerator *enumerator = [[SBCouchEnumerator alloc] initWithBatchesOf:count 
                                                                         database:self
                                                                             view:@"_all_docs"];
