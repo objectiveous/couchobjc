@@ -88,9 +88,17 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return nil;    
 }
 
+/**
+ 
+ ?revs=true
+ */
 - (SBCouchDocument*)getDocument:(NSString*)id withRevisionCount:(BOOL)withCount{
-    return [[SBCouchDocument alloc] initWithNSDictionary:[self get:id] ];
+    NSString *docWithRevArgument = [NSString stringWithFormat:@"%@/?revs=true", id];
+    SBCouchDocument *couchDocument = [[[SBCouchDocument alloc] initWithNSDictionary:[self get:docWithRevArgument] ] autorelease];
     
+    [couchDocument setServerName:[server serverURLAsString]];
+    [couchDocument setDatabaseName:[self name]];
+    return couchDocument;
 }
 
 
@@ -145,6 +153,32 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     return nil;    
 }
+
+- (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument
+{
+    NSData *body = [[couchDocument JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, [couchDocument objectForKey:@"_id"]];
+    NSURL *url = [NSURL URLWithString:urlString];    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
+    [request setHTTPBody:body];
+    [request setHTTPMethod:@"PUT"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    if (201 == [response statusCode]) {
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+    }
+    
+    return nil;    
+    
+}
+
+
 
 /**
  This method extracts the name and revision from the document and attempts to delete that.

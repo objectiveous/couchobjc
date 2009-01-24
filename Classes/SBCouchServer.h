@@ -42,4 +42,7 @@
 /// Returns a database object for working with documents.
 - (SBCouchDatabase*)database:(NSString*)x;
 
+// Returns the fully qalified URL of the server. 
+-(NSString*)serverURLAsString;
+
 @end

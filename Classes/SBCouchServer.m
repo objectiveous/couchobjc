@@ -142,4 +142,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [[[SBCouchDatabase alloc] initWithServer:self name:name] autorelease];
 }
 
+-(NSString*)serverURLAsString
+{
+    return [NSString stringWithFormat:@"http://%@:%u", self.host, self.port];  
+}
+
 @end

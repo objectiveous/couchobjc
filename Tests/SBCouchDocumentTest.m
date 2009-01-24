@@ -47,6 +47,15 @@ static NSString *DOC_REV     = @"1";
     
 }
 
+-(void)testJSONCapabilities{
+    SBCouchDocument *couchDocument = [[SBCouchDocument alloc] initWithNSDictionary:dictionary];
+    NSString *json = [couchDocument JSONRepresentation];
+    STAssertNotNil(json, @"CouchDocument not responding to request");
+    // XXX This is terribly hard to read; all those damn escapes. Can we do better?
+    STAssertTrue([json isEqualToString:@"{\"_id\":\"777\",\"_rev\":\"1\",\"array\":[\"obj 1\",\"obj 2\"],\"foo\":\"777\"}"], nil);
+
+}
+
 -(void)testDocumentCreation{
     SBCouchDocument *couchDocument = [[SBCouchDocument alloc] initWithNSDictionary:dictionary];
     STAssertNotNil(couchDocument, nil);

@@ -36,6 +36,11 @@
 /// Put a document to the given name in the database.
 - (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x;
 
+/// Put a document into the database. The value of _id will be used for 
+/// its name. 
+- (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument;
+
+
 /// Delete a document.
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc;
 

@@ -10,16 +10,19 @@
 
 
 @interface SBCouchDocument : NSObject{
-    NSDictionary *dictionaryDoc;
-    NSString     *serverName;
-    NSString     *databaseName;
+    NSMutableDictionary *dictionaryDoc;
+    NSString            *serverName;
+    NSString            *databaseName;
 }
 
-@property (retain) NSDictionary *dictionaryDoc;
-@property (retain) NSString     *serverName;
-@property (retain) NSString     *databaseName;
+@property (retain) NSMutableDictionary *dictionaryDoc;
+@property (retain) NSString            *serverName;
+@property (retain) NSString            *databaseName;
 
 
--(SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary;
+-(SBCouchDocument*)initWithNSDictionary:(NSMutableDictionary*)aDictionary;
 -(id)objectForKey:(id)aKey;
+-(void)setObject:(id)anObject forKey:(id)aKey;
+-(NSInteger)numberOfRevisions;
+-(NSString*)JSONRepresentation;
 @end
