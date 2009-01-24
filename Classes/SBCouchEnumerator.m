@@ -8,7 +8,7 @@
 
 #import "SBCouchEnumerator.h"
 #import "SBCouchDatabase.h"
-#import "BBDebug.h"
+
 
 @implementation SBCouchEnumerator
 
@@ -23,8 +23,6 @@
 
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view{
     NSString *url = [NSString stringWithFormat:@"%@?count=%i&group=true", view, count];
-    BBTraceInfo(@"url [%@]", url);
-
     NSDictionary *etf = [database get:url];
 
     self = [super init];
@@ -48,14 +46,12 @@
 
 }
 -(id)itemAtIndex:(NSInteger)idx{
-    BBTraceInfo(@"row count [%i] totalRows [%i] idx [%i]", [rows count], totalRows, idx);
     // trying to access something outside our range of options. 
     if(idx > totalRows)
         return nil;
 
     // trying to access something that has not yet been fetched
-    if(idx >= [rows count]){
-        BBTraceInfo(@"Going to fetch more data. ");
+    if(idx >= [rows count]){  
         [self fetchNextPage];
         if( [self itemAtIndex:idx]){
              return [rows objectAtIndex:idx];
@@ -70,7 +66,6 @@
     if( (currentIndex >= [rows count]) && [rows count] < totalRows){
     
         [self setStartKey:[[rows lastObject] objectForKey:@"id"]];
-        BBTraceInfo(@"new startKey [%@]", [self startKey]);
         [self fetchNextPage];
     }
     

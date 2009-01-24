@@ -22,12 +22,10 @@
 		540108440F1DA0E9002AC9E5 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		545E8DD90F17D31A00E96BEA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 545E8DD80F17D31A00E96BEA /* README */; };
 		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
+		547767F70F2B812B00E44AFE /* AbstractDatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */; };
+		5477680B0F2B835F00E44AFE /* SBCouchDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767ED0F2B80A900E44AFE /* SBCouchDocumentTest.m */; };
 		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */; };
-		54962F9E0F182A7000A9B002 /* BBDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F9C0F182A7000A9B002 /* BBDebug.h */; };
-		54962F9F0F182A7000A9B002 /* BBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F9D0F182A7000A9B002 /* BBDebug.m */; };
-		54962FA20F182A8800A9B002 /* BBDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F9D0F182A7000A9B002 /* BBDebug.m */; };
-		54962FD60F182F0100A9B002 /* STIGSBCouchDatabase+ViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */; };
 		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
@@ -114,11 +112,12 @@
 		53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchResponse.m; sourceTree = "<group>"; };
 		540108430F1DA0E9002AC9E5 /* JSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSON.framework; path = vendor/JSON/build/Release/JSON.framework; sourceTree = SOURCE_ROOT; };
 		545E8DD80F17D31A00E96BEA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
+		547767ED0F2B80A900E44AFE /* SBCouchDocumentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocumentTest.m; sourceTree = "<group>"; };
+		547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractDatabaseTest.m; sourceTree = "<group>"; };
+		5477680E0F2B83C800E44AFE /* AbstractDatabaseTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractDatabaseTest.h; sourceTree = "<group>"; };
 		54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STIGSBCouchDatabase+ViewTest.m"; sourceTree = "<group>"; };
 		54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBCouchDatabase+View.h"; sourceTree = "<group>"; };
 		54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBCouchDatabase+View.m"; sourceTree = "<group>"; };
-		54962F9C0F182A7000A9B002 /* BBDebug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBDebug.h; sourceTree = "<group>"; };
-		54962F9D0F182A7000A9B002 /* BBDebug.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBDebug.m; sourceTree = "<group>"; };
 		5496302E0F18442600A9B002 /* SBCouchEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchEnumerator.h; sourceTree = "<group>"; };
 		5496302F0F18442600A9B002 /* SBCouchEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchEnumerator.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -194,8 +193,6 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				54962F9C0F182A7000A9B002 /* BBDebug.h */,
-				54962F9D0F182A7000A9B002 /* BBDebug.m */,
 				54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */,
 				54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */,
 				53905A820D943DF8003D62CE /* CouchObjC.h */,
@@ -247,6 +244,9 @@
 				5315EE780D940818001E3B2E /* Server.m */,
 				53905A500D9430CD003D62CE /* Database.m */,
 				53905A130D9429CE003D62CE /* Document.m */,
+				547767ED0F2B80A900E44AFE /* SBCouchDocumentTest.m */,
+				547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */,
+				5477680E0F2B83C800E44AFE /* AbstractDatabaseTest.h */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -275,7 +275,6 @@
 				53905A830D943DF8003D62CE /* CouchObjC.h in Headers */,
 				53A9DB1D0D94583C0019A94C /* SBCouchResponse.h in Headers */,
 				54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */,
-				54962F9E0F182A7000A9B002 /* BBDebug.h in Headers */,
 				549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -419,8 +418,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54962FD60F182F0100A9B002 /* STIGSBCouchDatabase+ViewTest.m in Sources */,
-				54962FA20F182A8800A9B002 /* BBDebug.m in Sources */,
+				5477680B0F2B835F00E44AFE /* SBCouchDocumentTest.m in Sources */,
+				547767F70F2B812B00E44AFE /* AbstractDatabaseTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,7 +432,6 @@
 				53905A590D943BD5003D62CE /* SBCouchDatabase.m in Sources */,
 				53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */,
 				54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */,
-				54962F9F0F182A7000A9B002 /* BBDebug.m in Sources */,
 				549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -569,6 +567,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@exectuable_path/../Frameworks Frameworks @loader_path/../Frameworks @exectuable_path/Versions/A/Frameworks";
