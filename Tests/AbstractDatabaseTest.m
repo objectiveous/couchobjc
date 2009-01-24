@@ -6,7 +6,6 @@
 //  Copyright 2009 South And Valley. All rights reserved.
 //
 
-#import <CouchObjC/CouchObjC.h>
 #import <SenTestingKit/SenTestingKit.h>
 #import "AbstractDatabaseTest.h"
 

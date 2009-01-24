@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "SBCouchDocument.h"
 
 @class SBCouchServer;
 @class SBCouchResponse;
@@ -26,6 +27,8 @@
 
 /// Query the database in various ways.
 - (NSDictionary*)get:(NSString*)args;
+
+- (SBCouchDocument*)getDocument:(NSString*)id withRevisionCount:(BOOL)withCount;
 
 /// Post a document to the database.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc;

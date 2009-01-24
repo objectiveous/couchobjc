@@ -31,6 +31,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBCouchDatabase.h"
 #import "SBCouchResponse.h"
 #import "NSDictionary+CouchObjC.h"
+#import "SBCouchDocument.h"
 
 #import <JSON/JSON.h>
 
@@ -86,6 +87,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     return nil;    
 }
+
+- (SBCouchDocument*)getDocument:(NSString*)id withRevisionCount:(BOOL)withCount{
+    return [[SBCouchDocument alloc] initWithNSDictionary:[self get:id] ];
+    
+}
+
 
 /**
  Use this method to create documents when you don't care what their names (ids) will be.

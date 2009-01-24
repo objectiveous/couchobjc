@@ -8,8 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <SenTestingKit/SenTestingKit.h>
-@class SBCouchServer;
-@class SBCouchDatabase;
+#import <CouchObjC/CouchObjC.h>
 
 @interface AbstractDatabaseTest : SenTestCase{
     SBCouchServer   *couchServer;
