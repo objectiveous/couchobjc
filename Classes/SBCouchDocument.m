@@ -7,7 +7,7 @@
 //
 
 #import "SBCouchDocument.h"
-
+#import <JSON/JSON.h>
 
 @implementation SBCouchDocument
 
@@ -16,7 +16,7 @@
 @synthesize databaseName;
 
 
--(SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary{
+-(SBCouchDocument*)initWithNSDictionary:(NSMutableDictionary*)aDictionary{
     // XXX do we need to use autorelease here? 
     self = [super init];
     if(self){
@@ -24,9 +24,33 @@
     }
     return self;
 }
+-(NSInteger)numberOfRevisions{
+    NSDictionary *revs = [[self dictionaryDoc] objectForKey:@"_revs"];
+    return [revs count];
+}
+
+
+-(void)setObject:(id)anObject forKey:(id)aKey{
+    [[self dictionaryDoc] setObject:anObject forKey:aKey];    
+}
 
 -(id)objectForKey:(id)aKey{
     return [[self dictionaryDoc] objectForKey:aKey];
+}
+
+- (NSString *)description{
+    NSString *dictionaryDiscription = [self.dictionaryDoc description];
+    NSMutableString *description = [NSMutableString stringWithString:dictionaryDiscription];
+    [description appendFormat:@"\n serverName : %@", self.serverName];
+    [description appendFormat:@"\n databaseName : %@", self.databaseName];
+    return description;
+}
+
+#pragma mark - 
+#pragma mark JSON Support 
+
+-(NSString*)JSONRepresentation{
+    return [self.dictionaryDoc JSONRepresentation];
 }
 
 #pragma mark - 

@@ -52,4 +52,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     [super dealloc];
 }
 
+- (NSString*)description{
+    return [NSMutableString stringWithFormat:@"{\n _ok = [%i] \n _name = [%@] \n _rev = [%@] \n}",_ok, _name, _rev  ];
+}
+
 @end
