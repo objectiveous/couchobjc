@@ -41,7 +41,7 @@
     }    
 }
 
--(void)testItemAtIndex{
+-(void)estItemAtIndex{
     SBCouchEnumerator *resultSet = (SBCouchEnumerator*) [dataBase allDocsInBatchesOf:10];
     //STAssertNotNil([resultSet itemAtIndex:0], nil);
     //STAssertNotNil([resultSet itemAtIndex:10], nil);
@@ -60,7 +60,7 @@
      */
     
 }
-- (void)estInteratorUsingCount {
+- (void)testInteratorUsingCount {
     
     SBCouchEnumerator *iter = (SBCouchEnumerator*) [dataBase allDocsInBatchesOf:10];
     STAssertNotNil(iter, nil);
@@ -74,7 +74,7 @@
         STAssertTrue([value isKindOfClass:[NSDictionary class]],nil);
         i++;
     } 
-    STAssertTrue(i == 204, @"Index is off for some reason. Got [%i]", i);
+    STAssertTrue(i == 205, @"Index is off for some reason. Got [%i]", i);
 }
 
 @end

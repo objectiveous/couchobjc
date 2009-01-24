@@ -1,13 +1,9 @@
+* It would be nice to be able to invoke: 
+  [couchDocument isView] 
+
+
 * Changes Since 0.1 
   - merged the Unit Test .h files into the .m files as per the google-toolbox-for-mac notes. 
     http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting 
   - Updated the Delete status code as per CouchDB's new standard -- 200 rather than 202 
-  
-Design Notes
- Consider renaming the new NSEnumerator should be renamed to ResultSet. 
- ResultSet 
-    -(void)deleteRow
-    -(BOOL)next 
-    -(BOOL)isLast 
-    -(NSSTring*)getDataSourceName
-    -(id)itemAtIndex:(NSInteger)
+  - Now using @rpath   

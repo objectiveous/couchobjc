@@ -19,9 +19,9 @@
 		53905A830D943DF8003D62CE /* CouchObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A820D943DF8003D62CE /* CouchObjC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53A9DB1D0D94583C0019A94C /* SBCouchResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A9DB1B0D94583C0019A94C /* SBCouchResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */; };
-		53A9DBBC0D947A2F0019A94C /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
 		540108440F1DA0E9002AC9E5 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		545E8DD90F17D31A00E96BEA /* README in Resources */ = {isa = PBXBuildFile; fileRef = 545E8DD80F17D31A00E96BEA /* README */; };
+		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */; };
 		54962F9E0F182A7000A9B002 /* BBDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F9C0F182A7000A9B002 /* BBDebug.h */; };
@@ -85,7 +85,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				53A9DBBC0D947A2F0019A94C /* JSON.framework in CopyFiles */,
+				5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,11 +306,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB91AD08733DA50010E9CD /* Build configuration list for PBXNativeTarget "CouchObjC" */;
 			buildPhases = (
+				53A9DBBB0D947A290019A94C /* CopyFiles */,
 				8DC2EF500486A6940098B216 /* Headers */,
 				8DC2EF520486A6940098B216 /* Resources */,
 				8DC2EF540486A6940098B216 /* Sources */,
 				8DC2EF560486A6940098B216 /* Frameworks */,
-				53A9DBBB0D947A290019A94C /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -475,6 +475,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/vendor/JSON/build/Release\"",
+					./Frameworks,
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -486,6 +487,7 @@
 				GCC_PREFIX_HEADER = CouchObjC_Prefix.pch;
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@rpath";
+				LD_RUNPATH_SEARCH_PATHS = "@exectuable_path/../Frameworks @loader_path/Frameworks @exectuable_path/Versions/A/Frameworks";
 				PRODUCT_NAME = CouchObjC;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
@@ -504,6 +506,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/vendor/JSON/build/Release\"",
+					./Frameworks,
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_GC = supported;
@@ -525,6 +528,7 @@
 			buildSettings = {
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LD_RUNPATH_SEARCH_PATHS = "/Users/robevans/Projects/cocoa/couchobj/build/Debug/CouchObjC.framework/Versions/A/Frameworks @exectuable_path/../Frameworks @loader_path/../Frameworks @exectuable_path/Versions/A/Frameworks";
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
@@ -554,7 +558,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/vendor/JSON/build/Release\"",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -564,6 +571,7 @@
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				LD_RUNPATH_SEARCH_PATHS = "@exectuable_path/../Frameworks Frameworks @loader_path/../Frameworks @exectuable_path/Versions/A/Frameworks";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -582,7 +590,10 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				FRAMEWORK_SEARCH_PATHS = (
+					"\"$(SRCROOT)/vendor/JSON/build/Release\"",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_MODEL_TUNING = G5;
