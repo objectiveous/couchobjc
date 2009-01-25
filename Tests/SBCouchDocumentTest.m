@@ -31,10 +31,19 @@ static NSString *DOC_REV     = @"1";
 }
 
 -(void)tearDown{
-    [dictionary release];
+
 }
 
 #pragma mark -
+
+-(void)testOrderedDictionarySupport{
+    SBCouchDocument *couchDocument = [[SBCouchDocument alloc] initWithNSDictionary:dictionary];
+    id anObject = [couchDocument keyAtIndex:0];
+    
+    STAssertNotNil(anObject,nil);
+    [couchDocument release];
+}
+
 -(void)testDocumentKnowsWhereItCameFrom{
     SBCouchDocument *couchDocument = [[SBCouchDocument alloc] initWithNSDictionary:dictionary];
     STAssertNotNil(couchDocument, nil);
@@ -44,7 +53,7 @@ static NSString *DOC_REV     = @"1";
     
     STAssertNotNil([couchDocument serverName], nil);
     STAssertNotNil([couchDocument databaseName], nil);
-    
+    [couchDocument release];
 }
 
 -(void)testJSONCapabilities{
@@ -53,7 +62,7 @@ static NSString *DOC_REV     = @"1";
     STAssertNotNil(json, @"CouchDocument not responding to request");
     // XXX This is terribly hard to read; all those damn escapes. Can we do better?
     STAssertTrue([json isEqualToString:@"{\"_id\":\"777\",\"_rev\":\"1\",\"array\":[\"obj 1\",\"obj 2\"],\"foo\":\"777\"}"], nil);
-
+    [couchDocument release];
 }
 
 -(void)testDocumentCreation{
@@ -61,6 +70,7 @@ static NSString *DOC_REV     = @"1";
     STAssertNotNil(couchDocument, nil);
     STAssertTrue([DOC_ID isEqualToString:[couchDocument objectForKey:DOC_KEY_ID]], @"returned [%@]", 
                     [couchDocument objectForKey:DOC_KEY_ID]);
+    [couchDocument release];
 }
 
 @end
