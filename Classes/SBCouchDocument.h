@@ -7,15 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "OrderedDictionary.h"
 
 @interface SBCouchDocument : NSObject{
-    NSMutableDictionary *dictionaryDoc;
+    OrderedDictionary   *dictionaryDoc;
     NSString            *serverName;
     NSString            *databaseName;
 }
 
-@property (retain) NSMutableDictionary *dictionaryDoc;
+@property (retain) OrderedDictionary   *dictionaryDoc;
 @property (retain) NSString            *serverName;
 @property (retain) NSString            *databaseName;
 
@@ -25,4 +25,5 @@
 -(void)setObject:(id)anObject forKey:(id)aKey;
 -(NSInteger)numberOfRevisions;
 -(NSString*)JSONRepresentation;
+-(id)keyAtIndex:(NSUInteger)anIndex;
 @end

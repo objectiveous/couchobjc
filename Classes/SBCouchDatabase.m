@@ -92,9 +92,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  
  ?revs=true
  */
-- (SBCouchDocument*)getDocument:(NSString*)id withRevisionCount:(BOOL)withCount{
-    NSString *docWithRevArgument = [NSString stringWithFormat:@"%@/?revs=true", id];
-    SBCouchDocument *couchDocument = [[[SBCouchDocument alloc] initWithNSDictionary:[self get:docWithRevArgument] ] autorelease];
+- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount{
+    NSString *docWithRevArgument = [NSString stringWithFormat:@"%@/?revs=true", docId];
+    
+    NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:[self get:docWithRevArgument]];
+    
+    SBCouchDocument *couchDocument = [[[SBCouchDocument alloc] initWithNSDictionary:mutable] autorelease];
     
     [couchDocument setServerName:[server serverURLAsString]];
     [couchDocument setDatabaseName:[self name]];

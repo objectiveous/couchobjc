@@ -38,9 +38,11 @@ static NSString *DOC_REV     = @"1";
 
 -(void)testOrderedDictionarySupport{
     SBCouchDocument *couchDocument = [[SBCouchDocument alloc] initWithNSDictionary:dictionary];
-    id anObject = [couchDocument keyAtIndex:0];
+    id aKey = [couchDocument keyAtIndex:0];
     
-    STAssertNotNil(anObject,nil);
+    STAssertNotNil(aKey,nil);
+    
+    STAssertNotNil( [couchDocument objectForKey:aKey], nil);
     [couchDocument release];
 }
 

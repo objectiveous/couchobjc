@@ -25,10 +25,10 @@
 /// The name of the database.
 @property (readonly) NSString *name;
 
+- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount;
+
 /// Query the database in various ways.
 - (NSDictionary*)get:(NSString*)args;
-
-- (SBCouchDocument*)getDocument:(NSString*)id withRevisionCount:(BOOL)withCount;
 
 /// Post a document to the database.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc;
