@@ -11,7 +11,7 @@
 
 
 @interface SBCouchDocument (Private)
--(OrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
+-(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
 -(NSArray*) convertArrayContents:(NSArray*)anArray;
 @end
 
@@ -26,19 +26,19 @@
     // XXX do we need to use autorelease here? 
     self = [super init];
     if(self){
-        if(! [aDictionary isKindOfClass:[OrderedDictionary class]])
+        if(! [aDictionary isKindOfClass:[SBOrderedDictionary class]])
             aDictionary = [self makeDictionaryOrderly:aDictionary];
-        [self setDictionaryDoc:(OrderedDictionary*)aDictionary];
+        [self setDictionaryDoc:(SBOrderedDictionary*)aDictionary];
     }
     return self;
 }
 
 
--(OrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary{    
-    if([aDictionary isKindOfClass:[OrderedDictionary class]])
-        return (OrderedDictionary*) aDictionary;
+-(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary{    
+    if([aDictionary isKindOfClass:[SBOrderedDictionary class]])
+        return (SBOrderedDictionary*) aDictionary;
     
-    OrderedDictionary *orderedDocument = [[OrderedDictionary alloc] initWithCapacity:[[aDictionary allKeys] count]];
+    SBOrderedDictionary *orderedDocument = [[SBOrderedDictionary alloc] initWithCapacity:[[aDictionary allKeys] count]];
     // _id and _rev have special meaning in couchDB, do let's always make them display first.     
     if( [[aDictionary allKeys] containsObject:@"_id"]){
         [orderedDocument setObject:[aDictionary objectForKey:@"_id"] forKey:@"_id"];
@@ -75,7 +75,7 @@
     
     for(id arrayContent in anArray){
         if([arrayContent isKindOfClass:[NSDictionary class]]){ 
-            OrderedDictionary *replacementDict = [self makeDictionaryOrderly:arrayContent];
+            SBOrderedDictionary *replacementDict = [self makeDictionaryOrderly:arrayContent];
             [convertedArray addObject:replacementDict];
         }else if([arrayContent isKindOfClass:[NSArray class]]){ 
             NSArray *replacementArray = [self convertArrayContents:arrayContent];

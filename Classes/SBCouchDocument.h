@@ -7,17 +7,17 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "OrderedDictionary.h"
+#import "SBOrderedDictionary.h"
 
 @interface SBCouchDocument : NSObject{
-    OrderedDictionary   *dictionaryDoc;
-    NSString            *serverName;
-    NSString            *databaseName;
+    SBOrderedDictionary  *dictionaryDoc;
+    NSString              *serverName;
+    NSString              *databaseName;
 }
 
-@property (retain) OrderedDictionary   *dictionaryDoc;
-@property (retain) NSString            *serverName;
-@property (retain) NSString            *databaseName;
+@property (retain) SBOrderedDictionary   *dictionaryDoc;
+@property (retain) NSString              *serverName;
+@property (retain) NSString              *databaseName;
 
 
 -(SBCouchDocument*)initWithNSDictionary:(NSMutableDictionary*)aDictionary;

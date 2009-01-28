@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface OrderedDictionary : NSMutableDictionary
+@interface SBOrderedDictionary : NSMutableDictionary
 {
 	NSMutableDictionary *dictionary;
 	NSMutableArray *array;

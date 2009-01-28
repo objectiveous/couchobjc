@@ -13,6 +13,8 @@
 #import <CouchObjC/SBCouchEnumerator.h>
 #import <CouchObjC/SBCouchDatabase+View.h>
 #import <CouchObjC/SBCouchDocument.h>
+#import <CouchObjC/SBOrderedDictionary.h>
+
 #include <asl.h>
 
 /*

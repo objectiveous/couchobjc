@@ -6,7 +6,7 @@
 //  Copyright 2008 Matt Gallagher. All rights reserved.
 //
 
-#import "OrderedDictionary.h"
+#import "SBOrderedDictionary.h"
 
 NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 {
@@ -30,7 +30,7 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 	return objectString;
 }
 
-@implementation OrderedDictionary
+@implementation SBOrderedDictionary
 
 - (id)init
 {
