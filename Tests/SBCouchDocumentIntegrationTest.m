@@ -20,6 +20,8 @@ static NSString *VALUE_2 = @"Miles Davis";
 
 @implementation SBCouchDocumentIntegrationTest
 
+
+
 -(void)testPostAndPutOfSBCouchDocument{
 
     NSDictionary *doc = [NSDictionary dictionaryWithObject:VALUE forKey:KEY];
@@ -28,21 +30,25 @@ static NSString *VALUE_2 = @"Miles Davis";
     STIGDebug(@"post response [%@]", response);
     STIGDebug(@"Calling PUT for [%@], with name [%@]", doc, response.name);
            
-    SBCouchDocument *couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES];
+    SBCouchDocument *couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES];
+    NSString *firstRevision = [couchDocument objectForKey:@"_rev"];
+    STAssertNotNil(firstRevision, nil);
+    
     [self assertTheDocIsComplete:couchDocument];
     
     // PUT
     [couchDocument setObject:VALUE_2 forKey:KEY];
     response = [couchDatabase putDocument:couchDocument];
     
-    couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES];
+    couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES];
     STAssertTrue([couchDocument numberOfRevisions] == 2, @"Revision count : %i", [couchDocument numberOfRevisions]);
     
     STAssertTrue([VALUE_2 isEqualToString:[couchDocument objectForKey:KEY]], @"Did not update properly [%@]", [couchDocument objectForKey:KEY]);
     
     STIGDebug(@"***** %@", [couchDocument objectForKey:KEY]);
     STIGDebug(@"***** %@", couchDocument);
-     
+    
+    STAssertTrue([[couchDocument previousRevision] isEqualToString:firstRevision], @"revision [%@]", [couchDocument previousRevision]);
 }
 
 -(void)assertTheDocIsComplete:(SBCouchDocument*)couchDocument{
