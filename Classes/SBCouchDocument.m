@@ -79,27 +79,32 @@
  Nth is the oldest. 
  */
 
--(NSString*)previousRevision{
-    NSArray *revArray = [self revs];
-    if([revArray count] <= 0)
+-(NSString*)previousRevision{           
+    NSUInteger index = [self revision];
+    if(index == NSNotFound)
         return nil;
-        
-    NSString *thisRevision = [[self dictionaryDoc] objectForKey:@"_rev"];
-
-    BOOL inThere = [revArray containsObject:thisRevision];
-    if(! inThere)
-        return nil; 
-        
-    NSUInteger index = [revArray indexOfObject:thisRevision];
-
-    if([revArray count] > index){
-        return [revArray objectAtIndex:index+1];     
+    
+    if([[self revs] count] > index){
+        return [[self revs] objectAtIndex:index+1];     
     }
         
-    //NSLog(@"%i", index);
-    //return [NSString stringWithFormat:@"%i", index];
     return nil;
+}
 
+-(NSInteger)revision{
+    NSArray *revArray = [self revs];
+    if([revArray count] <= 0)
+        return NSNotFound;
+    
+    NSString *thisRevision = [[self dictionaryDoc] objectForKey:@"_rev"];
+    
+    BOOL inThere = [revArray containsObject:thisRevision];
+    if(! inThere)
+        return NSNotFound; 
+    
+    NSUInteger index = [revArray indexOfObject:thisRevision];
+    return index;
+    
 }
 
 
