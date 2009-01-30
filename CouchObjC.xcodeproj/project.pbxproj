@@ -22,10 +22,10 @@
 		540108440F1DA0E9002AC9E5 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		540E179F0F30B42C00402ED3 /* SBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 540E179D0F30B42C00402ED3 /* SBOrderedDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		540E17A00F30B42C00402ED3 /* SBOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E179E0F30B42C00402ED3 /* SBOrderedDictionary.m */; };
+		5465B4890F32AB44009D80D2 /* SBCouchDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */; };
 		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		5477687B0F2B8ED300E44AFE /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 547768790F2B8ED300E44AFE /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477687C0F2B8ED300E44AFE /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */; };
-		547768D20F2B92C300E44AFE /* SBCouchDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */; };
 		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */; };
 		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -433,9 +433,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5465B4890F32AB44009D80D2 /* SBCouchDocumentTest.m in Sources */,
 				54B8BDDF0F2CC9F600B6391F /* SBCouchDocumentIntegrationTest.m in Sources */,
 				54B8BDDE0F2CC9F200B6391F /* AbstractDatabaseTest.m in Sources */,
-				547768D20F2B92C300E44AFE /* SBCouchDocumentTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
