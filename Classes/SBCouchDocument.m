@@ -13,6 +13,7 @@
 @interface SBCouchDocument (Private)
 -(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
 -(NSArray*) convertArrayContents:(NSArray*)anArray;
+-(NSArray*)revs;
 @end
 
 @implementation SBCouchDocument
@@ -21,6 +22,9 @@
 @synthesize serverName;
 @synthesize databaseName;
 
+-(NSArray*)revs{
+    return [[self dictionaryDoc] objectForKey:@"_revs"];
+}
 
 -(SBCouchDocument*)initWithNSDictionary:(NSMutableDictionary*)aDictionary{
     // XXX do we need to use autorelease here? 
@@ -69,6 +73,35 @@
     }
     return orderedDocument;
 }
+
+/*
+ Revisions are 0 based which means that revision the 0th index is the latest and 
+ Nth is the oldest. 
+ */
+
+-(NSString*)previousRevision{
+    NSArray *revArray = [self revs];
+    if([revArray count] <= 0)
+        return nil;
+        
+    NSString *thisRevision = [[self dictionaryDoc] objectForKey:@"_rev"];
+
+    BOOL inThere = [revArray containsObject:thisRevision];
+    if(! inThere)
+        return nil; 
+        
+    NSUInteger index = [revArray indexOfObject:thisRevision];
+
+    if([revArray count] > index){
+        return [revArray objectAtIndex:index+1];     
+    }
+        
+    //NSLog(@"%i", index);
+    //return [NSString stringWithFormat:@"%i", index];
+    return nil;
+
+}
+
 
 -(NSArray*) convertArrayContents:(NSArray*)anArray{
     NSMutableArray *convertedArray= [[[NSMutableArray alloc] init] autorelease];

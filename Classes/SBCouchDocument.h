@@ -26,4 +26,5 @@
 -(NSInteger)numberOfRevisions;
 -(NSString*)JSONRepresentation;
 -(id)keyAtIndex:(NSUInteger)anIndex;
+-(NSString*)previousRevision;
 @end
