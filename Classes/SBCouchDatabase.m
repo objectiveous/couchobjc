@@ -34,7 +34,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import "SBCouchDocument.h"
 
 #import <JSON/JSON.h>
-
+#import "CouchObjC.h"
 @implementation SBCouchDatabase
 
 @synthesize name;
@@ -79,7 +79,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:&response
                                                      error:&error];
     
-
     if (200 == [response statusCode]) {
         NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return [json JSONValue];
@@ -88,12 +87,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return nil;    
 }
 
+
 /**
- 
- ?revs=true
+ ?revs=true but might want to use revs_info=true and peek into the 
+ status field to figure out what to do. 
  */
-- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount{
-    NSString *docWithRevArgument = [NSString stringWithFormat:@"%@/?revs=true", docId];
+- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)nilOrInfo
+{
+    STIGDebug(@"*** CAN YOU HEAR THE DRUMS?");
+    NSString *docWithRevArgument;
+    if(nilOrInfo)
+    {
+        docWithRevArgument = [NSString stringWithFormat:@"%@?revs_info=true&revs=true", docId];
+    }
+    else
+    {
+        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true&revs_info=true", docId];
+    }
+        
+    NSLog(@"---> %@", docWithRevArgument);
+    STIGDebug(@"---> %@", docWithRevArgument);
     
     NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:[self get:docWithRevArgument]];
     

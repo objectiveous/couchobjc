@@ -25,7 +25,8 @@
 /// The name of the database.
 @property (readonly) NSString *name;
 
-- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount;
+
+- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)nilOrInfo;
 
 /// Query the database in various ways.
 - (NSDictionary*)get:(NSString*)args;
