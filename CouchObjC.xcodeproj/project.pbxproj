@@ -11,7 +11,6 @@
 		5315EE5E0D940717001E3B2E /* SBCouchServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5315EE5C0D940717001E3B2E /* SBCouchServer.m */; };
 		5315EE890D941077001E3B2E /* CouchObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CouchObjC.framework */; };
 		5315EE8B0D941085001E3B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
-		5315EEB20D94178E001E3B2E /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5315EEAB0D941786001E3B2E /* JSON.framework */; };
 		53905A100D9429B4003D62CE /* NSDictionary+CouchObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53905A110D9429B4003D62CE /* NSDictionary+CouchObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A0F0D9429B4003D62CE /* NSDictionary+CouchObjC.m */; };
 		53905A580D943BD5003D62CE /* SBCouchDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A560D943BD5003D62CE /* SBCouchDatabase.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -148,7 +147,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5315EE8B0D941085001E3B2E /* Foundation.framework in Frameworks */,
-				5315EEB20D94178E001E3B2E /* JSON.framework in Frameworks */,
 				540108440F1DA0E9002AC9E5 /* JSON.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
