@@ -8,7 +8,7 @@
 
 #import "SBCouchEnumerator.h"
 #import "SBCouchDatabase.h"
-
+#import "CouchObjC.h"
 
 @implementation SBCouchEnumerator
 
@@ -22,7 +22,7 @@
 @synthesize viewName;
 
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view{
-    NSString *url = [NSString stringWithFormat:@"%@?count=%i&group=true", view, count];
+    NSString *url = [NSString stringWithFormat:@"%@?limit=%i&group=true", view, count];
     NSDictionary *etf = [database get:url];
 
     self = [super init];
@@ -90,10 +90,12 @@
     [viewUrl appendFormat:@"startkey=\"%@\"&", [self startKey]];
     [viewUrl appendFormat:@"startkey_docid=\"%@\"&", [self startKey]];
     [viewUrl appendString:@"skip=1&"];
-    [viewUrl appendFormat:@"count=%i&",[self batchSize]];
+    [viewUrl appendFormat:@"limit=%i&",[self batchSize]];
     [viewUrl appendString:@"group=true"];
-        
+
+    STIGDebug(@"Using URL [%@]", [viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] );
     NSDictionary *etf = [[self db] get:[viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
     [rows addObjectsFromArray:[etf objectForKey:@"rows"]];
 }
 
