@@ -20,13 +20,19 @@
 @property (retain) NSString              *databaseName;
 
 
--(SBCouchDocument*)initWithNSDictionary:(NSMutableDictionary*)aDictionary;
--(id)objectForKey:(id)aKey;
--(void)setObject:(id)anObject forKey:(id)aKey;
--(NSInteger)numberOfRevisions;
--(NSString*)JSONRepresentation;
--(id)keyAtIndex:(NSUInteger)anIndex;
--(NSString*)previousRevision;
--(NSInteger)revision;
+- (SBCouchDocument *)initWithNSDictionary:(NSMutableDictionary*)aDictionary;
+- (id)objectForKey:(id)aKey;
+- (void)setObject:(id)anObject forKey:(id)aKey;
+- (NSInteger)numberOfRevisions;
+- (NSString *)JSONRepresentation;
+- (id)keyAtIndex:(NSUInteger)anIndex;
+- (NSString *)previousRevision;
+- (NSInteger)revisionIndex;
+
+
+- (NSString *)identity;
+- (NSString *)revision;
+- (void)setIdentity:(NSString *)someId;
+- (void)setRevision:(NSString *)aRevision;
 
 @end

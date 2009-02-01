@@ -80,7 +80,7 @@
  */
 
 -(NSString*)previousRevision{           
-    NSUInteger index = [self revision];
+    NSUInteger index = [self revisionIndex];
     if(index == NSNotFound)
         return nil;
     
@@ -91,7 +91,7 @@
     return nil;
 }
 
--(NSInteger)revision{
+-(NSInteger)revisionIndex{
     NSArray *revArray = [self revs];
     if([revArray count] <= 0)
         return NSNotFound;
@@ -175,5 +175,24 @@
 
 - (void)forwardInvocation:(NSInvocation *)invocation{    
     [invocation invokeWithTarget:[self dictionaryDoc]];
+}
+
+
+#pragma mark - 
+
+- (NSString*)identity {
+    return [self objectForKey:@"_id"];
+}
+
+- (NSString*)revision {
+    return [self objectForKey:@"_rev"];
+}
+
+- (void)setIdentity:(NSString*)someId {
+    [self setObject:someId forKey:@"_id"];
+}
+
+- (void)setRevision:(NSString*)aRevision {
+    [self setObject:aRevision forKey:@"_rev"];
 }
 @end
