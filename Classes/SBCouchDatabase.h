@@ -26,7 +26,7 @@
 @property (readonly) NSString *name;
 
 
-- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)nilOrInfo;
+- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 
 /// Query the database in various ways.
 - (NSDictionary*)get:(NSString*)args;

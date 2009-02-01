@@ -70,7 +70,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  - (NSDictionary*)get:(NSString*)args
 {
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, args];
-    NSURL *url = [NSURL URLWithString:urlString];    
+    STIGDebug(@"Document URL  %@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString];   
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
     NSError *error;
@@ -92,21 +94,25 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  ?revs=true but might want to use revs_info=true and peek into the 
  status field to figure out what to do. 
  */
-- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)nilOrInfo
+- (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil
 {
     STIGDebug(@"*** CAN YOU HEAR THE DRUMS?");
     NSString *docWithRevArgument;
-    if(nilOrInfo)
+    if(andInfo)
     {
-        docWithRevArgument = [NSString stringWithFormat:@"%@?revs_info=true&revs=true", docId];
+        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true", docId];
     }
     else
     {
         docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true&revs_info=true", docId];
     }
-        
-    NSLog(@"---> %@", docWithRevArgument);
-    STIGDebug(@"---> %@", docWithRevArgument);
+    
+    if(revisionOrNil != nil){
+        docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
+    }
+    
+    
+    STIGDebug(@"Document URL  %@", docWithRevArgument);
     
     NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:[self get:docWithRevArgument]];
     
