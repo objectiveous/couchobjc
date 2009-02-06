@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SBCouchDocument.h"
+#import "SBCouchDesignDocument.h"
 
 @class SBCouchServer;
 @class SBCouchResponse;
@@ -25,6 +26,14 @@
 /// The name of the database.
 @property (readonly) NSString *name;
 
+-(NSEnumerator*)view:(NSString*)viewName;
+-(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
+-(NSEnumerator*)allDocs;
+-(NSEnumerator*)getDesignDocuments;
+
+- (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
+
+- (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId;
 
 - (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 
@@ -33,6 +42,8 @@
 
 /// Post a document to the database.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc;
+
+- (SBCouchResponse*)createDocument:(SBCouchDesignDocument*)doc;
 
 /// Put a document to the given name in the database.
 - (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x;

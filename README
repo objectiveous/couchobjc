@@ -1,9 +1,8 @@
-* It would be nice to be able to invoke: 
-  [couchDocument isView] 
+http://localhost:5984/sofa-blog/_all_docs?limit=10&group=true
+http://localhost:5984/sofa-blog/_design/datacenter
 
+List of queries. 
+http://localhost:5984/sofa-blog/_all_docs?limit=10&group=true&startkey=%22_design%22&endkey=%22_design0%22
+http://localhost:5984/sofa-blog/_all_docs?limit=10&group=true&startkey="_design"&endkey="_design"
 
-* Changes Since 0.1 
-  - merged the Unit Test .h files into the .m files as per the google-toolbox-for-mac notes. 
-    http://code.google.com/p/google-toolbox-for-mac/wiki/iPhoneUnitTesting 
-  - Updated the Delete status code as per CouchDB's new standard -- 200 rather than 202 
-  - Now using @rpath   
+http://localhost:5984/sofa-blog/_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22
