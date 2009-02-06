@@ -19,18 +19,18 @@
 		53A9DB1D0D94583C0019A94C /* SBCouchResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 53A9DB1B0D94583C0019A94C /* SBCouchResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */; };
 		540108440F1DA0E9002AC9E5 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
-		540E179F0F30B42C00402ED3 /* SBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 540E179D0F30B42C00402ED3 /* SBOrderedDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		540E17A00F30B42C00402ED3 /* SBOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E179E0F30B42C00402ED3 /* SBOrderedDictionary.m */; };
-		5465B4890F32AB44009D80D2 /* SBCouchDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */; };
+		5445CB920F3B18EE00325ED4 /* SBCouchDesignDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445CB900F3B18EE00325ED4 /* SBCouchDesignDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5445CB930F3B18EE00325ED4 /* SBCouchDesignDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CB910F3B18EE00325ED4 /* SBCouchDesignDocument.m */; };
+		5445CBBE0F3B1AA400325ED4 /* SBCouchView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445CBBC0F3B1AA400325ED4 /* SBCouchView.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		5445CBBF0F3B1AA400325ED4 /* SBCouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CBBD0F3B1AA400325ED4 /* SBCouchView.m */; };
+		5445CFA20F3B6F4A00325ED4 /* SBCouchDesignDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */; };
+		5445D1920F3BA45100325ED4 /* SBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445D1910F3BA45100325ED4 /* SBOrderedDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		5477687B0F2B8ED300E44AFE /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 547768790F2B8ED300E44AFE /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477687C0F2B8ED300E44AFE /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */; };
-		54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */ = {isa = PBXBuildFile; fileRef = 54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */ = {isa = PBXBuildFile; fileRef = 54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */; };
 		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */; };
-		54B8BDDE0F2CC9F200B6391F /* AbstractDatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */; };
-		54B8BDDF0F2CC9F600B6391F /* SBCouchDocumentIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767ED0F2B80A900E44AFE /* SBCouchDocumentIntegrationTest.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -114,8 +114,15 @@
 		53A9DB1B0D94583C0019A94C /* SBCouchResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchResponse.h; sourceTree = "<group>"; };
 		53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchResponse.m; sourceTree = "<group>"; };
 		540108430F1DA0E9002AC9E5 /* JSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSON.framework; path = vendor/JSON/build/Release/JSON.framework; sourceTree = SOURCE_ROOT; };
-		540E179D0F30B42C00402ED3 /* SBOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrderedDictionary.h; sourceTree = "<group>"; };
 		540E179E0F30B42C00402ED3 /* SBOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBOrderedDictionary.m; sourceTree = "<group>"; };
+		5445CB900F3B18EE00325ED4 /* SBCouchDesignDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDesignDocument.h; sourceTree = "<group>"; };
+		5445CB910F3B18EE00325ED4 /* SBCouchDesignDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDesignDocument.m; sourceTree = "<group>"; };
+		5445CBBC0F3B1AA400325ED4 /* SBCouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchView.h; sourceTree = "<group>"; };
+		5445CBBD0F3B1AA400325ED4 /* SBCouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchView.m; sourceTree = "<group>"; };
+		5445CBE00F3B29C800325ED4 /* SBCouchDesignDocumentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDesignDocumentTest.m; sourceTree = "<group>"; };
+		5445CD2E0F3B4A8F00325ED4 /* SBCouchViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchViewTest.m; sourceTree = "<group>"; };
+		5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDesignDocumentTest.m; sourceTree = "<group>"; };
+		5445D1910F3BA45100325ED4 /* SBOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBOrderedDictionary.h; sourceTree = "<group>"; };
 		545E8DD80F17D31A00E96BEA /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		547767ED0F2B80A900E44AFE /* SBCouchDocumentIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocumentIntegrationTest.m; sourceTree = "<group>"; };
 		547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractDatabaseTest.m; sourceTree = "<group>"; };
@@ -124,8 +131,6 @@
 		5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocument.m; sourceTree = "<group>"; };
 		547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocumentTest.m; sourceTree = "<group>"; };
 		54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STIGSBCouchDatabase+ViewTest.m"; sourceTree = "<group>"; };
-		54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SBCouchDatabase+View.h"; sourceTree = "<group>"; };
-		54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SBCouchDatabase+View.m"; sourceTree = "<group>"; };
 		5496302E0F18442600A9B002 /* SBCouchEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchEnumerator.h; sourceTree = "<group>"; };
 		5496302F0F18442600A9B002 /* SBCouchEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchEnumerator.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -174,6 +179,7 @@
 				0867D69AFE84028FC02AAC07 /* External Frameworks and Libraries */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				545E8DD80F17D31A00E96BEA /* README */,
+				5445CBE00F3B29C800325ED4 /* SBCouchDesignDocumentTest.m */,
 			);
 			name = CouchObjC;
 			sourceTree = "<group>";
@@ -200,23 +206,16 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				540E179D0F30B42C00402ED3 /* SBOrderedDictionary.h */,
+				5445CC690F3B3C8800325ED4 /* headers */,
 				540E179E0F30B42C00402ED3 /* SBOrderedDictionary.m */,
-				54962F8E0F1829B200A9B002 /* SBCouchDatabase+View.h */,
-				54962F8F0F1829B200A9B002 /* SBCouchDatabase+View.m */,
-				53905A820D943DF8003D62CE /* CouchObjC.h */,
-				5315EE5B0D940717001E3B2E /* SBCouchServer.h */,
 				5315EE5C0D940717001E3B2E /* SBCouchServer.m */,
-				53905A560D943BD5003D62CE /* SBCouchDatabase.h */,
 				53905A570D943BD5003D62CE /* SBCouchDatabase.m */,
-				53A9DB1B0D94583C0019A94C /* SBCouchResponse.h */,
 				53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */,
-				53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */,
 				53905A0F0D9429B4003D62CE /* NSDictionary+CouchObjC.m */,
-				5496302E0F18442600A9B002 /* SBCouchEnumerator.h */,
 				5496302F0F18442600A9B002 /* SBCouchEnumerator.m */,
-				547768790F2B8ED300E44AFE /* SBCouchDocument.h */,
 				5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */,
+				5445CBBD0F3B1AA400325ED4 /* SBCouchView.m */,
+				5445CB910F3B18EE00325ED4 /* SBCouchDesignDocument.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -259,6 +258,8 @@
 				5477680E0F2B83C800E44AFE /* AbstractDatabaseTest.h */,
 				547767ED0F2B80A900E44AFE /* SBCouchDocumentIntegrationTest.m */,
 				547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */,
+				5445CD2E0F3B4A8F00325ED4 /* SBCouchViewTest.m */,
+				5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -274,6 +275,23 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		5445CC690F3B3C8800325ED4 /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				5445D1910F3BA45100325ED4 /* SBOrderedDictionary.h */,
+				53905A820D943DF8003D62CE /* CouchObjC.h */,
+				5315EE5B0D940717001E3B2E /* SBCouchServer.h */,
+				53905A560D943BD5003D62CE /* SBCouchDatabase.h */,
+				53A9DB1B0D94583C0019A94C /* SBCouchResponse.h */,
+				53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */,
+				5496302E0F18442600A9B002 /* SBCouchEnumerator.h */,
+				547768790F2B8ED300E44AFE /* SBCouchDocument.h */,
+				5445CB900F3B18EE00325ED4 /* SBCouchDesignDocument.h */,
+				5445CBBC0F3B1AA400325ED4 /* SBCouchView.h */,
+			);
+			name = headers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -286,10 +304,11 @@
 				53905A580D943BD5003D62CE /* SBCouchDatabase.h in Headers */,
 				53905A830D943DF8003D62CE /* CouchObjC.h in Headers */,
 				53A9DB1D0D94583C0019A94C /* SBCouchResponse.h in Headers */,
-				54962F900F1829B200A9B002 /* SBCouchDatabase+View.h in Headers */,
 				549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */,
 				5477687B0F2B8ED300E44AFE /* SBCouchDocument.h in Headers */,
-				540E179F0F30B42C00402ED3 /* SBOrderedDictionary.h in Headers */,
+				5445CB920F3B18EE00325ED4 /* SBCouchDesignDocument.h in Headers */,
+				5445CBBE0F3B1AA400325ED4 /* SBCouchView.h in Headers */,
+				5445D1920F3BA45100325ED4 /* SBOrderedDictionary.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -431,9 +450,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5465B4890F32AB44009D80D2 /* SBCouchDocumentTest.m in Sources */,
-				54B8BDDF0F2CC9F600B6391F /* SBCouchDocumentIntegrationTest.m in Sources */,
-				54B8BDDE0F2CC9F200B6391F /* AbstractDatabaseTest.m in Sources */,
+				5445CFA20F3B6F4A00325ED4 /* SBCouchDesignDocumentTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -445,10 +462,11 @@
 				53905A110D9429B4003D62CE /* NSDictionary+CouchObjC.m in Sources */,
 				53905A590D943BD5003D62CE /* SBCouchDatabase.m in Sources */,
 				53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */,
-				54962F910F1829B200A9B002 /* SBCouchDatabase+View.m in Sources */,
 				549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */,
 				5477687C0F2B8ED300E44AFE /* SBCouchDocument.m in Sources */,
 				540E17A00F30B42C00402ED3 /* SBOrderedDictionary.m in Sources */,
+				5445CB930F3B18EE00325ED4 /* SBCouchDesignDocument.m in Sources */,
+				5445CBBF0F3B1AA400325ED4 /* SBCouchView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
