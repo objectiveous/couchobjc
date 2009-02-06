@@ -11,11 +11,18 @@
 #import <CouchObjC/SBCouchResponse.h>
 #import <CouchObjC/NSDictionary+CouchObjC.h>
 #import <CouchObjC/SBCouchEnumerator.h>
-#import <CouchObjC/SBCouchDatabase+View.h>
 #import <CouchObjC/SBCouchDocument.h>
 #import <CouchObjC/SBOrderedDictionary.h>
+#import <CouchObjC/SBCouchDesignDocument.h>
+#import <CouchObjC/SBCouchView.h>
 
 #include <asl.h>
+
+#define COUCH_KEY_LANGUAGE         @"language"
+#define COUCH_KEY_LANGUAGE_DEFAULT @"javascript"
+#define COUCH_KEY_DESIGN_PREFIX    @"_design/"
+#define COUCH_KEY_VIEWS            @"views"
+
 
 /*
  Send logging information to syslog and use the console to filter out what you need. 
@@ -62,6 +69,12 @@ aslmsg msg = asl_new(ASL_TYPE_MSG); \
 asl_set(msg, ASL_KEY_FACILITY, __PRETTY_FUNCTION__); \
 asl_log(NULL, msg, ASL_LEVEL_INFO, "%s", [[NSString stringWithFormat:format, ##__VA_ARGS__] UTF8String]); \
 asl_log(NULL, msg, ASL_LEVEL_INFO, "%s", [[NSString stringWithFormat:[NSString stringWithFormat:@"%s %@", __PRETTY_FUNCTION__, format], ##__VA_ARGS__] UTF8String]); \
+}
+
+#define SBDebug(format, ...){ \
+aslmsg msg = asl_new(ASL_TYPE_MSG); \
+asl_set(msg, ASL_KEY_FACILITY, "CouchObjC"); \
+asl_log(NULL, msg, ASL_LEVEL_DEBUG, "%s", [[NSString stringWithFormat:[NSString stringWithFormat:@"%s %@", __PRETTY_FUNCTION__,format], ##__VA_ARGS__] UTF8String]); \
 }
 
 
