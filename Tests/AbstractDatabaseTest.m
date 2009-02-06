@@ -22,7 +22,6 @@
     }else{
         STFail(@"Could not create database %@", name);
     }
-    
 }
 
 - (void)tearDown {

@@ -7,10 +7,15 @@
 //
 
 #import "AbstractDatabaseTest.h"
+#import "SBCouchDesignDocument.h"
+#import "SBCouchView.h"
 
-static NSString *KEY     = @"artist";
-static NSString *VALUE   = @"Frank Zappa"; 
-static NSString *VALUE_2 = @"Miles Davis"; 
+static NSString *KEY              = @"artist";
+static NSString *VALUE            = @"Frank Zappa"; 
+static NSString *VALUE_2          = @"Miles Davis"; 
+static NSString *MAP_FUNCTION     = @"function(doc) { if(doc.name == 'Frank'){ emit('Number of Franks', 1);}}";
+static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}";
+
 
 @interface SBCouchDocumentIntegrationTest: AbstractDatabaseTest{
  
@@ -22,6 +27,40 @@ static NSString *VALUE_2 = @"Miles Davis";
 
 
 
+- (void)testCreateView{
+    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:@"mySillyViews"];
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"Franks" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION]; 
+    
+    STAssertNotNil(designDocument, nil);
+    STAssertNotNil(view, nil);
+    STAssertTrue([view.map isEqualToString:MAP_FUNCTION], nil);
+    
+    [designDocument addView:view withName:@"franks"];
+    [designDocument addView:view withName:@"summary"];
+    
+    SBCouchResponse *response = [couchDatabase createDocument:designDocument];
+    if(! response.ok)
+        STFail(@"Failed Response", nil);
+    
+    SBCouchDesignDocument *doc = [couchDatabase getDesignDocument:designDocument.identity withRevisionCount:YES andInfo:YES revision:nil];
+    STAssertNotNil(doc,nil);
+        
+    STAssertTrue([doc.identity isEqualToString:designDocument.identity], @"design docs are not the same. %@, %@" , doc.identity, designDocument.identity );
+
+    NSEnumerator *designDocs = [couchDatabase getDesignDocuments];
+    STAssertNotNil(designDocs, nil);
+    
+    id dict; 
+    BOOL pass = NO;
+    while(( dict = [designDocs nextObject] )){
+        pass = YES;
+    }
+    
+    STAssertTrue(pass, @"never got a design doc. ");
+    [designDocument release];
+    [view release];
+}
+
 -(void)testPostAndPutOfSBCouchDocument{
 
     NSDictionary *doc = [NSDictionary dictionaryWithObject:VALUE forKey:KEY];
@@ -30,7 +69,7 @@ static NSString *VALUE_2 = @"Miles Davis";
     STIGDebug(@"post response [%@]", response);
     STIGDebug(@"Calling PUT for [%@], with name [%@]", doc, response.name);
            
-    SBCouchDocument *couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES];
+    SBCouchDocument *couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES revision:nil];
     NSString *firstRevision = [couchDocument objectForKey:@"_rev"];
     STAssertNotNil(firstRevision, nil);
     
@@ -40,7 +79,7 @@ static NSString *VALUE_2 = @"Miles Davis";
     [couchDocument setObject:VALUE_2 forKey:KEY];
     response = [couchDatabase putDocument:couchDocument];
     
-    couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES];
+    couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES revision:nil];
     STAssertTrue([couchDocument numberOfRevisions] == 2, @"Revision count : %i", [couchDocument numberOfRevisions]);
     
     STAssertTrue([VALUE_2 isEqualToString:[couchDocument objectForKey:KEY]], @"Did not update properly [%@]", [couchDocument objectForKey:KEY]);
