@@ -21,15 +21,22 @@
 @synthesize startKey;
 @synthesize viewName;
 
+// a count 0f 0 or less means fetch everything. That is, use not limit expression
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view{
-    NSString *url = [NSString stringWithFormat:@"%@?limit=%i&group=true", view, count];
+    NSString *url;
+    if(count > 0)
+        url = [NSString stringWithFormat:@"%@?limit=%i&group=true", view, count];        
+     else
+         url = view;
+    
+
     NSDictionary *etf = [database get:url];
 
     self = [super init];
     if(self != nil){
         [self setViewName:view];
         [self setCurrentIndex:0];
-        [self setTotalRows:[[etf objectForKey:@"total_rows"] integerValue]];
+        [self setTotalRows:[[etf objectForKey:@"total_rows"] integerValue]]; //{"total_rows":7,"offset":3 TODO need to subtract the offset
         [self setBatchSize:count]; 
         [self setDb:database];
         [self setViewPath:view];
@@ -37,6 +44,8 @@
     }
     return self;    
 }
+
+
 
 -(void) dealloc{
     [startKey release], startKey = nil;
@@ -54,13 +63,19 @@
     if(idx >= [rows count]){  
         [self fetchNextPage];
         if( [self itemAtIndex:idx]){
-             return [rows objectAtIndex:idx];
+            // TODO might want to autorelase this
+            SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx]];
+            doc.identity = @"XXSSSXXX";
+            return doc;
         }else{
             return nil;
         }
     }
-    
-    return [rows objectAtIndex:idx];
+    // TODO Might want to autorelease this. 
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx]];
+    doc.identity = @"XXSSSXXX";
+
+    return doc;
 }
 - (id)nextObject{
     if( (currentIndex >= [rows count]) && [rows count] < totalRows){
@@ -77,8 +92,17 @@
         
     
     id object = [rows objectAtIndex:currentIndex];
+
+    
     [self setCurrentIndex:[self currentIndex] +1 ];
-    return object;
+    // TODO might want to autorelease this. 
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:object];
+    // We do this because calls to _all_docs do not have a _id property and because 
+    // the dictionary we are working with at this point does not have an _id but it 
+    // does represent an actual document (for example a design doc) that we may want 
+    // to interact with. 
+    doc.identity = [doc objectForKey:@"id"];
+    return doc;
 } 
 - (NSArray *)allObjects{
     return nil;

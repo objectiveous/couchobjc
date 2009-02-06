@@ -7,7 +7,7 @@
 //
 
 #import "SBOrderedDictionary.h"
-
+#import <JSON/JSON.h>
 NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 {
 	NSString *objectString;
@@ -55,6 +55,7 @@ NSString *DescriptionForObject(NSObject *object, id locale, NSUInteger indent)
 	[super dealloc];
 }
 
+#pragma mark -
 - (id)copy
 {
 	return [self mutableCopy];

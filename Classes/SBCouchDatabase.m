@@ -35,6 +35,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import <JSON/JSON.h>
 #import "CouchObjC.h"
+
+@interface SBCouchDatabase (Private)
+   -(NSString*)contructURL:(NSString*)withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
+@end 
+
 @implementation SBCouchDatabase
 
 @synthesize name;
@@ -90,27 +95,47 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 
+
+
+-(NSString*)constructURL:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil {
+    NSString *docWithRevArgument;
+    if(andInfo)
+    {
+        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true&revs_info=true", docId];
+    } else{
+        docWithRevArgument = [NSString stringWithFormat:@"%@", docId];
+    }
+    
+    if(revisionOrNil != nil){
+        docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
+    }
+    return docWithRevArgument;
+}
+
+- (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId{
+    return [self getDesignDocument:docId withRevisionCount:NO andInfo:NO revision:nil];
+}
+
+- (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil{
+    NSString *docWithRevArgument = [self constructURL:docId withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
+        
+    NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:[self get:docWithRevArgument]];  
+    assert(mutable);
+    SBCouchDesignDocument *couchDocument = [[[SBCouchDesignDocument  alloc] initWithNSDictionary:mutable] autorelease];
+    
+    [couchDocument setServerName:[server serverURLAsString]];
+    [couchDocument setDatabaseName:[self name]];
+    return couchDocument;
+}
+
 /**
  ?revs=true but might want to use revs_info=true and peek into the 
  status field to figure out what to do. 
  */
 - (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil
 {
-    STIGDebug(@"*** CAN YOU HEAR THE DRUMS?");
-    NSString *docWithRevArgument;
-    if(andInfo)
-    {
-        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true", docId];
-    }
-    else
-    {
-        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true&revs_info=true", docId];
-    }
-    
-    if(revisionOrNil != nil){
-        docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
-    }
-    
+
+    NSString *docWithRevArgument = [self constructURL:docId withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
     
     STIGDebug(@"Document URL  %@", docWithRevArgument);
     
@@ -123,6 +148,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return couchDocument;
 }
 
+- (SBCouchResponse*)createDocument:(SBCouchDesignDocument*)doc{
+    return [self putDocument:doc named:doc.identity];
+}
 
 /**
  Use this method to create documents when you don't care what their names (ids) will be.
@@ -227,5 +255,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     return nil;
 }
+
+-(NSEnumerator*) view:(NSString*)viewName{
+    return [[[SBCouchEnumerator alloc] init] autorelease];
+}
+
+-(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:count 
+                                                                        database:self
+                                                                            view:@"_all_docs"] autorelease];
+    return (NSEnumerator*)enumerator;
+}
+-(NSEnumerator*) allDocs{
+    NSDictionary *list = [self get:@"_all_docs"];
+    
+    return [[list objectForKey:@"rows"] objectEnumerator];
+    //return [[[STIGCouchViewEnumerator alloc] init] autorelease];
+}
+
+- (NSEnumerator*)getDesignDocuments{
+    NSString *url = @"_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22";
+    //NSDictionary *list =  [self get:url];
+    //return [[list objectForKey:@"rows"] objectEnumerator];
+    
+    
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
+                                                                        database:self
+                                                                            view:url] autorelease];
+    return (NSEnumerator*)enumerator;
+}
+
 
 @end

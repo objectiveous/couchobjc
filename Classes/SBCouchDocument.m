@@ -8,7 +8,7 @@
 
 #import "SBCouchDocument.h"
 #import <JSON/JSON.h>
-
+#import "SBOrderedDictionary.h"
 
 @interface SBCouchDocument (Private)
 -(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
@@ -17,24 +17,37 @@
 @end
 
 @implementation SBCouchDocument
-
-@synthesize dictionaryDoc;
 @synthesize serverName;
 @synthesize databaseName;
 
--(NSArray*)revs{
-    return [[self dictionaryDoc] objectForKey:@"_revs"];
+-(id)init{
+
+    self = [super initWithCapacity:0];
+    if(self){
+
+    }
+    return self;
 }
 
--(SBCouchDocument*)initWithNSDictionary:(NSMutableDictionary*)aDictionary{
-    // XXX do we need to use autorelease here? 
+-(SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary{
+
     self = [super init];
     if(self){
         if(! [aDictionary isKindOfClass:[SBOrderedDictionary class]])
             aDictionary = [self makeDictionaryOrderly:aDictionary];
-        [self setDictionaryDoc:(SBOrderedDictionary*)aDictionary];
+        [self addEntriesFromDictionary:aDictionary];
     }
     return self;
+}
+
+-(void)dealloc{
+    [super dealloc];
+}
+
+
+#pragma mark -
+-(NSArray*)revs{
+    return [self objectForKey:@"_revs"];
 }
 
 
@@ -96,7 +109,7 @@
     if([revArray count] <= 0)
         return NSNotFound;
     
-    NSString *thisRevision = [[self dictionaryDoc] objectForKey:@"_rev"];
+    NSString *thisRevision = [self objectForKey:@"_rev"];
     
     BOOL inThere = [revArray containsObject:thisRevision];
     if(! inThere)
@@ -126,37 +139,44 @@
 }
 
 -(NSInteger)numberOfRevisions{
-    NSDictionary *revs = [[self dictionaryDoc] objectForKey:@"_revs"];
+    NSDictionary *revs = [self objectForKey:@"_revs"];
     return [revs count];
 }
 
-
--(void)setObject:(id)anObject forKey:(id)aKey{
-    [[self dictionaryDoc] setObject:anObject forKey:aKey];    
-}
-
-- (id)keyAtIndex:(NSUInteger)anIndex{
-    return [[self dictionaryDoc] keyAtIndex:anIndex];
-}
-
--(id)objectForKey:(id)aKey{
-    return [[self dictionaryDoc] objectForKey:aKey];
-}
-
 - (NSString *)description{
-    NSString *dictionaryDiscription = [self.dictionaryDoc description];
+    NSString *dictionaryDiscription = [self JSONRepresentation];
     NSMutableString *description = [NSMutableString stringWithString:dictionaryDiscription];
     [description appendFormat:@"\n serverName : %@", self.serverName];
     [description appendFormat:@"\n databaseName : %@", self.databaseName];
     return description;
 }
 
+/*
+-(void)setObject:(id)anObject forKey:(id)aKey{
+    [self setObject:anObject forKey:aKey];    
+}
+
+- (id)keyAtIndex:(NSUInteger)anIndex{
+    return [self keyAtIndex:anIndex];
+}
+
+-(id)objectForKey:(id)aKey{
+    return [self objectForKey:aKey];
+}
+
+- (NSString *)description{
+    NSString *dictionaryDiscription = [self JSONRepresentation];
+    NSMutableString *description = [NSMutableString stringWithString:dictionaryDiscription];
+    [description appendFormat:@"\n serverName : %@", self.serverName];
+    [description appendFormat:@"\n databaseName : %@", self.databaseName];
+    return description;
+}
+
+ 
 #pragma mark - 
 #pragma mark JSON Support 
 
--(NSString*)JSONRepresentation{
-    return [self.dictionaryDoc JSONRepresentation];
-}
+
 
 #pragma mark - 
 #pragma mark Forward Calls To NSDictionary
@@ -177,8 +197,9 @@
     [invocation invokeWithTarget:[self dictionaryDoc]];
 }
 
+ */
 
-#pragma mark - 
+#pragma mark -
 
 - (NSString*)identity {
     return [self objectForKey:@"_id"];

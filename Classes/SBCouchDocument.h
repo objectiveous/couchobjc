@@ -9,23 +9,20 @@
 #import <Cocoa/Cocoa.h>
 #import "SBOrderedDictionary.h"
 
-@interface SBCouchDocument : NSObject{
-    SBOrderedDictionary  *dictionaryDoc;
+@interface SBCouchDocument : SBOrderedDictionary{
     NSString              *serverName;
     NSString              *databaseName;
 }
 
-@property (retain) SBOrderedDictionary   *dictionaryDoc;
 @property (retain) NSString              *serverName;
 @property (retain) NSString              *databaseName;
 
-
-- (SBCouchDocument *)initWithNSDictionary:(NSMutableDictionary*)aDictionary;
-- (id)objectForKey:(id)aKey;
-- (void)setObject:(id)anObject forKey:(id)aKey;
+- (id)init;
+- (SBCouchDocument *)initWithNSDictionary:(NSDictionary*)aDictionary;
+//- (id)objectForKey:(id)aKey;
+//- (void)setObject:(id)anObject forKey:(id)aKey;
 - (NSInteger)numberOfRevisions;
-- (NSString *)JSONRepresentation;
-- (id)keyAtIndex:(NSUInteger)anIndex;
+//- (id)keyAtIndex:(NSUInteger)anIndex;
 - (NSString *)previousRevision;
 - (NSInteger)revisionIndex;
 
