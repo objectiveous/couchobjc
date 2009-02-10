@@ -13,6 +13,7 @@
 @implementation SBCouchView
 
 @synthesize name;
+@synthesize couchDatabase;
 
 -(id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil{    
     self = [super init];
@@ -27,11 +28,33 @@
     return self;
 }
 
+-(id)initWithName:(NSString*)viewName andDictionary:(NSDictionary*)funtionDictionary{
+    self = [super initWithDictionary:funtionDictionary];
+    if(self){
+        self.name = viewName;
+    }
+    return self;
+}
+
+
 -(NSString*)map{
     return [self objectForKey:@"map"];
 }
+
+-(void)setMap:(NSString*)map{
+    [self setObject:[map copy] forKey:COUCH_KEY_MAP];
+}
+
 -(NSString*)reduce{
     return [self objectForKey:@"reduce"];    
 }
+-(void)setReduce:(NSString*)reduce{
 
+    [self setObject:[reduce copy] forKey:COUCH_KEY_REDUCE];
+}
+
+
+-(NSString*)description{
+    return [self JSONRepresentation];
+}
 @end

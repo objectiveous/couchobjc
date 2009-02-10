@@ -11,6 +11,8 @@
 
 
 @implementation AbstractDatabaseTest
+@synthesize couchServer;
+@synthesize couchDatabase;
 
 -(void) setUp{
     couchServer = [[SBCouchServer alloc] initWithHost:@"localhost" port:5984];

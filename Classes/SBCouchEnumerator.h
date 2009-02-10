@@ -9,6 +9,7 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "SBCouchView.h"
 //#import "SBCouchDatabase.h"
 
 /*
@@ -56,7 +57,7 @@
 @property (copy) NSString          *viewName;
 
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view;
-
+-(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database couchView:(SBCouchView*)couchView;
 
 #pragma mark Abstract Methods from NSEnumerator
 -(id)nextObject; 

@@ -15,4 +15,7 @@
     SBCouchDatabase *couchDatabase;
 }
 
+@property (nonatomic, retain) SBCouchServer *couchServer;
+@property (nonatomic, retain) SBCouchDatabase *couchDatabase;
+
 @end

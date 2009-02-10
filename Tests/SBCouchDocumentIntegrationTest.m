@@ -10,6 +10,7 @@
 #import "SBCouchDesignDocument.h"
 #import "SBCouchView.h"
 
+static NSString *DESIGN_NAME      = @"someDesignDoc";
 static NSString *KEY              = @"artist";
 static NSString *VALUE            = @"Frank Zappa"; 
 static NSString *VALUE_2          = @"Miles Davis"; 
@@ -28,7 +29,8 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
 
 
 - (void)testCreateView{
-    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:@"mySillyViews"];
+    // TODO DesignDomain needs to go away makes no real sense. 
+    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_NAME];
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"Franks" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION]; 
     
     STAssertNotNil(designDocument, nil);
@@ -41,11 +43,14 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
     SBCouchResponse *response = [couchDatabase createDocument:designDocument];
     if(! response.ok)
         STFail(@"Failed Response", nil);
+    STAssertNotNil(response.name, @"response path is missing", response.name);
     
-    SBCouchDesignDocument *doc = [couchDatabase getDesignDocument:designDocument.identity withRevisionCount:YES andInfo:YES revision:nil];
-    STAssertNotNil(doc,nil);
+    SBCouchDesignDocument *newlyFetchedDesignDoc = [couchDatabase getDesignDocument:response.name];
+    STAssertNotNil(newlyFetchedDesignDoc,nil);
+    STAssertNotNil(newlyFetchedDesignDoc.identity,@"identity %@",newlyFetchedDesignDoc.identity );
+
         
-    STAssertTrue([doc.identity isEqualToString:designDocument.identity], @"design docs are not the same. %@, %@" , doc.identity, designDocument.identity );
+    STAssertTrue([newlyFetchedDesignDoc.identity isEqualToString:designDocument.identity], @"design docs are not the same. %@, %@" , newlyFetchedDesignDoc.identity, designDocument.identity );
 
     NSEnumerator *designDocs = [couchDatabase getDesignDocuments];
     STAssertNotNil(designDocs, nil);

@@ -21,6 +21,53 @@
 @synthesize startKey;
 @synthesize viewName;
 
+
+// XXX This is so horrible I can barley stand to look at it. Calls to the database ought to live in the database class. 
+// use a callback or something if necissary. 
+-(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database couchView:(SBCouchView*)couchView{
+    NSString *tempView = [couchView JSONRepresentation];
+    NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
+    SBCouchServer *server = [database server];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, couchView.couchDatabase, @"_temp_view?limit=10&group=true"];
+    NSURL *url = [NSURL URLWithString:urlString];    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; 
+    
+    [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:body];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    NSLog(@"status code %i", [response statusCode]);
+    NSLog(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
+
+    NSDictionary *etf;
+    if (200 == [response statusCode]) {
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        etf = [json JSONValue];
+        NSLog(@"--> %@", [etf JSONRepresentation]);
+    }
+    
+    self = [super init];
+    if(self != nil){
+        [self setViewName:couchView.name];
+        [self setCurrentIndex:0];
+     
+        [self setBatchSize:-1]; 
+        [self setDb:database];
+        [self setViewPath:couchView.name];
+        if(etf != nil){
+            NSArray *arrayOfRows = [etf objectForKey:@"rows"];
+            [self setTotalRows:[arrayOfRows count]];        
+            [self setRows:[etf objectForKey:@"rows"]];
+        }
+    }
+    return self;            
+}
 // a count 0f 0 or less means fetch everything. That is, use not limit expression
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view{
     NSString *url;
