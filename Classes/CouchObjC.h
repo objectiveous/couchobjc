@@ -22,7 +22,10 @@
 #define COUCH_KEY_LANGUAGE_DEFAULT @"javascript"
 #define COUCH_KEY_DESIGN_PREFIX    @"_design/"
 #define COUCH_KEY_VIEWS            @"views"
-
+#define COUCH_KEY_MAP              @"map"
+#define COUCH_KEY_REDUCE           @"reduce"
+#define COUCH_VIEW_SLOW            @"_slow_view";
+#define COUCH_VIEW_ALL             @"_all_docs";
 
 /*
  Send logging information to syslog and use the console to filter out what you need. 
