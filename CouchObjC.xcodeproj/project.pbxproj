@@ -24,13 +24,14 @@
 		5445CB930F3B18EE00325ED4 /* SBCouchDesignDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CB910F3B18EE00325ED4 /* SBCouchDesignDocument.m */; };
 		5445CBBE0F3B1AA400325ED4 /* SBCouchView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445CBBC0F3B1AA400325ED4 /* SBCouchView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5445CBBF0F3B1AA400325ED4 /* SBCouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CBBD0F3B1AA400325ED4 /* SBCouchView.m */; };
-		5445CFA20F3B6F4A00325ED4 /* SBCouchDesignDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */; };
 		5445D1920F3BA45100325ED4 /* SBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445D1910F3BA45100325ED4 /* SBOrderedDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		5477687B0F2B8ED300E44AFE /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 547768790F2B8ED300E44AFE /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477687C0F2B8ED300E44AFE /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */; };
 		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */; };
+		54F988F30F40CD6700CAF6B0 /* AbstractDatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */; };
+		54F989610F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F989600F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -133,6 +134,7 @@
 		54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STIGSBCouchDatabase+ViewTest.m"; sourceTree = "<group>"; };
 		5496302E0F18442600A9B002 /* SBCouchEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchEnumerator.h; sourceTree = "<group>"; };
 		5496302F0F18442600A9B002 /* SBCouchEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchEnumerator.m; sourceTree = "<group>"; };
+		54F989600F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBSlowViewIntegrationTest.m; sourceTree = "<group>"; };
 		8DC2EF5A0486A6940098B216 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DC2EF5B0486A6940098B216 /* CouchObjC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CouchObjC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2F7E79907B2D74100F64583 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -260,6 +262,7 @@
 				547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */,
 				5445CD2E0F3B4A8F00325ED4 /* SBCouchViewTest.m */,
 				5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */,
+				54F989600F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -450,7 +453,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5445CFA20F3B6F4A00325ED4 /* SBCouchDesignDocumentTest.m in Sources */,
+				54F988F30F40CD6700CAF6B0 /* AbstractDatabaseTest.m in Sources */,
+				54F989610F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
