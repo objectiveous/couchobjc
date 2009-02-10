@@ -43,6 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @implementation SBCouchDatabase
 
 @synthesize name;
+@synthesize server;
 
 - (id)initWithServer:(SBCouchServer*)s name:(NSString*)n
 {
@@ -60,6 +61,42 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     [super dealloc];
 }
 
+
+#pragma mark -
+#pragma mark GET Document Calls
+#pragma mark methods that return collections
+-(NSEnumerator*) allDocs{
+    NSDictionary *list = [self get:@"_all_docs"];
+    
+    return [[list objectForKey:@"rows"] objectEnumerator];
+    //return [[[STIGCouchViewEnumerator alloc] init] autorelease];
+}
+-(NSEnumerator*) getViewEnumerator:(NSString*)viewId{
+    NSString *url = [self constructURL:viewId withRevisionCount:NO andInfo:NO revision:nil];
+    
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:30
+                                                                         database:self
+                                                                             view:url] autorelease];
+    return (NSEnumerator*)enumerator;
+    
+}
+
+-(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:count 
+                                                                         database:self
+                                                                             view:@"_all_docs"] autorelease];
+    return (NSEnumerator*)enumerator;
+}
+- (NSEnumerator*)getDesignDocuments{
+    NSString *url = @"_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22";
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
+                                                                         database:self
+                                                                             view:url] autorelease];
+    return (NSEnumerator*)enumerator;
+}
+
+#pragma mark methods that return docs
+
 /**
  You can use this to query database information by simply passing an empty string. You can also
  get documents, by passing the document names (ids).
@@ -72,8 +109,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  NSDictionary *list = [db get:@"_all_docs"];
  @endcode
  */
- - (NSDictionary*)get:(NSString*)args
+- (NSDictionary*)get:(NSString*)args
 {
+    assert(self.name);
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, args];
     STIGDebug(@"Document URL  %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];   
@@ -95,37 +133,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 
-
-
--(NSString*)constructURL:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil {
-    NSString *docWithRevArgument;
-    if(andInfo)
-    {
-        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true&revs_info=true", docId];
-    } else{
-        docWithRevArgument = [NSString stringWithFormat:@"%@", docId];
-    }
-    
-    if(revisionOrNil != nil){
-        docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
-    }
-    return docWithRevArgument;
-}
-
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId{
     return [self getDesignDocument:docId withRevisionCount:NO andInfo:NO revision:nil];
 }
 
+
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil{
     NSString *docWithRevArgument = [self constructURL:docId withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
         
-    NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:[self get:docWithRevArgument]];  
-    assert(mutable);
-    SBCouchDesignDocument *couchDocument = [[[SBCouchDesignDocument  alloc] initWithNSDictionary:mutable] autorelease];
+    NSDictionary *dict = [self get:docWithRevArgument];  
+    NSLog(@"%@", [dict JSONRepresentation]);
     
-    [couchDocument setServerName:[server serverURLAsString]];
-    [couchDocument setDatabaseName:[self name]];
-    return couchDocument;
+    assert(dict);
+    //SBDebug(@" DICT %@", [mutable JSONRepresentation]);
+    
+    SBCouchDesignDocument *viewDocument = [[[SBCouchDesignDocument  alloc] initWithNSDictionary:dict] autorelease];
+        
+    NSLog(@"%@", [viewDocument JSONRepresentation]);
+    [viewDocument setServerName:[server serverURLAsString]];
+    [viewDocument setDatabaseName:[self name]];
+    return viewDocument;
 }
 
 /**
@@ -146,6 +173,48 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     [couchDocument setServerName:[server serverURLAsString]];
     [couchDocument setDatabaseName:[self name]];
     return couchDocument;
+}
+
+#pragma mark -
+#pragma mark PUT and POST Calls
+
+- (NSEnumerator*)slowViewEnumerator:(SBCouchView*)view{    
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
+                                                                         database:self
+                                                                        couchView:view] autorelease];
+    return (NSEnumerator*)enumerator;
+}
+- (SBCouchResponse*)runSlowView:(SBCouchView*)view{    
+    //[NSString stringWithFormat:@"", COUCH_VIEW_SLOW, view]
+    //return [self postDocument:view];
+    NSString *tempView = [view JSONRepresentation];
+    NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
+    //NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, COUCH_VIEW_SLOW];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, @"_temp_view?limit=10&group=true"];
+    NSURL *url = [NSURL URLWithString:urlString];    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; 
+    
+    [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:body];
+    [request setHTTPMethod:@"POST"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    NSLog(@"status code %i", [response statusCode]);
+    //NSLog(@"status code %i", response.ok);
+    NSLog(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
+
+    
+    if (200 == [response statusCode]) {
+        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", [json JSONValue]);
+        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+    }
+    
+    return nil;
 }
 
 - (SBCouchResponse*)createDocument:(SBCouchDesignDocument*)doc{
@@ -229,6 +298,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 
+#pragma mark -
+#pragma mark DELETE Calls
 
 /**
  This method extracts the name and revision from the document and attempts to delete that.
@@ -255,35 +326,19 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     return nil;
 }
-
--(NSEnumerator*) view:(NSString*)viewName{
-    return [[[SBCouchEnumerator alloc] init] autorelease];
-}
-
--(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
-    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:count 
-                                                                        database:self
-                                                                            view:@"_all_docs"] autorelease];
-    return (NSEnumerator*)enumerator;
-}
--(NSEnumerator*) allDocs{
-    NSDictionary *list = [self get:@"_all_docs"];
+#pragma mark -
+-(NSString*)constructURL:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil {
+    NSString *docWithRevArgument;
+    if(andInfo)
+    {
+        docWithRevArgument = [NSString stringWithFormat:@"%@?revs=true&revs_info=true", docId];
+    } else{
+        docWithRevArgument = [NSString stringWithFormat:@"%@", docId];
+    }
     
-    return [[list objectForKey:@"rows"] objectEnumerator];
-    //return [[[STIGCouchViewEnumerator alloc] init] autorelease];
+    if(revisionOrNil != nil){
+        docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
+    }
+    return docWithRevArgument;
 }
-
-- (NSEnumerator*)getDesignDocuments{
-    NSString *url = @"_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22";
-    //NSDictionary *list =  [self get:url];
-    //return [[list objectForKey:@"rows"] objectEnumerator];
-    
-    
-    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
-                                                                        database:self
-                                                                            view:url] autorelease];
-    return (NSEnumerator*)enumerator;
-}
-
-
 @end

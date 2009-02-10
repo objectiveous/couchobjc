@@ -19,6 +19,7 @@
 
 -(id)initWithDesignDomain:(NSString*)domain;
 -(void)addView:(SBCouchView*)view withName:(NSString*)viewName;
+-(SBCouchView*)view:(NSString*)viewName;
 -(NSString*)language;
 -(NSDictionary*)views;
 @end

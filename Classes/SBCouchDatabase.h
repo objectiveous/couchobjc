@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SBCouchDocument.h"
 #import "SBCouchDesignDocument.h"
+#import "SBCouchView.h"
 
 @class SBCouchServer;
 @class SBCouchResponse;
@@ -25,35 +26,44 @@
 
 /// The name of the database.
 @property (readonly) NSString *name;
+@property (readonly) SBCouchServer *server;
 
--(NSEnumerator*)view:(NSString*)viewName;
--(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
--(NSEnumerator*)allDocs;
--(NSEnumerator*)getDesignDocuments;
-
+#pragma mark -
+#pragma mark GET Calls
+#pragma mark methods that return collections
+- (NSEnumerator*)getViewEnumerator:(NSString*)viewName;
+- (NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
+- (NSEnumerator*)allDocs;
+- (NSEnumerator*)getDesignDocuments;
+#pragma mark single documents
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
-
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId;
-
 - (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 
 /// Query the database in various ways.
 - (NSDictionary*)get:(NSString*)args;
 
+#pragma mark -
+#pragma mark PUT and POST Calls
+
+- (NSEnumerator*)slowViewEnumerator:(SBCouchView*)view;
+- (SBCouchResponse*)runSlowView:(SBCouchView*)view;
+
 /// Post a document to the database.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc;
-
 - (SBCouchResponse*)createDocument:(SBCouchDesignDocument*)doc;
-
 /// Put a document to the given name in the database.
 - (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x;
-
-/// Put a document into the database. The value of _id will be used for 
-/// its name. 
+/// Put a document into the database. The value of _id will be used for its name. 
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument;
 
+
+#pragma mark -
+#pragma mark DELETE Calls
 
 /// Delete a document.
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc;
 
+#pragma mark -
+-(NSString*)constructURL:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 @end
