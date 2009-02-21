@@ -111,7 +111,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 - (NSDictionary*)get:(NSString*)args
 {
-    assert(self.name);
+    //assert(self.name);
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, args];
     STIGDebug(@"Document URL  %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];   
@@ -144,7 +144,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSDictionary *dict = [self get:docWithRevArgument];  
     NSLog(@"%@", [dict JSONRepresentation]);
     
-    assert(dict);
+    //assert(dict);
     //SBDebug(@" DICT %@", [mutable JSONRepresentation]);
     
     SBCouchDesignDocument *viewDocument = [[[SBCouchDesignDocument  alloc] initWithNSDictionary:dict] autorelease];
@@ -277,7 +277,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 {
     NSData *body = [[couchDocument JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, [couchDocument objectForKey:@"_id"]];
-    NSURL *url = [NSURL URLWithString:urlString];    
+    NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
     [request setHTTPMethod:@"PUT"];
