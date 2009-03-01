@@ -36,14 +36,12 @@
 }
 
 #pragma mark -
-- (void)estInfo {
-    NSMutableDictionary *expected = [NSMutableDictionary dictionary];
-    [expected setObject:[NSNumber numberWithInt:0] forKey:@"doc_count"];
-    [expected setObject:[NSNumber numberWithInt:0] forKey:@"update_seq"];
-    [expected setObject:db.name forKey:@"db_name"];
+
+-(void)testProvidesProperDescription{
+    NSString *description = [db description];
+    NSString *properDescription = [NSString stringWithFormat:@"http://%@:%u/%@", couch.host, couch.port, db.name];
     
-    // TODO FIXME
-    STAssertEqualObjects([db get:@""], expected, nil);
+    STAssertTrue([description isEqualToString:properDescription], @"%@ vs. %@", description, properDescription);
 }
 
 - (void)testPostDocument {
