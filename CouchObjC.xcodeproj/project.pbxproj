@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5315EE5D0D940717001E3B2E /* SBCouchServer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5315EE5B0D940717001E3B2E /* SBCouchServer.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5315EE5E0D940717001E3B2E /* SBCouchServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5315EE5C0D940717001E3B2E /* SBCouchServer.m */; };
-		5315EE890D941077001E3B2E /* CouchObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CouchObjC.framework */; };
 		5315EE8B0D941085001E3B2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0867D69BFE84028FC02AAC07 /* Foundation.framework */; };
 		53905A100D9429B4003D62CE /* NSDictionary+CouchObjC.h in Headers */ = {isa = PBXBuildFile; fileRef = 53905A0E0D9429B4003D62CE /* NSDictionary+CouchObjC.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		53905A110D9429B4003D62CE /* NSDictionary+CouchObjC.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A0F0D9429B4003D62CE /* NSDictionary+CouchObjC.m */; };
@@ -20,6 +19,8 @@
 		53A9DB1E0D94583C0019A94C /* SBCouchResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A9DB1C0D94583C0019A94C /* SBCouchResponse.m */; };
 		540108440F1DA0E9002AC9E5 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		540E17A00F30B42C00402ED3 /* SBOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 540E179E0F30B42C00402ED3 /* SBOrderedDictionary.m */; };
+		541FAE4B0F58E515008099B8 /* CouchObjC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC2EF5B0486A6940098B216 /* CouchObjC.framework */; };
+		542778D00F59C65100DB3B75 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A500D9430CD003D62CE /* Database.m */; };
 		5445CB920F3B18EE00325ED4 /* SBCouchDesignDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445CB900F3B18EE00325ED4 /* SBCouchDesignDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5445CB930F3B18EE00325ED4 /* SBCouchDesignDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CB910F3B18EE00325ED4 /* SBCouchDesignDocument.m */; };
 		5445CBBE0F3B1AA400325ED4 /* SBCouchView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445CBBC0F3B1AA400325ED4 /* SBCouchView.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -28,10 +29,12 @@
 		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		5477687B0F2B8ED300E44AFE /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 547768790F2B8ED300E44AFE /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477687C0F2B8ED300E44AFE /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */; };
+		5495AE3A0F56C2F3007CEAEB /* SBCouchDesignDocumentTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */; };
+		5495AE660F56C611007CEAEB /* AbstractDatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */; };
+		5495B2E20F585CD9007CEAEB /* SBCouchViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CD2E0F3B4A8F00325ED4 /* SBCouchViewTest.m */; };
+		5495B2E50F585D77007CEAEB /* StandAloneDocumentsIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5495B2E40F585D77007CEAEB /* StandAloneDocumentsIntegrationTest.m */; };
 		549630300F18442600A9B002 /* SBCouchEnumerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		549630310F18442600A9B002 /* SBCouchEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */; };
-		54F988F30F40CD6700CAF6B0 /* AbstractDatabaseTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */; };
-		54F989610F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F989600F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m */; };
 		8DC2EF530486A6940098B216 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C1666FE841158C02AAC07 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
@@ -131,6 +134,7 @@
 		547768790F2B8ED300E44AFE /* SBCouchDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDocument.h; sourceTree = "<group>"; };
 		5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocument.m; sourceTree = "<group>"; };
 		547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDocumentTest.m; sourceTree = "<group>"; };
+		5495B2E40F585D77007CEAEB /* StandAloneDocumentsIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StandAloneDocumentsIntegrationTest.m; sourceTree = "<group>"; };
 		54962F8C0F1829A300A9B002 /* STIGSBCouchDatabase+ViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STIGSBCouchDatabase+ViewTest.m"; sourceTree = "<group>"; };
 		5496302E0F18442600A9B002 /* SBCouchEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchEnumerator.h; sourceTree = "<group>"; };
 		5496302F0F18442600A9B002 /* SBCouchEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchEnumerator.m; sourceTree = "<group>"; };
@@ -145,7 +149,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5315EE890D941077001E3B2E /* CouchObjC.framework in Frameworks */,
+				541FAE4B0F58E515008099B8 /* CouchObjC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,11 +262,12 @@
 				53905A130D9429CE003D62CE /* Document.m */,
 				547767F60F2B812B00E44AFE /* AbstractDatabaseTest.m */,
 				5477680E0F2B83C800E44AFE /* AbstractDatabaseTest.h */,
-				547767ED0F2B80A900E44AFE /* SBCouchDocumentIntegrationTest.m */,
 				547768AE0F2B91ED00E44AFE /* SBCouchDocumentTest.m */,
 				5445CD2E0F3B4A8F00325ED4 /* SBCouchViewTest.m */,
 				5445CDC20F3B50B700325ED4 /* SBCouchDesignDocumentTest.m */,
 				54F989600F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m */,
+				547767ED0F2B80A900E44AFE /* SBCouchDocumentIntegrationTest.m */,
+				5495B2E40F585D77007CEAEB /* StandAloneDocumentsIntegrationTest.m */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -453,8 +458,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54F988F30F40CD6700CAF6B0 /* AbstractDatabaseTest.m in Sources */,
-				54F989610F40D78000CAF6B0 /* SBSlowViewIntegrationTest.m in Sources */,
+				542778D00F59C65100DB3B75 /* Database.m in Sources */,
+				5495B2E20F585CD9007CEAEB /* SBCouchViewTest.m in Sources */,
+				5495AE660F56C611007CEAEB /* AbstractDatabaseTest.m in Sources */,
+				5495AE3A0F56C2F3007CEAEB /* SBCouchDesignDocumentTest.m in Sources */,
+				5495B2E50F585D77007CEAEB /* StandAloneDocumentsIntegrationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,6 +512,7 @@
 		1DEB91AE08733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -525,6 +534,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "@rpath";
 				LD_RUNPATH_SEARCH_PATHS = "@exectuable_path/../Frameworks @loader_path/Frameworks @exectuable_path/Versions/A/Frameworks";
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = CouchObjC;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = SB;
@@ -563,9 +573,13 @@
 		1DEB91B208733DA50010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				LD_RUNPATH_SEARCH_PATHS = "/Users/robevans/Projects/cocoa/couchobj/build/Debug/CouchObjC.framework/Versions/A/Frameworks @exectuable_path/../Frameworks @loader_path/../Frameworks @exectuable_path/Versions/A/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
@@ -574,10 +588,9 @@
 		1DEB91B308733DA50010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1)";
+				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -586,6 +599,7 @@
 					"@executable_path/../../../Framework",
 				);
 				LD_RUNPATH_SEARCH_PATHS = "";
+				ONLY_ACTIVE_ARCH = NO;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
@@ -594,6 +608,7 @@
 		5315EE680D94078E001E3B2E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(SRCROOT)/vendor/JSON/build/Release\"",
@@ -602,15 +617,17 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_ENABLE_OBJC_GC = supported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Cocoa.framework/Headers/Cocoa.h";
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				INFOPLIST_FILE = "Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
 				LD_RUNPATH_SEARCH_PATHS = "@exectuable_path/../Frameworks Frameworks @loader_path/../Frameworks @exectuable_path/Versions/A/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
 					Cocoa,
