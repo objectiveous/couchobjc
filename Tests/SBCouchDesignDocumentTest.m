@@ -2,7 +2,7 @@
 #import "SBCouchView.h"
 #import "CouchObjC.h"
 #import "SBCouchDesignDocument.h"
-
+#import "AbstractDatabaseTest.h"
 
 static NSString *MAP_FUNCTION     = @"function(doc) { if(doc.name == 'Frank'){ emit('Number of Franks', 1);}}";
 static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}";
@@ -12,7 +12,7 @@ static NSString *VIEW_1           = @"hardware";
 static NSString *VIEW_2           = @"software";
 static NSString *VIEW_3           = @"wonderousThings";
 
-@interface SBCouchDesignDocumentTest : SenTestCase {
+@interface SBCouchDesignDocumentTest : AbstractDatabaseTest {
     SBCouchDesignDocument *designDocument;
 }
 @property (retain) SBCouchDesignDocument *designDocument;
@@ -24,6 +24,8 @@ static NSString *VIEW_3           = @"wonderousThings";
 #pragma mark -
 
 /*
+ Here's what a typical view might look like: 
+ 
  {"_id":"_design/datacenter",
  "_rev":"1508484904",
  "language":"javascript",
@@ -53,8 +55,8 @@ static NSString *VIEW_3           = @"wonderousThings";
     
     NSDictionary *returnedViews = [designDoc views];
     STAssertNotNil(returnedViews, @"Views were not returned");
-    SBDebug(@"--> %@", [designDoc JSONRepresentation]);
-    SBDebug(@"--> %i", [[returnedViews allKeys] count]);
+    //SBDebug(@"--> %@", [designDoc JSONRepresentation]);
+    //SBDebug(@"--> %i", [[returnedViews allKeys] count]);
 
     STAssertTrue([[returnedViews allKeys] count] == 2, @"Missing views [%i]", [[returnedViews allKeys] count]);
     
@@ -62,15 +64,15 @@ static NSString *VIEW_3           = @"wonderousThings";
     [designDoc release];
 }
 
--(void)estRetrievingViewsMapsAndWhatNot{
+-(void)testRetrievingViewsMapsAndWhatNot{
     SBCouchView *view = [self.designDocument view:VIEW_1];   
     STAssertNotNil(view,@"Did not recieve view. [%@]", view);
 }
 
--(void)estSimplestThingThatWillWork{
+-(void)testSimplestThingThatWillWork{
     STAssertTrue([designDocument.language isEqualToString:COUCH_KEY_LANGUAGE_DEFAULT], nil);
     
-    SBDebug(@"identity %@", designDocument.identity);
+    //SBDebug(@"identity %@", designDocument.identity);
     
     id views = [designDocument views];
     STAssertNotNil(views, nil);
@@ -88,17 +90,36 @@ static NSString *VIEW_3           = @"wonderousThings";
     
 }
 
+-(void)testGetDesignDocUsingId{    
+    [designDocument setIdentity:@"_design/features"];    
+    [self.couchDatabase putDocument:designDocument];
+    
+    SBCouchDesignDocument *freshDesignDocument = [self.couchDatabase getDesignDocument:[designDocument identity]];
+    STAssertNotNil(freshDesignDocument, nil);
+    NSDictionary *views = [freshDesignDocument views];
+    for(id key in [views allKeys]){
+        id object = [views objectForKey:key];
+        
+        STAssertTrue([object isKindOfClass:[SBCouchView class]], @"We are not getting acttual objects from retrieved design doc.");
+    }
+}
+
+
 #pragma mark - 
 -(void)setUp{
+    [super setUp];
     SBCouchView *view = [[[SBCouchView alloc] initWithName:@"totals" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION] autorelease];
     
-    designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_DOC_NAME];
+    designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_DOC_NAME couchDatabase:self.couchDatabase];
     [designDocument addView:view withName:VIEW_1];
     [designDocument addView:view withName:VIEW_2];
     [designDocument addView:view withName:VIEW_3];
+
+    [self.couchDatabase putDocument:designDocument];
 }
 -(void)tearDown{
-    [designDocument release];  
+    [designDocument release];
+    [super tearDown];
 }
 
 @end

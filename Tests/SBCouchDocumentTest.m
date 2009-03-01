@@ -23,17 +23,13 @@ static NSString *DOC_REV     = @"1";
 
 @implementation SBCouchDocumentTest
 
--(void)setUp{
-        
+-(void)setUp{        
     couchDocument = [[SBCouchDocument alloc] initWithCapacity:10];
-
     
     [couchDocument setObject:DOC_ID forKey:DOC_KEY_ID];
     [couchDocument setObject:[NSArray arrayWithObjects:@"obj 1", @"obj 2" , nil] forKey:@"array"];
     [couchDocument setObject:@"777" forKey:@"foo"];    
     [couchDocument setObject:DOC_REV forKey:DOC_KEY_REV];
-
-
 }
 
 -(void)tearDown{
