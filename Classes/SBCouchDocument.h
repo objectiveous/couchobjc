@@ -9,27 +9,25 @@
 #import <Cocoa/Cocoa.h>
 #import "SBOrderedDictionary.h"
 
+@class SBCouchDatabase;
+
 @interface SBCouchDocument : SBOrderedDictionary{
-    NSString              *serverName;
-    NSString              *databaseName;
+    SBCouchDatabase       *couchDatabase;
 }
 
-@property (retain) NSString              *serverName;
-@property (retain) NSString              *databaseName;
+@property (retain) SBCouchDatabase *couchDatabase;
 
-- (id)init;
-- (SBCouchDocument *)initWithNSDictionary:(NSDictionary*)aDictionary;
-//- (id)objectForKey:(id)aKey;
-//- (void)setObject:(id)anObject forKey:(id)aKey;
+- (SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
 - (NSInteger)numberOfRevisions;
-//- (id)keyAtIndex:(NSUInteger)anIndex;
 - (NSString *)previousRevision;
 - (NSInteger)revisionIndex;
 
 
 - (NSString *)identity;
-- (NSString *)revision;
 - (void)setIdentity:(NSString *)someId;
+- (NSString *)revision;
 - (void)setRevision:(NSString *)aRevision;
+// removes _id, _rev and _revs from a document. 
+- (void)detach;
 
 @end

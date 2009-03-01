@@ -43,12 +43,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 @implementation SBCouchDatabase
 
 @synthesize name;
-@synthesize server;
+@synthesize couchServer;
 
 - (id)initWithServer:(SBCouchServer*)s name:(NSString*)n
 {
     if (self = [super init]) {
-        server = [s retain];
+        couchServer = [s retain];
         name = [n copy];
     }
     return self;
@@ -56,7 +56,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (void)dealloc
 {
-    [server release];
+    [couchServer release];
     [name release];
     [super dealloc];
 }
@@ -73,6 +73,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 -(NSEnumerator*) getViewEnumerator:(NSString*)viewId{
     NSString *url = [self constructURL:viewId withRevisionCount:NO andInfo:NO revision:nil];
+    //NSString *encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:30
                                                                          database:self
@@ -88,7 +89,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return (NSEnumerator*)enumerator;
 }
 - (NSEnumerator*)getDesignDocuments{
-    NSString *url = @"_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22";
+    //NSString *url = @"_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22";
+    NSString *url = @"_all_docs?group=true&startkey=\"_design\"&endkey=\"_design0\"";
+    ///_all_docs?group=true&startkey="_design"&endkey="_design0"
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
                                                                          database:self
                                                                              view:url] autorelease];
@@ -112,9 +115,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (NSDictionary*)get:(NSString*)args
 {
     //assert(self.name);
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, args];
-    STIGDebug(@"Document URL  %@", urlString);
-    NSURL *url = [NSURL URLWithString:urlString];   
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, args];
+
+    NSString *encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    STIGDebug(@"HTTP GET :  %@",  encodedString );
+    NSURL *url = [NSURL URLWithString:encodedString];   
+   
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
@@ -124,6 +130,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:&response
                                                      error:&error];
     
+    NSLog(@" URL Status Code %i", [response statusCode]);
     if (200 == [response statusCode]) {
         NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return [json JSONValue];
@@ -141,18 +148,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil{
     NSString *docWithRevArgument = [self constructURL:docId withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
         
-    NSDictionary *dict = [self get:docWithRevArgument];  
-    NSLog(@"%@", [dict JSONRepresentation]);
-    
-    //assert(dict);
-    //SBDebug(@" DICT %@", [mutable JSONRepresentation]);
-    
-    SBCouchDesignDocument *viewDocument = [[[SBCouchDesignDocument  alloc] initWithNSDictionary:dict] autorelease];
-        
-    NSLog(@"%@", [viewDocument JSONRepresentation]);
-    [viewDocument setServerName:[server serverURLAsString]];
-    [viewDocument setDatabaseName:[self name]];
-    return viewDocument;
+    NSDictionary *dict = [self get:docWithRevArgument];
+    SBCouchDesignDocument *designDoc = [[[SBCouchDesignDocument  alloc] initWithNSDictionary:dict couchDatabase:self] autorelease];
+
+    return designDoc;
 }
 
 /**
@@ -168,10 +167,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     NSMutableDictionary *mutable = [NSMutableDictionary dictionaryWithDictionary:[self get:docWithRevArgument]];
     
-    SBCouchDocument *couchDocument = [[[SBCouchDocument alloc] initWithNSDictionary:mutable] autorelease];
+    SBCouchDocument *couchDocument = [[[SBCouchDocument alloc] initWithNSDictionary:mutable couchDatabase:self] autorelease];
     
-    [couchDocument setServerName:[server serverURLAsString]];
-    [couchDocument setDatabaseName:[self name]];
+    //XXX This was sorta dumb. Hold reference to the actual database costs less 
+    //    than these two strings and since SBCouchDabase holds not real resources, 
+    //    it's just dumb not to use it. 
+    //[couchDocument setServerName:[couchServer serverURLAsString]];
+    //[couchDocument setDatabaseName:[self name]];
+
+    couchDocument.couchDatabase = self;
     return couchDocument;
 }
 
@@ -190,7 +194,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSString *tempView = [view JSONRepresentation];
     NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
     //NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, COUCH_VIEW_SLOW];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, @"_temp_view?limit=10&group=true"];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, @"_temp_view?limit=10&group=true"];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; 
     
@@ -227,7 +231,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc
 {
     NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/", server.host, server.port, self.name];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/", couchServer.host, couchServer.port, self.name];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
@@ -253,7 +257,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x
 {
     NSData *body = [[doc JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, x];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, x];
     NSURL *url = [NSURL URLWithString:urlString];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
@@ -276,7 +280,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument
 {
     NSData *body = [[couchDocument JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, [couchDocument objectForKey:@"_id"]];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, [couchDocument objectForKey:@"_id"]];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
@@ -306,7 +310,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc
 {
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?rev=%@", server.host, server.port, self.name, doc.name, doc.rev];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?rev=%@", couchServer.host, couchServer.port, self.name, doc.name, doc.rev];
     NSURL *url = [NSURL URLWithString:urlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPMethod:@"DELETE"];
@@ -340,5 +344,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
     }
     return docWithRevArgument;
+}
+
+-(NSString*)description{
+    return [NSString stringWithFormat:@"http://%@:%u/%@", couchServer.host, couchServer.port, self.name];
 }
 @end

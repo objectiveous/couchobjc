@@ -16,17 +16,18 @@
 
 /// Interface to a CouchDB database.
 @interface SBCouchDatabase : NSObject {
-@private
-    SBCouchServer *server;
-    NSString *name;
+
+//@private
+    SBCouchServer *couchServer;
+    NSString      *name;
 }
 
 /// Initialise a database with a server and name.
 - (id)initWithServer:(SBCouchServer*)server name:(NSString*)name;
 
 /// The name of the database.
-@property (readonly) NSString *name;
-@property (readonly) SBCouchServer *server;
+@property (readonly) NSString      *name;
+@property (readonly) SBCouchServer *couchServer;
 
 #pragma mark -
 #pragma mark GET Calls
@@ -35,7 +36,9 @@
 - (NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
 - (NSEnumerator*)allDocs;
 - (NSEnumerator*)getDesignDocuments;
+
 #pragma mark single documents
+
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 - (SBCouchDesignDocument*)getDesignDocument:(NSString*)docId;
 - (SBCouchDocument*)getDocument:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;

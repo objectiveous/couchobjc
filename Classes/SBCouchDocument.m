@@ -9,6 +9,7 @@
 #import "SBCouchDocument.h"
 #import <JSON/JSON.h>
 #import "SBOrderedDictionary.h"
+#import "SBCouchServer.h";
 
 @interface SBCouchDocument (Private)
 -(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
@@ -17,8 +18,9 @@
 @end
 
 @implementation SBCouchDocument
-@synthesize serverName;
-@synthesize databaseName;
+//@synthesize serverName;
+//@synthesize databaseName;
+@synthesize couchDatabase;
 
 -(id)init{
 
@@ -29,10 +31,11 @@
     return self;
 }
 
--(SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary{
+-(SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil{
 
     self = [super init];
     if(self){
+        self.couchDatabase = aCouchDatabaseOrNil;
         if(! [aDictionary isKindOfClass:[SBOrderedDictionary class]])
             aDictionary = [self makeDictionaryOrderly:aDictionary];
         [self addEntriesFromDictionary:aDictionary];
@@ -146,67 +149,23 @@
 - (NSString *)description{
     NSString *dictionaryDiscription = [self JSONRepresentation];
     NSMutableString *description = [NSMutableString stringWithString:dictionaryDiscription];
-    [description appendFormat:@"\n serverName : %@", self.serverName];
-    [description appendFormat:@"\n databaseName : %@", self.databaseName];
-    return description;
-}
-
-/*
--(void)setObject:(id)anObject forKey:(id)aKey{
-    [self setObject:anObject forKey:aKey];    
-}
-
-- (id)keyAtIndex:(NSUInteger)anIndex{
-    return [self keyAtIndex:anIndex];
-}
-
--(id)objectForKey:(id)aKey{
-    return [self objectForKey:aKey];
-}
-
-- (NSString *)description{
-    NSString *dictionaryDiscription = [self JSONRepresentation];
-    NSMutableString *description = [NSMutableString stringWithString:dictionaryDiscription];
-    [description appendFormat:@"\n serverName : %@", self.serverName];
-    [description appendFormat:@"\n databaseName : %@", self.databaseName];
-    return description;
-}
-
- 
-#pragma mark - 
-#pragma mark JSON Support 
-
-
-
-#pragma mark - 
-#pragma mark Forward Calls To NSDictionary
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)selector{
-    // does the delegate respond to this selector?
+    SBCouchServer *server = [self.couchDatabase couchServer];
     
-    if ([[self dictionaryDoc] respondsToSelector:selector])
-    {
-        // yes, return the delegate's method signature
-        return [[self dictionaryDoc] methodSignatureForSelector:selector];
-    } else {
-        // no, return whatever NSObject would return
-        return [super methodSignatureForSelector: selector];
-    }
+    [description appendFormat:@"\n serverName : %@", [server serverURLAsString]];
+    [description appendFormat:@"\n databaseName : %@", [self.couchDatabase name]];
+    return description;
 }
-
-- (void)forwardInvocation:(NSInvocation *)invocation{    
-    [invocation invokeWithTarget:[self dictionaryDoc]];
-}
-
- */
 
 #pragma mark -
 
-- (NSString*)identity {
-    return [self objectForKey:@"_id"];
-}
+
 
 - (NSString*)revision {
     return [self objectForKey:@"_rev"];
+}
+
+- (NSString*)identity {
+    return [self objectForKey:@"_id"];
 }
 
 - (void)setIdentity:(NSString*)someId {
@@ -217,5 +176,10 @@
     [self setObject:aRevision forKey:@"_rev"];
 }
 
+- (void)detach{
+    [self removeObjectForKey:@"_id"];
+    [self removeObjectForKey:@"_rev"];
+    [self removeObjectForKey:@"_revs"];
+}
 
 @end

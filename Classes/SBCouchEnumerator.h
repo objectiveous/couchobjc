@@ -10,21 +10,6 @@
 
 #import <Cocoa/Cocoa.h>
 #import "SBCouchView.h"
-//#import "SBCouchDatabase.h"
-
-/*
- SBCouchEnumerator's only purpose in life is to convert _all_docs requests into 
- SBCouchDocuments. So how does it go about doing this you ask? 
- 
- {"total_rows":7,"offset":3,"rows":[
- {"id":"_design/datacenter","key":"_design/datacenter","value":{"rev":"3651585651"}},
- {"id":"_design/tests","key":"_design/tests","value":{"rev":"1520032128"}},
- {"id":"_design/wank","key":"_design/wank","value":{"rev":"2607572312"}},
- {"id":"_design/willy","key":"_design/willy","value":{"rev":"4158571884"}}
- ]}
- 
- */
-
 
 @class SBCouchDatabase; 
 
@@ -35,7 +20,7 @@
 //@protected
     NSInteger       batchSize;
     NSString        *startKey;
-    SBCouchDatabase *db;
+    SBCouchDatabase *couchDatabase;
     NSString        *viewPath;
     NSMutableArray  *rows;
     NSInteger       currentIndex;
@@ -48,9 +33,7 @@
 @property NSInteger                 totalRows;
 @property NSInteger                 batchSize;
 @property (retain) NSString        *startKey;
-// Should copy the database but we're being cock-blocked by 
-//  *** -[SBCouchDatabase copyWithZone:]: unrecognized selector sent to instance 0x1555d0
-@property (retain)   SBCouchDatabase *db;
+@property (retain) SBCouchDatabase *couchDatabase;
 @property (retain) NSString        *viewPath;
 @property (retain) NSMutableArray  *rows;
 @property NSInteger                 currentIndex;

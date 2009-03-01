@@ -12,7 +12,7 @@
 
 @implementation SBCouchEnumerator
 
-@synthesize db;
+@synthesize couchDatabase;
 @synthesize totalRows;
 @synthesize batchSize;
 @synthesize viewPath;
@@ -27,7 +27,7 @@
 -(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database couchView:(SBCouchView*)couchView{
     NSString *tempView = [couchView JSONRepresentation];
     NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
-    SBCouchServer *server = [database server];
+    SBCouchServer *server = [database couchServer];
     
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, couchView.couchDatabase, @"_temp_view?limit=10&group=true"];
     NSURL *url = [NSURL URLWithString:urlString];    
@@ -58,7 +58,7 @@
         [self setCurrentIndex:0];
      
         [self setBatchSize:-1]; 
-        [self setDb:database];
+        [self setCouchDatabase:database];
         [self setViewPath:couchView.name];
         if(etf != nil){
             NSArray *arrayOfRows = [etf objectForKey:@"rows"];
@@ -85,7 +85,7 @@
         [self setCurrentIndex:0];
         [self setTotalRows:[[etf objectForKey:@"total_rows"] integerValue]]; //{"total_rows":7,"offset":3 TODO need to subtract the offset
         [self setBatchSize:count]; 
-        [self setDb:database];
+        [self setCouchDatabase:database];
         [self setViewPath:view];
         [self setRows:[etf objectForKey:@"rows"]];
     }
@@ -97,7 +97,7 @@
 -(void) dealloc{
     [startKey release], startKey = nil;
     [viewPath release], viewName = nil;
-    [db release];
+    [couchDatabase release];
     [super dealloc];
 
 }
@@ -111,16 +111,16 @@
         [self fetchNextPage];
         if( [self itemAtIndex:idx]){
             // TODO might want to autorelase this
-            SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx]];
-            doc.identity = @"XXSSSXXX";
+            SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchDatabase];
+            doc.couchDatabase = self.couchDatabase;
             return doc;
         }else{
             return nil;
         }
     }
     // TODO Might want to autorelease this. 
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx]];
-    doc.identity = @"XXSSSXXX";
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchDatabase];
+    doc.couchDatabase = self.couchDatabase;
 
     return doc;
 }
@@ -143,7 +143,7 @@
     
     [self setCurrentIndex:[self currentIndex] +1 ];
     // TODO might want to autorelease this. 
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:object];
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:object couchDatabase:self.couchDatabase];
     // We do this because calls to _all_docs do not have a _id property and because 
     // the dictionary we are working with at this point does not have an _id but it 
     // does represent an actual document (for example a design doc) that we may want 
@@ -165,7 +165,7 @@
     [viewUrl appendString:@"group=true"];
 
     STIGDebug(@"Using URL [%@]", [viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] );
-    NSDictionary *etf = [[self db] get:[viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSDictionary *etf = [[self couchDatabase] get:[viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     [rows addObjectsFromArray:[etf objectForKey:@"rows"]];
 }

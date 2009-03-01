@@ -14,6 +14,7 @@
 
 @synthesize name;
 @synthesize couchDatabase;
+@synthesize identity;
 
 -(id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil{    
     self = [super init];
@@ -53,8 +54,12 @@
     [self setObject:[reduce copy] forKey:COUCH_KEY_REDUCE];
 }
 
-
 -(NSString*)description{
     return [self JSONRepresentation];
 }
+
+- (NSEnumerator*) getEnumerator{
+    return [self.couchDatabase getViewEnumerator:[self identity]];
+}
+
 @end
