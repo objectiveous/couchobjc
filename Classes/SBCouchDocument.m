@@ -164,7 +164,11 @@
 }
 
 - (NSString*)identity {
-    return [self objectForKey:@"_id"];
+    NSString *docID = [self objectForKey:@"_id"];
+    if(!docID)
+        docID = [self objectForKey:@"id"];
+    
+    return docID;
 }
 
 - (void)setIdentity:(NSString*)someId {
@@ -187,5 +191,8 @@
     return [self.couchDatabase getDocument:self.identity withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
 }
 
+- (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument{
+    [self.couchDatabase putDocument:couchDocument];
+}
 
 @end
