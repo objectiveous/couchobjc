@@ -9,6 +9,8 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "AbstractDatabaseTest.h"
 
+
+//static NSString *TEST_DESIGN_NAME = @"test-views";
 static NSString *MAP_FUNCTION     = @"function(doc) { if(doc.name == 'Frank'){ emit('Number of Franks', 1);}}";
 static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}";
 //static NSString *TEST_DESIGN_NAME = @"integration-test";

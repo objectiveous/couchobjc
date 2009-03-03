@@ -11,7 +11,6 @@
 #import <CouchObjC/CouchObjC.h>
 
 static NSString *TEST_DESIGN_NAME = @"test-views";
-
 @interface AbstractDatabaseTest : SenTestCase{
     SBCouchServer   *couchServer;
     SBCouchDatabase *couchDatabase;

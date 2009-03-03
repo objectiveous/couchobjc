@@ -10,6 +10,7 @@
 #import <JSON/JSON.h>
 #import "SBOrderedDictionary.h"
 #import "SBCouchServer.h";
+#import "SBCouchDatabase.h"
 
 @interface SBCouchDocument (Private)
 -(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
@@ -18,12 +19,10 @@
 @end
 
 @implementation SBCouchDocument
-//@synthesize serverName;
-//@synthesize databaseName;
+
 @synthesize couchDatabase;
 
 -(id)init{
-
     self = [super initWithCapacity:0];
     if(self){
 
@@ -181,5 +180,12 @@
     [self removeObjectForKey:@"_rev"];
     [self removeObjectForKey:@"_revs"];
 }
+
+#pragma mark -
+#pragma mark REST Methods
+- (SBCouchDocument*)getWithRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil{
+    return [self.couchDatabase getDocument:self.identity withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
+}
+
 
 @end

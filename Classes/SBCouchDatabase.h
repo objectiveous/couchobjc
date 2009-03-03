@@ -16,8 +16,6 @@
 
 /// Interface to a CouchDB database.
 @interface SBCouchDatabase : NSObject {
-
-//@private
     SBCouchServer *couchServer;
     NSString      *name;
 }

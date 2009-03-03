@@ -16,6 +16,28 @@
 
 #pragma mark -
 
+
+-(void)testCallingGetOnSBCouchDocument{
+    /*
+    SBCouchDocument *couchDoc = [couchDBDocument getWithRevisionCount:YES 
+                                                              andInfo:YES 
+                                                             revision:nil];
+     */
+    
+    NSEnumerator *viewResults = [self.couchDatabase allDocsInBatchesOf:100];
+    SBCouchDocument *couchDocument;
+    while (couchDocument = [viewResults nextObject]) {
+        NSLog(@"%@", couchDocument);
+        
+        SBCouchDocument *fetchedDoc = [couchDocument getWithRevisionCount:YES 
+                                                                  andInfo:YES 
+                                                                 revision:nil];
+        STAssertNotNil(fetchedDoc, nil);
+        
+    }
+    
+}
+
 -(void)testGetViewEnumerator{
     STAssertNotNil(TEST_DESIGN_NAME, nil);
     SBCouchDesignDocument *designDoc = [self.couchDatabase getDesignDocument:@"_design/test-views"];
