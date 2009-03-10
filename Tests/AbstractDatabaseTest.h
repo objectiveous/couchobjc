@@ -14,11 +14,15 @@ static NSString *TEST_DESIGN_NAME = @"test-views";
 @interface AbstractDatabaseTest : SenTestCase{
     SBCouchServer   *couchServer;
     SBCouchDatabase *couchDatabase;
+    NSInteger        numberOfViewsToCreate;
+    NSInteger        numberOfDocumentsToCreate;
 }
 
-@property (nonatomic, retain) SBCouchServer *couchServer;
+@property (nonatomic, retain) SBCouchServer   *couchServer;
 @property (nonatomic, retain) SBCouchDatabase *couchDatabase;
+@property                     NSInteger        numberOfViewsToCreate;
+@property                     NSInteger        numberOfDocumentsToCreate;
 
--(SBCouchResponse*)provisionViews;
+- (void)provisionViews;
 - (void)provisionDocuments;
 @end

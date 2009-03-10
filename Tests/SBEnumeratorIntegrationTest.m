@@ -1,0 +1,117 @@
+#import <SenTestingKit/SenTestingKit.h>
+#import "SBCouchView.h"
+#import "CouchObjC.h"
+#import "SBCouchDesignDocument.h"
+#import "AbstractDatabaseTest.h"
+
+
+@interface SBEnumeratorIntegrationTest : AbstractDatabaseTest{
+}
+-(void)simpleAllDocsEnumeration;
+-(void)simplestThingThatWillWork;
+-(void)simpleDesignDocsEnumerator;
+-(void)ensureSkipIsWorkingAndThereAreNoDuplicates;
+@end
+
+@implementation SBEnumeratorIntegrationTest
+
+
+#pragma mark - 
+-(void)setUp{
+    [super setUp];
+    self.numberOfViewsToCreate = 10;
+    self.numberOfDocumentsToCreate = 50; 
+    [super provisionViews];
+    [self provisionDocuments];    
+}
+
+-(void)tearDown{
+    [super tearDown];
+}
+#pragma mark -
+-(void)testANumberOfThingsWithASingleSetup{
+    // We're doing this because we want to setup a single database for testing. 
+    // We could add support for this to AbstractDatabaseTest at some point but 
+    // doing it this way makes it really clear what's going on. 
+    [self simplestThingThatWillWork];
+    [self simpleAllDocsEnumeration];
+    [self simpleDesignDocsEnumerator];
+    [self ensureSkipIsWorkingAndThereAreNoDuplicates];
+}
+
+-(void)ensureSkipIsWorkingAndThereAreNoDuplicates{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 5;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
+    view.couchDatabase = self.couchDatabase;
+    
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
+    int count = 0;
+    NSMutableDictionary *seenDocuments = [[NSMutableDictionary alloc] init];
+    SBCouchDocument *doc;
+    
+    while (doc = [resultEnumerator nextObject]) {
+        count++;
+        SBCouchDocument *object = (SBCouchDocument*) [seenDocuments objectForKey:doc.identity];
+        if(object){
+            NSLog(@"Enumerator for _all_doc returned a duplicate document. %@", doc.identity);
+            STFail(@"Enumerator for _all_doc returned a duplicate document. %@", doc.identity);
+        }
+        [seenDocuments setObject:doc forKey:doc.identity];
+    }
+    STAssertTrue(count == resultEnumerator.currentIndex, nil);    
+    
+}
+
+-(void)simpleDesignDocsEnumerator{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit    = 5;
+        
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
+    view.couchDatabase = self.couchDatabase;
+        
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
+    int count = 0;
+    SBCouchDocument *object;
+    while (object = [resultEnumerator nextObject]) {
+        count++;        
+    }
+    STAssertTrue(count == resultEnumerator.currentIndex, nil);    
+}
+
+-(void)simpleAllDocsEnumeration{
+    
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 10;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
+    view.couchDatabase = self.couchDatabase;
+
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
+    int count = 0;
+    id object;
+    
+    while (object = [resultEnumerator nextObject]) {
+        count++;
+    }
+    int totalNumberOfDocs = self.numberOfViewsToCreate + self.numberOfDocumentsToCreate;
+    
+    STAssertTrue(totalNumberOfDocs == resultEnumerator.currentIndex, @"Enumerator number %i, should be %i ", resultEnumerator.currentIndex, totalNumberOfDocs);     
+}
+
+-(void)simplestThingThatWillWork{
+    NSEnumerator *designDocs = [self.couchDatabase getDesignDocuments];        
+    
+    /// XXX Here we should be storing the document in the descriptor. After all, we've already fetched the 
+    //      darn thing. Later we can use HTTP STATUS CODE 304 to determin if the doc has changed in order 
+    //      to keep things snappy. 
+    SBCouchDocument *couchDesignDocument;
+    while((couchDesignDocument = [designDocs nextObject])){  
+        STAssertNotNil(couchDesignDocument, @"SBCouchEnumerator failed to return a proper object");       
+    }    
+}
+
+
+
+@end

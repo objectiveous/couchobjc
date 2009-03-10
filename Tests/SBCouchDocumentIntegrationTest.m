@@ -30,7 +30,8 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
 
 - (void)testCreateView{
     // TODO DesignDomain needs to go away makes no real sense. 
-    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_NAME];
+    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_NAME 
+                                                                                  couchDatabase:self.couchDatabase];
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"Franks" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION]; 
     
     STAssertNotNil(designDocument, nil);
@@ -101,7 +102,7 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
     STAssertEqualObjects([couchDocument objectForKey:KEY], VALUE, nil);
     STAssertNotNil([couchDocument objectForKey:@"_id"], @"couchDocument is missing its _id");
     STAssertNotNil([couchDocument objectForKey:@"_rev"], @"couchDocument is missing its _rev");
-    STAssertNotNil([couchDocument serverName], @"couchDocument is missing its serverName");
+    STAssertNotNil([couchDocument.couchDatabase.couchServer host], @"couchDocument is missing its serverName");
     
 }
 

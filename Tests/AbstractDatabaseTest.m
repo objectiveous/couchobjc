@@ -22,9 +22,13 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
 @implementation AbstractDatabaseTest
 @synthesize couchServer;
 @synthesize couchDatabase;
+@synthesize numberOfViewsToCreate;
+@synthesize numberOfDocumentsToCreate;
 
 -(void) setUp{
-    couchServer = [[SBCouchServer alloc] initWithHost:@"localhost" port:5984];
+    self.numberOfViewsToCreate = 10;
+    self.numberOfDocumentsToCreate = 10;    
+    couchServer = [SBCouchServer new];
     srandom(time(NULL));
     NSString *name = [NSString stringWithFormat:@"int-couchobjc-%u", random()];
 
@@ -35,19 +39,24 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
     }
 }
 
--(SBCouchResponse*)provisionViews{
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"totals" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION];
-    
-    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:TEST_DESIGN_NAME couchDatabase:couchDatabase];
-    [designDocument addView:view withName:TEST_VIEW_NAME_1];
-    [designDocument addView:view withName:TEST_VIEW_NAME_2];
-    [designDocument addView:view withName:TEST_VIEW_NAME_3];
-    
-    return [self.couchDatabase createDocument:designDocument];
+// XXX Need to autorelease 
+-(void)provisionViews{
+        int count = self.numberOfViewsToCreate;
+    int i;
+    for (i = 0; i < count; i++) {
+        SBCouchView *view = [[SBCouchView alloc] initWithName:@"totals" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION];
+        NSString *testDesignDocumentName = [NSString stringWithFormat:@"%@-%u", TEST_DESIGN_NAME, random()];
+        SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:testDesignDocumentName couchDatabase:couchDatabase];
+        [designDocument addView:view withName:TEST_VIEW_NAME_1];
+        [designDocument addView:view withName:TEST_VIEW_NAME_2];
+        [designDocument addView:view withName:TEST_VIEW_NAME_3];
+        
+        [self.couchDatabase createDocument:designDocument];
+    }
 }
 
 - (void)provisionDocuments{
-    int count = 100;
+    int count = self.numberOfDocumentsToCreate;
     int i;
     
     SBCouchDocument *couchDocument = [SBCouchDocument new];

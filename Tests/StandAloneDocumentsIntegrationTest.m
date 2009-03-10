@@ -40,25 +40,14 @@
 
 -(void)testGetViewEnumerator{
     STAssertNotNil(TEST_DESIGN_NAME, nil);
-    SBCouchDesignDocument *designDoc = [self.couchDatabase getDesignDocument:@"_design/test-views"];
-    STAssertNotNil(designDoc, nil);
-    STAssertNotNil(designDoc.couchDatabase, @"A design doc fetched from the server MUST know where it came from");
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.startkey = @"_design";
+    queryOptions.endkey = @"_design0";
+    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions]; 
+    couchView.couchDatabase = self.couchDatabase;
     
-    for(id key in [designDoc views]){
-        SBCouchView *view = [designDoc view:key];
-        STAssertNotNil(view.couchDatabase, @"A view fetched from the server MUST know of where it came. ");
-        STAssertNotNil(view.identity, nil );
-                
-        NSEnumerator *viewResults = [view getEnumerator];
-        STAssertNotNil(viewResults,nil);
-        
-        SBCouchDocument *document;
-        BOOL pass = NO;
-        while (document = [viewResults nextObject]) {
-            pass = YES;
-        }
-        //STAssertTrue(pass, nil);
-    }    
+    NSEnumerator *queryResults = [couchView getEnumerator];
+    STAssertNotNil(queryResults, nil);    
 }
 
 #pragma mark - 
