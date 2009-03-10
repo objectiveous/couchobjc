@@ -15,6 +15,7 @@
 #import <CouchObjC/SBOrderedDictionary.h>
 #import <CouchObjC/SBCouchDesignDocument.h>
 #import <CouchObjC/SBCouchView.h>
+#import <CouchObjC/SBCouchQueryOptions.h>
 
 #include <asl.h>
 
