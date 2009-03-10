@@ -84,8 +84,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 -(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
-    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];    
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = count;
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
+    view.couchDatabase = self;
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];    
     return (NSEnumerator*)enumerator;
 }

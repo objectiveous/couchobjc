@@ -11,6 +11,7 @@
 -(void)simplestThingThatWillWork;
 -(void)simpleDesignDocsEnumerator;
 -(void)ensureSkipIsWorkingAndThereAreNoDuplicates;
+-(void)itemAtIndexCallsWorkProperly;
 @end
 
 @implementation SBEnumeratorIntegrationTest
@@ -37,6 +38,24 @@
     [self simpleAllDocsEnumeration];
     [self simpleDesignDocsEnumerator];
     [self ensureSkipIsWorkingAndThereAreNoDuplicates];
+    [self itemAtIndexCallsWorkProperly];
+}
+
+
+-(void)itemAtIndexCallsWorkProperly{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 6;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
+    view.couchDatabase = self.couchDatabase;
+    // subtract 1 becuase the index is 0th based. 
+    NSInteger totalNumberOfDocs = (self.numberOfViewsToCreate + self.numberOfDocumentsToCreate) -1 ;
+    
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
+    id object = [resultEnumerator itemAtIndex:0];    
+    STAssertNotNil(object, @"Jumping ahead several windows is not working");
+    object = [resultEnumerator itemAtIndex:totalNumberOfDocs];
+    STAssertNotNil(object, @"Jumping ahead several windows is not working");
 }
 
 -(void)ensureSkipIsWorkingAndThereAreNoDuplicates{

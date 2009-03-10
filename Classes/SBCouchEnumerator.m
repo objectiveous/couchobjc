@@ -10,6 +10,13 @@
 #import "SBCouchDatabase.h"
 #import "CouchObjC.h"
 
+@interface SBCouchEnumerator (Private)
+
+-(BOOL)shouldFetchNextBatch;
+
+@end
+
+
 @implementation SBCouchEnumerator
 
 @synthesize couchView;
@@ -21,8 +28,7 @@
 @synthesize sizeOfLastFetch;
 
 
--(id)initWithView:(SBCouchView*)aCouchView{
-    
+-(id)initWithView:(SBCouchView*)aCouchView{    
     self = [super init];
     if(self != nil){
         // Setting the currentIndex to -1 is used to indicate that we don't have an index yet. 
@@ -40,26 +46,47 @@
     [super dealloc];
 
 }
--(id)itemAtIndex:(NSInteger)idx{
-    // trying to access something outside our range of options. 
-    if(idx > totalRows)
-        return nil;
 
-    // trying to access something that has not yet been fetched
-    if(idx >= [rows count]){  
+-(id)itemAtIndex:(NSInteger)idx{
+    if(self.currentIndex == -1)
         [self fetchNextPage];
-        if( [self itemAtIndex:idx]){
-            // TODO might want to autorelase this
-            SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchView.couchDatabase];
-            return doc;
-        }else{
-            return nil;
-        }
+    
+    if([self.rows count] >= idx){        
+        NSDictionary *row = [self.rows objectAtIndex:idx];
+        return [[SBCouchDocument alloc] initWithNSDictionary:row couchDatabase:self.couchView.couchDatabase];
+    }else{
+        self.currentIndex = self.currentIndex + self.queryOptions.limit; 
     }
+    
+    // trying to access something that has not yet been fetched
+    
+    BOOL noMoreDataToFetch = self.sizeOfLastFetch < self.queryOptions.limit;
+    BOOL needMoreData = idx > self.currentIndex;
+    while(needMoreData && !noMoreDataToFetch ){
+        [self logIndexes];
+        [self fetchNextPage];
+        self.currentIndex = self.currentIndex + self.queryOptions.limit;
+        
+        if(self.sizeOfLastFetch < self.queryOptions.limit)
+            noMoreDataToFetch = TRUE;                
+    }
+    if(idx > self.currentIndex)
+        return nil;
+    
     // TODO Might want to autorelease this. 
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchView.couchDatabase];
+    NSDictionary *row = [self.rows objectAtIndex:idx];
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:row couchDatabase:self.couchView.couchDatabase];
     return doc;
 }
+
+-(void)logIndexes{
+    NSLog(@"----------------------------------------------- \n");
+    NSLog(@"sizeOfLastFetch = %i", self.sizeOfLastFetch);
+    NSLog(@"limit           = %i", self.queryOptions.limit);
+    NSLog(@"currentIndex    = %i", self.currentIndex);
+    
+}
+
 
 -(BOOL)shouldFetchNextBatch{
     if(self.currentIndex == -1)
@@ -88,7 +115,7 @@
     
     // If the call to fetchNextPage did not expand the number of rows to a number 
     // greater than currentIndex
-    if(currentIndex >= [rows count]){
+    if(currentIndex >= [self.rows count]){
         //[rows release], rows = nil;
         return nil;
     }
@@ -108,6 +135,7 @@
 -(void)fetchNextPage{   
     // contruct a new URL using our own copy of the query options
     NSString *contructedUrl = [NSString stringWithFormat:@"%@?%@", self.couchView.name, [self.queryOptions queryString]];
+    NSLog(contructedUrl);
     //NSString *viewUrl = [self.couchView urlString];   
     NSDictionary *etf = [self.couchView.couchDatabase get:contructedUrl];
 
@@ -116,7 +144,7 @@
         self.totalRows    = [[etf objectForKey:@"total_rows"] integerValue]; 
         self.offset       = [[etf objectForKey:@"offset"] integerValue];
         self.currentIndex = 0;
-        // Since this is not our first fetch, set the skip value to 1 
+        // Since this is our first fetch, set the skip value to 1 
         // XXX This should be moved someplace where its only ever called 
         //     once. No need to set this on every fetch. 
         self.queryOptions.skip=1;
@@ -128,6 +156,9 @@
         self.sizeOfLastFetch = -1;
     }else{
         self.sizeOfLastFetch = [newRows count];
+         NSString *lastObjectsID = [[self.rows lastObject] objectForKey:@"id"];
+         if(self.queryOptions.limit > 0)
+             self.queryOptions.startkey = lastObjectsID;
     }
 }
 
