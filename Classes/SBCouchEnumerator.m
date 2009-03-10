@@ -12,92 +12,31 @@
 
 @implementation SBCouchEnumerator
 
-@synthesize couchDatabase;
+@synthesize couchView;
 @synthesize totalRows;
-@synthesize batchSize;
-@synthesize viewPath;
+@synthesize offset;
 @synthesize rows;
 @synthesize currentIndex;
-@synthesize startKey;
-@synthesize viewName;
+@synthesize queryOptions;
+@synthesize sizeOfLastFetch;
 
 
-// XXX This is so horrible I can barley stand to look at it. Calls to the database ought to live in the database class. 
-// use a callback or something if necissary. 
--(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database couchView:(SBCouchView*)couchView{
-    NSString *tempView = [couchView JSONRepresentation];
-    NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
-    SBCouchServer *server = [database couchServer];
-    
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, couchView.couchDatabase, @"_temp_view?limit=10&group=true"];
-    NSURL *url = [NSURL URLWithString:urlString];    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; 
-    
-    [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:body];
-    [request setHTTPMethod:@"POST"];
-    
-    NSError *error;
-    NSHTTPURLResponse *response;
-    NSData *data = [NSURLConnection sendSynchronousRequest:request
-                                         returningResponse:&response
-                                                     error:&error];
-    NSLog(@"status code %i", [response statusCode]);
-    NSLog(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
-
-    NSDictionary *etf;
-    if (200 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        etf = [json JSONValue];
-        NSLog(@"--> %@", [etf JSONRepresentation]);
-    }
+-(id)initWithView:(SBCouchView*)aCouchView{
     
     self = [super init];
     if(self != nil){
-        [self setViewName:couchView.name];
-        [self setCurrentIndex:0];
-     
-        [self setBatchSize:-1]; 
-        [self setCouchDatabase:database];
-        [self setViewPath:couchView.name];
-        if(etf != nil){
-            NSArray *arrayOfRows = [etf objectForKey:@"rows"];
-            [self setTotalRows:[arrayOfRows count]];        
-            [self setRows:[etf objectForKey:@"rows"]];
-        }
+        // Setting the currentIndex to -1 is used to indicate that we don't have an index yet. 
+        self.currentIndex = -1;
+        self.couchView    = aCouchView;
+        // take a copy of the queryOptions for purposes of pagination. 
+        self.queryOptions = aCouchView.queryOptions;
+        self.rows = [NSMutableArray arrayWithCapacity:10];
     }
-    return self;            
+    return self;  
 }
-// a count 0f 0 or less means fetch everything. That is, use not limit expression
--(id)initWithBatchesOf:(NSInteger)count database:(SBCouchDatabase*)database view:(NSString*)view{
-    NSString *url;
-    if(count > 0)
-        url = [NSString stringWithFormat:@"%@?limit=%i&group=true", view, count];        
-     else
-         url = view;
-    
-
-    NSDictionary *etf = [database get:url];
-
-    self = [super init];
-    if(self != nil){
-        [self setViewName:view];
-        [self setCurrentIndex:0];
-        [self setTotalRows:[[etf objectForKey:@"total_rows"] integerValue]]; //{"total_rows":7,"offset":3 TODO need to subtract the offset
-        [self setBatchSize:count]; 
-        [self setCouchDatabase:database];
-        [self setViewPath:view];
-        [self setRows:[etf objectForKey:@"rows"]];
-    }
-    return self;    
-}
-
-
 
 -(void) dealloc{
-    [startKey release], startKey = nil;
-    [viewPath release], viewName = nil;
-    [couchDatabase release];
+    [self.rows release];
     [super dealloc];
 
 }
@@ -111,43 +50,54 @@
         [self fetchNextPage];
         if( [self itemAtIndex:idx]){
             // TODO might want to autorelase this
-            SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchDatabase];
-            doc.couchDatabase = self.couchDatabase;
+            SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchView.couchDatabase];
             return doc;
         }else{
             return nil;
         }
     }
     // TODO Might want to autorelease this. 
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchDatabase];
-    doc.couchDatabase = self.couchDatabase;
-
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:[rows objectAtIndex:idx] couchDatabase:self.couchView.couchDatabase];
     return doc;
 }
-- (id)nextObject{
-    if( (currentIndex >= [rows count]) && [rows count] < totalRows){
+
+-(BOOL)shouldFetchNextBatch{
+    if(self.currentIndex == -1)
+        return YES;
     
-        [self setStartKey:[[rows lastObject] objectForKey:@"id"]];
+    // if the index is >= to the number of rows we can fetch more, 
+    // but if the size of the last fetch was larger than the batch size (i.e limit)
+    //
+    // The default for limit is zero and sizeOfLastFetch is set to -1 when 
+    if(currentIndex >= [rows count] && self.sizeOfLastFetch >= self.queryOptions.limit)
+        return YES;
+    
+    return NO;
+}
+- (id)nextObject{
+    // At some point lastObjectsID will 
+    if([self shouldFetchNextBatch]){
+        //[self setStartKey:[[rows lastObject] objectForKey:@"id"]];
+        NSString *lastObjectsID = [[self.rows lastObject] objectForKey:@"id"];
+        // The first time through, we won't have any rows
+        if(lastObjectsID)
+            self.queryOptions.startkey = lastObjectsID;
+        
         [self fetchNextPage];
     }
     
+    // If the call to fetchNextPage did not expand the number of rows to a number 
+    // greater than currentIndex
     if(currentIndex >= [rows count]){
-        // free up the rows array
-        [rows release], rows = nil;
+        //[rows release], rows = nil;
         return nil;
     }
         
-    
     id object = [rows objectAtIndex:currentIndex];
-
-    
     [self setCurrentIndex:[self currentIndex] +1 ];
     // TODO might want to autorelease this. 
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:object couchDatabase:self.couchDatabase];
-    // We do this because calls to _all_docs do not have a _id property and because 
-    // the dictionary we are working with at this point does not have an _id but it 
-    // does represent an actual document (for example a design doc) that we may want 
-    // to interact with. 
+    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:object couchDatabase:self.couchView.couchDatabase];
+    // XXX Is this a proper identity? 
     doc.identity = [doc objectForKey:@"id"];
     return doc;
 } 
@@ -155,19 +105,30 @@
     return nil;
 }
 
--(void)fetchNextPage{    
-    NSMutableString *viewUrl = [NSMutableString stringWithFormat:@"%@?", [self viewName]];
+-(void)fetchNextPage{   
+    // contruct a new URL using our own copy of the query options
+    NSString *contructedUrl = [NSString stringWithFormat:@"%@?%@", self.couchView.name, [self.queryOptions queryString]];
+    //NSString *viewUrl = [self.couchView urlString];   
+    NSDictionary *etf = [self.couchView.couchDatabase get:contructedUrl];
 
-    [viewUrl appendFormat:@"startkey=\"%@\"&", [self startKey]];
-    [viewUrl appendFormat:@"startkey_docid=\"%@\"&", [self startKey]];
-    [viewUrl appendString:@"skip=1&"];
-    [viewUrl appendFormat:@"limit=%i&",[self batchSize]];
-    [viewUrl appendString:@"group=true"];
+    // If this is our first attempt at a fetch, we need to initialize the currentIndex
+    if(self.currentIndex == -1 ){
+        self.totalRows    = [[etf objectForKey:@"total_rows"] integerValue]; 
+        self.offset       = [[etf objectForKey:@"offset"] integerValue];
+        self.currentIndex = 0;
+        // Since this is not our first fetch, set the skip value to 1 
+        // XXX This should be moved someplace where its only ever called 
+        //     once. No need to set this on every fetch. 
+        self.queryOptions.skip=1;
+    }
 
-    STIGDebug(@"Using URL [%@]", [viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] );
-    NSDictionary *etf = [[self couchDatabase] get:[viewUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-
-    [rows addObjectsFromArray:[etf objectForKey:@"rows"]];
+    NSArray *newRows = [etf objectForKey:@"rows"];
+    [rows addObjectsFromArray:newRows];
+    if([newRows count] <= 0){
+        self.sizeOfLastFetch = -1;
+    }else{
+        self.sizeOfLastFetch = [newRows count];
+    }
 }
 
 @end
