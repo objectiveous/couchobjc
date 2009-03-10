@@ -31,6 +31,7 @@
 #pragma mark GET Calls
 #pragma mark methods that return collections
 - (NSEnumerator*)getViewEnumerator:(NSString*)viewName;
+- (NSEnumerator*)viewEnumerator:(SBCouchView*)view;
 - (NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
 - (NSEnumerator*)allDocs;
 - (NSEnumerator*)getDesignDocuments;
@@ -66,5 +67,6 @@
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc;
 
 #pragma mark -
+-(NSString*)urlString;
 -(NSString*)constructURL:(NSString*)docId withRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 @end

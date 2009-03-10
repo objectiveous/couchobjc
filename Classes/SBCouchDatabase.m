@@ -71,30 +71,36 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [[list objectForKey:@"rows"] objectEnumerator];
     //return [[[STIGCouchViewEnumerator alloc] init] autorelease];
 }
+- (NSEnumerator*)viewEnumerator:(SBCouchView*)view{
+    return [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
+}
+
 -(NSEnumerator*) getViewEnumerator:(NSString*)viewId{
-    NSString *url = [self constructURL:viewId withRevisionCount:NO andInfo:NO revision:nil];
-    //NSString *encodedUrl = [url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //NSString *url = [self constructURL:viewId withRevisionCount:NO andInfo:NO revision:nil];
     
-    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:30
-                                                                         database:self
-                                                                             view:url] autorelease];
-    return (NSEnumerator*)enumerator;
-    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:viewId];
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
+    return (NSEnumerator*)enumerator;    
 }
 
 -(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
-    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:count 
-                                                                         database:self
-                                                                             view:@"_all_docs"] autorelease];
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];    
     return (NSEnumerator*)enumerator;
 }
 - (NSEnumerator*)getDesignDocuments{
-    //NSString *url = @"_all_docs?group=true&startkey=%22_design%22&endkey=%22_design0%22";
-    NSString *url = @"_all_docs?group=true&startkey=\"_design\"&endkey=\"_design0\"";
-    ///_all_docs?group=true&startkey="_design"&endkey="_design0"
-    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
-                                                                         database:self
-                                                                             view:url] autorelease];
+    //NSString *url = @"_all_docs?group=true&startkey=\"_design\"&endkey=\"_design0\"";
+    SBCouchQueryOptions *options = [SBCouchQueryOptions new];
+    options.group = YES;
+    options.startkey = @"_design";
+    options.endkey = @"_design0";
+
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:options];
+    view.couchDatabase = self;
+    
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
+    
     return (NSEnumerator*)enumerator;
 }
 
@@ -118,10 +124,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, args];
 
     NSString *encodedString = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    STIGDebug(@"HTTP GET :  %@",  encodedString );
+
     NSURL *url = [NSURL URLWithString:encodedString];   
    
-    
+    STIGDebug(@"HTTP GET :  %@",  encodedString );    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
     NSError *error;
@@ -134,9 +140,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (200 == [response statusCode]) {
         NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         return [json JSONValue];
+    }else{
+        NSLog(@"HTTP GET FAILED:  %@",  encodedString );
+        NSLog(@"        STATUS CODE %i",  [response statusCode]);
     }
     
-    return nil;    
+    return nil;
 }
 
 
@@ -182,10 +191,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma mark -
 #pragma mark PUT and POST Calls
 
-- (NSEnumerator*)slowViewEnumerator:(SBCouchView*)view{    
-    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithBatchesOf:-1 
-                                                                         database:self
-                                                                        couchView:view] autorelease];
+- (NSEnumerator*)slowViewEnumerator:(SBCouchView*)view{
+    SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
+    
     return (NSEnumerator*)enumerator;
 }
 - (SBCouchResponse*)runSlowView:(SBCouchView*)view{    
@@ -344,6 +352,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         docWithRevArgument = [NSString stringWithFormat:@"%@&rev=%@",docWithRevArgument,revisionOrNil];
     }
     return docWithRevArgument;
+}
+
+-(NSString*)urlString{
+    return [NSString stringWithFormat:@"http://%@:%u/%@", couchServer.host, couchServer.port, self.name];
 }
 
 -(NSString*)description{
