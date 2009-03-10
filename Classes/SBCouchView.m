@@ -15,6 +15,24 @@
 @synthesize name;
 @synthesize couchDatabase;
 @synthesize identity;
+@synthesize queryOptions;
+
+- (id)initWithName:(NSString*)viewName andQueryOptions:(SBCouchQueryOptions*)options{
+    self = [super init];
+    if(self){        
+        self.queryOptions = options;
+        self.name = viewName;
+    }
+    return self;    
+}
+
+- (id)initWithQueryOptions:(SBCouchQueryOptions*)someQueryOptions{
+    self = [super init];
+    if(self){        
+        self.queryOptions = someQueryOptions;
+    }
+    return self;
+}
 
 -(id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil{    
     self = [super init];
@@ -59,7 +77,15 @@
 }
 
 - (NSEnumerator*) getEnumerator{
-    return [self.couchDatabase getViewEnumerator:[self identity]];
+    return [[[SBCouchEnumerator alloc] initWithView:self] autorelease];
 }
 
+- (NSString*)urlString{
+    NSString *queryString = [self.queryOptions queryString];
+    if(queryString)
+        return [NSString stringWithFormat:@"%@?%@", self.name, queryString];
+    else
+        return [NSString stringWithFormat:@"%@", self.name];
+
+}
 @end
