@@ -12,6 +12,7 @@
 -(void)simpleDesignDocsEnumerator;
 -(void)ensureSkipIsWorkingAndThereAreNoDuplicates;
 -(void)itemAtIndexCallsWorkProperly;
+-(void)noLimitInQueryOptionsMeansFetchEveryThing;
 @end
 
 @implementation SBEnumeratorIntegrationTest
@@ -39,6 +40,19 @@
     [self simpleDesignDocsEnumerator];
     [self ensureSkipIsWorkingAndThereAreNoDuplicates];
     [self itemAtIndexCallsWorkProperly];
+    [self noLimitInQueryOptionsMeansFetchEveryThing];
+}
+
+-(void)noLimitInQueryOptionsMeansFetchEveryThing{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self.couchDatabase];
+
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
+
+    NSInteger totalNumberOfDocsCreated = (self.numberOfViewsToCreate + self.numberOfDocumentsToCreate);
+    NSInteger count = [resultEnumerator count];
+    STAssertTrue(count == totalNumberOfDocsCreated, @"count %i. Expected %i", count, totalNumberOfDocsCreated);
 }
 
 
@@ -46,8 +60,7 @@
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 6;
     
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
-    view.couchDatabase = self.couchDatabase;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self.couchDatabase];
     // subtract 1 becuase the index is 0th based. 
     NSInteger totalNumberOfDocs = (self.numberOfViewsToCreate + self.numberOfDocumentsToCreate) -1 ;
     
@@ -62,8 +75,7 @@
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 5;
     
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
-    view.couchDatabase = self.couchDatabase;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self.couchDatabase];
     
     SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
     int count = 0;
@@ -87,8 +99,8 @@
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit    = 5;
         
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
-    view.couchDatabase = self.couchDatabase;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self.couchDatabase];
+
         
     SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
     int count = 0;
@@ -104,9 +116,8 @@
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 10;
     
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
-    view.couchDatabase = self.couchDatabase;
-
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self.couchDatabase];
+  
     SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view getEnumerator];
     int count = 0;
     id object;

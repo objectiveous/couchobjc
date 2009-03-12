@@ -13,7 +13,9 @@
 @interface SBCouchEnumerator (Private)
 
 -(BOOL)shouldFetchNextBatch;
-
+-(void)appendCouchDocuments:(NSArray*)listOfDictionaries;
+-(void)logIndexes;
+-(void)fetchNextPage;
 @end
 
 
@@ -74,8 +76,7 @@
         return nil;
     
     // TODO Might want to autorelease this. 
-    NSDictionary *row = [self.rows objectAtIndex:idx];
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:row couchDatabase:self.couchView.couchDatabase];
+    SBCouchDocument *doc = [self.rows objectAtIndex:idx];
     return doc;
 }
 
@@ -116,10 +117,9 @@
     // If the call to fetchNextPage did not expand the number of rows to a number 
     // greater than currentIndex
     if(currentIndex >= [self.rows count]){
-        //[rows release], rows = nil;
         return nil;
     }
-        
+    
     id object = [rows objectAtIndex:currentIndex];
     [self setCurrentIndex:[self currentIndex] +1 ];
     // TODO might want to autorelease this. 
@@ -129,12 +129,22 @@
     return doc;
 } 
 - (NSArray *)allObjects{
-    return nil;
+    if(self.currentIndex == -1)
+        [self fetchNextPage];
+    return self.rows;
 }
 
 -(void)fetchNextPage{   
     // contruct a new URL using our own copy of the query options
-    NSString *contructedUrl = [NSString stringWithFormat:@"%@?%@", self.couchView.name, [self.queryOptions queryString]];
+    // View URLs are expected to have names like
+    // _view/designdocName/viewName?xx=xx  && _all_docs
+    // This format will be changing in the 0.9 release of CouchDB
+    NSString *contructedUrl;
+    if(self.queryOptions)
+        contructedUrl = [NSString stringWithFormat:@"%@?%@", [self.couchView identity], [self.queryOptions queryString]];
+    else
+        contructedUrl = [NSString stringWithFormat:@"%@", [self.couchView identity]];        
+    //NSString *contructedUrl = [NSString stringWithFormat:@"%@?%@", self.couchView.name, [self.queryOptions queryString]];
     NSLog(contructedUrl);
     //NSString *viewUrl = [self.couchView urlString];   
     NSDictionary *etf = [self.couchView.couchDatabase get:contructedUrl];
@@ -151,7 +161,7 @@
     }
 
     NSArray *newRows = [etf objectForKey:@"rows"];
-    [rows addObjectsFromArray:newRows];
+    [self appendCouchDocuments:newRows];
     if([newRows count] <= 0){
         self.sizeOfLastFetch = -1;
     }else{
@@ -162,4 +172,23 @@
     }
 }
 
+-(void)appendCouchDocuments:(NSArray*)listOfDictionaries{
+    SBCouchDocument *doc;
+    for(NSDictionary *dict in listOfDictionaries){
+        doc = [[SBCouchDocument alloc] initWithNSDictionary:dict couchDatabase:self.couchView.couchDatabase];
+        [self.rows addObject:doc];
+    }    
+}
+
+-(NSInteger)count{
+    if(self.currentIndex == -1 && self.queryOptions.limit <= 0){
+        [self allObjects];
+        return [self.rows count];
+    }
+    
+    if(self.currentIndex == -1){
+        [self fetchNextPage];
+    }
+    return [self.rows count];
+}
 @end

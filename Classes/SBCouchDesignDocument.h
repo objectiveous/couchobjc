@@ -45,9 +45,11 @@
 
 @property (retain) NSString *designDomain;
 
--(id)initWithDesignDomain:(NSString*)domain couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
--(void)addView:(SBCouchView*)view withName:(NSString*)viewName;
--(SBCouchView*)view:(NSString*)viewName;
--(NSString*)language;
--(NSDictionary*)views;
++ (SBCouchDesignDocument*)designDocumentFromDocument:(SBCouchDocument*)aCouchDocument;
+- (id)initWithDesignDomain:(NSString*)domain couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
+- (id)initWithDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
+- (void)addView:(SBCouchView*)view withName:(NSString*)viewName;
+- (SBCouchView*)view:(NSString*)viewName;
+- (NSString*)language;
+- (NSDictionary*)views;
 @end

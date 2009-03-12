@@ -17,21 +17,24 @@
 @synthesize identity;
 @synthesize queryOptions;
 
-- (id)initWithName:(NSString*)viewName andQueryOptions:(SBCouchQueryOptions*)options{
+
+- (id)initWithName:(NSString*)viewName dictionary:(NSDictionary*)viewDictionary couchDatabase:(SBCouchDatabase*)database{
+    self = [super initWithDictionary:viewDictionary];
+    if(self){
+        self.name = viewName;
+        self.couchDatabase = database;
+    }
+    return self;    
+}
+- (id)initWithName:(NSString*)viewName queryOptions:(SBCouchQueryOptions*)options couchDatabase:(SBCouchDatabase*)database{
     self = [super init];
     if(self){        
         self.queryOptions = options;
         self.name = viewName;
+        self.couchDatabase = database;
+        self.identity = viewName;
     }
     return self;    
-}
-
-- (id)initWithQueryOptions:(SBCouchQueryOptions*)someQueryOptions{
-    self = [super init];
-    if(self){        
-        self.queryOptions = someQueryOptions;
-    }
-    return self;
 }
 
 -(id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil{    
@@ -46,16 +49,6 @@
     }
     return self;
 }
-
--(id)initWithName:(NSString*)viewName andDictionary:(NSDictionary*)funtionDictionary{
-    self = [super initWithDictionary:funtionDictionary];
-    if(self){
-        self.name = viewName;
-    }
-    return self;
-}
-
-
 -(NSString*)map{
     return [self objectForKey:@"map"];
 }

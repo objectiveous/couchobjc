@@ -86,8 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = count;
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions];
-    view.couchDatabase = self;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self];
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];    
     return (NSEnumerator*)enumerator;
 }
@@ -97,9 +96,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     options.group = YES;
     options.startkey = @"_design";
     options.endkey = @"_design0";
+    options.include_docs = YES;
 
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:options];
-    view.couchDatabase = self;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:options couchDatabase:self];
     
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
     
@@ -129,7 +128,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
     NSURL *url = [NSURL URLWithString:encodedString];   
    
-    STIGDebug(@"HTTP GET :  %@",  encodedString );    
+    STIGDebug(@"HTTP GET :  %@",  encodedString );
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
     
     NSError *error;

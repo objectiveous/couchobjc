@@ -26,11 +26,10 @@
 @property (retain) SBCouchQueryOptions *queryOptions;
 
 
-- (id)initWithName:(NSString*)viewName andQueryOptions:(SBCouchQueryOptions*)options;
-
-//- (id)initWithQueryOptions:(SBCouchQueryOptions*)queryOptions;
-//- (id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil;
-//- (id)initWithName:(NSString*)viewName andDictionary:(NSDictionary*)funtionDictionary;
+- (id)initWithName:(NSString*)viewName queryOptions:(SBCouchQueryOptions*)options couchDatabase:(SBCouchDatabase*)database;
+- (id)initWithName:(NSString*)viewName dictionary:(NSDictionary*)viewDictionary couchDatabase:(SBCouchDatabase*)database;
+// XXX Should this sort of thing be moved in SBCouchDesignDocument? Do we need a SBCouchViewDocument?
+- (id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil;
 
 - (NSString*)map;
 - (void)setMap:(NSString*)map;

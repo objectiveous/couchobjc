@@ -43,8 +43,7 @@
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.startkey = @"_design";
     queryOptions.endkey = @"_design0";
-    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions]; 
-    couchView.couchDatabase = self.couchDatabase;
+    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions couchDatabase:self.couchDatabase]; 
     
     NSEnumerator *queryResults = [couchView getEnumerator];
     STAssertNotNil(queryResults, nil);    

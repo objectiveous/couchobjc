@@ -11,8 +11,8 @@
 
 
 //static NSString *TEST_DESIGN_NAME = @"test-views";
-static NSString *MAP_FUNCTION     = @"function(doc) { if(doc.name == 'Frank'){ emit('Number of Franks', 1);}}";
-static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}";
+static NSString *MAP_FUNCTION     = @"function(doc)            { emit(doc._id, doc);  }";
+static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return 1;            }";
 //static NSString *TEST_DESIGN_NAME = @"integration-test";
 static NSString *TEST_VIEW_NAME_1 = @"frankCount";
 static NSString *TEST_VIEW_NAME_2 = @"funnyMen";

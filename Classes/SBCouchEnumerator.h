@@ -56,6 +56,10 @@
 #pragma mark Abstract Methods from NSEnumerator
 -(id)nextObject; 
 -(NSArray *)allObjects;
--(void)fetchNextPage;
+
+#pragma mark -
 -(id)itemAtIndex:(NSInteger)idx;
+// Count returns the number of rows fetched so far.
+-(NSInteger)count;
+
 @end
