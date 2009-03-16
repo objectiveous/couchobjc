@@ -39,13 +39,12 @@
 }
 
 -(void)testGetViewEnumerator{
-    STAssertNotNil(TEST_DESIGN_NAME, nil);
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.startkey = @"_design";
     queryOptions.endkey = @"_design0";
-    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" andQueryOptions:queryOptions couchDatabase:self.couchDatabase]; 
+    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ]; 
     
-    NSEnumerator *queryResults = [couchView getEnumerator];
+    NSEnumerator *queryResults = [couchView viewEnumerator];
     STAssertNotNil(queryResults, nil);    
 }
 

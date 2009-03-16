@@ -35,6 +35,7 @@
 - (NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;
 - (NSEnumerator*)allDocs;
 - (NSEnumerator*)getDesignDocuments;
+- (SBCouchView*)designDocumentsView;
 
 #pragma mark single documents
 
@@ -49,10 +50,13 @@
 #pragma mark PUT and POST Calls
 
 - (NSEnumerator*)slowViewEnumerator:(SBCouchView*)view;
-- (SBCouchResponse*)runSlowView:(SBCouchView*)view;
+- (NSDictionary*)runSlowView:(SBCouchView*)view;
+
+
 
 /// Post a document to the database.
 - (SBCouchResponse*)postDocument:(NSDictionary*)doc;
+
 - (SBCouchResponse*)createDocument:(SBCouchDesignDocument*)doc;
 /// Put a document to the given name in the database.
 - (SBCouchResponse*)putDocument:(NSDictionary*)doc named:(NSString*)x;

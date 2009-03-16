@@ -8,6 +8,7 @@
 
 #import "SBCouchEnumerator.h"
 #import "SBCouchDatabase.h"
+#import "SBCouchDesignDocument.h"
 #import "CouchObjC.h"
 
 @interface SBCouchEnumerator (Private)
@@ -46,7 +47,6 @@
 -(void) dealloc{
     [self.rows release];
     [super dealloc];
-
 }
 
 -(id)itemAtIndex:(NSInteger)idx{
@@ -120,13 +120,11 @@
         return nil;
     }
     
-    id object = [rows objectAtIndex:currentIndex];
+    SBCouchDocument *object = [rows objectAtIndex:currentIndex];
     [self setCurrentIndex:[self currentIndex] +1 ];
-    // TODO might want to autorelease this. 
-    SBCouchDocument *doc = [[SBCouchDocument alloc] initWithNSDictionary:object couchDatabase:self.couchView.couchDatabase];
-    // XXX Is this a proper identity? 
-    doc.identity = [doc objectForKey:@"id"];
-    return doc;
+
+    //object.identity = [object objectForKey:@"id"];
+    return object;
 } 
 - (NSArray *)allObjects{
     if(self.currentIndex == -1)
@@ -139,15 +137,23 @@
     // View URLs are expected to have names like
     // _view/designdocName/viewName?xx=xx  && _all_docs
     // This format will be changing in the 0.9 release of CouchDB
+    NSDictionary *etf;
     NSString *contructedUrl;
-    if(self.queryOptions)
-        contructedUrl = [NSString stringWithFormat:@"%@?%@", [self.couchView identity], [self.queryOptions queryString]];
-    else
-        contructedUrl = [NSString stringWithFormat:@"%@", [self.couchView identity]];        
-    //NSString *contructedUrl = [NSString stringWithFormat:@"%@?%@", self.couchView.name, [self.queryOptions queryString]];
+    if(self.queryOptions){
+        contructedUrl = [NSString stringWithFormat:@"%@?%@", [self.couchView identity], [self.queryOptions queryString]];        
+    }else{
+        contructedUrl = [NSString stringWithFormat:@"%@", [self.couchView identity]];
+    }
+        
     NSLog(contructedUrl);
-    //NSString *viewUrl = [self.couchView urlString];   
-    NSDictionary *etf = [self.couchView.couchDatabase get:contructedUrl];
+
+    if(self.couchView.runAsSlowView){            
+        self.couchView.queryOptions = self.queryOptions;
+        etf = [self.couchView.couchDatabase runSlowView:self.couchView];        
+    }else{
+        etf = [self.couchView.couchDatabase get:contructedUrl];
+    }
+        
 
     // If this is our first attempt at a fetch, we need to initialize the currentIndex
     if(self.currentIndex == -1 ){
@@ -173,9 +179,18 @@
 }
 
 -(void)appendCouchDocuments:(NSArray*)listOfDictionaries{
-    SBCouchDocument *doc;
+    id doc;
     for(NSDictionary *dict in listOfDictionaries){
-        doc = [[SBCouchDocument alloc] initWithNSDictionary:dict couchDatabase:self.couchView.couchDatabase];
+        // if we see something starting w/ "_design", we can be sure its a design document and then go ahead 
+        // and create one of those. Is there a way of know earlier or knowing faster? 
+        NSString *documentType = [dict objectForKey:@"id"];
+        NSString *designDocPath = [documentType stringByDeletingLastPathComponent];
+        
+        if(designDocPath != nil && [designDocPath isEqualToString:@"_design"]){
+            doc = [[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchView.couchDatabase];            
+        }else{
+            doc = [[SBCouchDocument alloc] initWithNSDictionary:dict couchDatabase:self.couchView.couchDatabase];            
+        }
         [self.rows addObject:doc];
     }    
 }

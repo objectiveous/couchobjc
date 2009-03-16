@@ -55,7 +55,15 @@
 
 #pragma mark Abstract Methods from NSEnumerator
 -(id)nextObject; 
+
+// Given the nature of couchDB views, the semantics of allObjects is slightly counter-intuitive. 
+// Since a view can return a huge number of rows and we can't fetch them all *and* becuase we 
+// don't know, a priori, how many rows will ultimately be returned, allObjects will only return 
+// an NSArray of objects that have already been fetched. In other words, it only returns a list 
+// of what has already been seen. 
+
 -(NSArray *)allObjects;
+
 
 #pragma mark -
 -(id)itemAtIndex:(NSInteger)idx;

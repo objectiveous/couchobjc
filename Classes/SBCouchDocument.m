@@ -191,8 +191,11 @@
     return [self.couchDatabase getDocument:self.identity withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
 }
 
+- (SBCouchResponse*)put{
+    return [self.couchDatabase putDocument:self];
+}
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument{
-    [self.couchDatabase putDocument:couchDocument];
+    return [self.couchDatabase putDocument:couchDocument];
 }
 
 @end

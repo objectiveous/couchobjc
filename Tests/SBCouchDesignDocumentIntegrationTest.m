@@ -16,7 +16,7 @@
 -(void)setUp{
     [super setUp];
     self.numberOfViewsToCreate = 10;
-    self.numberOfDocumentsToCreate = 50; 
+    self.numberOfDocumentsToCreate = 10; 
     [super provisionViews];
     [self provisionDocuments];    
 }
@@ -26,22 +26,44 @@
 }
 #pragma mark -
 
--(void)testSimpleDesignDocsEnumerator{
-    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
-    queryOptions.startkey = @"_design";
-    queryOptions.endkey = @"_design0";
-    queryOptions.include_docs = YES;
+
+-(void)testSavingChangesToViews{
+    SBCouchView *allDesignDocumentsView = [self.couchDatabase designDocumentsView];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[allDesignDocumentsView viewEnumerator];
     
-    SBCouchView *viewFromTheDocument = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self.couchDatabase];
-    
-    
-    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[viewFromTheDocument getEnumerator];
+    SBCouchDesignDocument *designDoc;
+    while (designDoc = [resultEnumerator nextObject]) {
+        STAssertNotNil([designDoc identity], nil);
+        
+        //SBCouchDesignDocument *designDoc = [SBCouchDesignDocument designDocumentFromDocument:couchDocument];
+        SBCouchView *aNewView = [SBCouchView new];
+        aNewView.map = @"function(doc){emit(doc._id, doc.id);}";
+        NSLog(@"identity %@", [designDoc identity]);
+        [designDoc addView:aNewView withName:@"someName"];
+
+
+        id rev = [designDoc revision];
+        NSLog(@"first rev :  %@", rev);
+        STAssertNotNil(rev, @"Design document should have had its revision set");
+        SBCouchResponse *response = [designDoc put];
+        STAssertTrue(response.ok, @"Failed to get put design doc.");
+        NSLog(@"rev after post :  %@", rev);
+        NSLog(@"rev from the couchDocument %@", [designDoc revision]);
+        NSLog(@"rev from the couchDocument %@", [designDoc revision]);
+
+        STAssertFalse([[designDoc revision] isEqualToString:rev], @"%@ %@", rev, [designDoc revision]);
+    }
+}
+
+-(void)estSimpleDesignDocsEnumerator{
+    SBCouchView *viewFromTheDocument = [self.couchDatabase designDocumentsView];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[viewFromTheDocument viewEnumerator];
 
     SBCouchDocument *object;
     while (object = [resultEnumerator nextObject]) {
         NSLog(@"%@", object);
-       // SBCouchDesignDocument *designDoc = [SBCouchDesignDocument designDocumentFromDocument:object];
-        SBCouchDesignDocument *designDoc = [[SBCouchDesignDocument alloc] initWithDictionary:object couchDatabase:self.couchDatabase];
+        SBCouchDesignDocument *designDoc = [SBCouchDesignDocument designDocumentFromDocument:object];
+        
         NSDictionary *viewList = [designDoc views];
         //STAssertNotNil(viewList, nil);
         for(id viewNameKey in viewList){
@@ -59,7 +81,7 @@
             STAssertNotNil([viewFromTheDocument identity] , @"View is missing its identity.");
             NSLog(@"%@", [viewFromTheDocument identity]);
             
-            SBCouchEnumerator *viewResults = (SBCouchEnumerator*) [viewFromTheDocument getEnumerator];
+            SBCouchEnumerator *viewResults = (SBCouchEnumerator*) [viewFromTheDocument viewEnumerator];
             NSArray *allDocs = [viewResults allObjects];
             NSInteger count = [allDocs count]; 
             NSLog(@"%i",count);
@@ -69,4 +91,7 @@
     }
 
 }
+
+
+
 @end

@@ -86,7 +86,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = count;
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:queryOptions couchDatabase:self];
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:queryOptions ];
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];    
     return (NSEnumerator*)enumerator;
 }
@@ -98,12 +98,21 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     options.endkey = @"_design0";
     options.include_docs = YES;
 
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" queryOptions:options couchDatabase:self];
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:options ];
     
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
     
     return (NSEnumerator*)enumerator;
 }
+- (SBCouchView*)designDocumentsView{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.startkey = @"_design";
+    queryOptions.endkey = @"_design0";
+    queryOptions.include_docs = YES;
+    
+    return [[[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:queryOptions] autorelease];
+}
+
 
 #pragma mark methods that return docs
 
@@ -197,14 +206,24 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     return (NSEnumerator*)enumerator;
 }
-- (SBCouchResponse*)runSlowView:(SBCouchView*)view{    
+
+- (NSDictionary*)runSlowView:(SBCouchView*)view{    
     //[NSString stringWithFormat:@"", COUCH_VIEW_SLOW, view]
     //return [self postDocument:view];
     NSString *tempView = [view JSONRepresentation];
     NSData *body = [tempView dataUsingEncoding:NSUTF8StringEncoding];
-    //NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", server.host, server.port, self.name, COUCH_VIEW_SLOW];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, @"_temp_view?limit=10&group=true"];
-    NSURL *url = [NSURL URLWithString:urlString];    
+    
+    NSString *urlString;
+    if(view.queryOptions)
+        urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@?%@", couchServer.host, couchServer.port, self.name, @"_temp_view", [view.queryOptions queryString]];
+    else
+        urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, @"_temp_view"];
+
+    
+    NSString *encodedURL = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSURL *url = [NSURL URLWithString:encodedURL];
+    NSLog(@"Encoded URL : %@" , encodedURL);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; 
     
     [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
@@ -217,16 +236,16 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:&response
                                                      error:&error];
     NSLog(@"status code %i", [response statusCode]);
-    //NSLog(@"status code %i", response.ok);
     NSLog(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
-
     
     if (200 == [response statusCode]) {
         NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"%@", [json JSONValue]);
-        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
-    }
-    
+        // The following makes no sense in this context as there is no 'ok' value 
+        // in the dictionary.
+        //return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+        return [json JSONValue];
+    }    
     return nil;
 }
 
@@ -288,9 +307,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument
 {
+    
     NSData *body = [[couchDocument JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, [couchDocument objectForKey:@"_id"]];
+    NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, [couchDocument identity]];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];    
+    NSLog(@"%@", urlString);
+    NSLog(@"%@", [couchDocument JSONRepresentation]);
+    
+    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
     [request setHTTPBody:body];
     [request setHTTPMethod:@"PUT"];
@@ -303,7 +327,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     
     if (201 == [response statusCode]) {
         NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+        NSDictionary *jsonValue = [json JSONValue];
+        [couchDocument setRevision:[jsonValue objectForKey:@"rev"]];
+        return [[SBCouchResponse alloc] initWithDictionary:jsonValue];
     }
     
     return nil;    

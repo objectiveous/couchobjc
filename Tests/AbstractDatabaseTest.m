@@ -10,10 +10,11 @@
 #import "AbstractDatabaseTest.h"
 
 
-//static NSString *TEST_DESIGN_NAME = @"test-views";
+
 static NSString *MAP_FUNCTION     = @"function(doc)            { emit(doc._id, doc);  }";
 static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return 1;            }";
-//static NSString *TEST_DESIGN_NAME = @"integration-test";
+
+static NSString *TEST_DESIGN_NAME = @"test-views";
 static NSString *TEST_VIEW_NAME_1 = @"frankCount";
 static NSString *TEST_VIEW_NAME_2 = @"funnyMen";
 static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
@@ -44,7 +45,10 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
         int count = self.numberOfViewsToCreate;
     int i;
     for (i = 0; i < count; i++) {
-        SBCouchView *view = [[SBCouchView alloc] initWithName:@"totals" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION];
+        SBCouchView *view = [[SBCouchView alloc] initWithName:@"totals" couchDatabase:self.couchDatabase];
+        [view setMap:MAP_FUNCTION];
+        [view setReduce:REDUCE_FUNCTION];
+        
         NSString *testDesignDocumentName = [NSString stringWithFormat:@"%@-%u", TEST_DESIGN_NAME, random()];
         SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:testDesignDocumentName couchDatabase:couchDatabase];
         [designDocument addView:view withName:TEST_VIEW_NAME_1];

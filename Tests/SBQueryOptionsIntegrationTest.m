@@ -15,24 +15,19 @@
 
 -(void)testUsingQueryOptionsWithAView{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
-    SBCouchView *couchView = [[SBCouchView alloc] initWithQueryOptions:queryOptions];
-    couchView.name = @"_all_docs";
-    couchView.couchDatabase = self.couchDatabase;
+    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions];
         
-    SBCouchEnumerator *viewResults = (SBCouchEnumerator*) [couchView getEnumerator];
-    
+    SBCouchEnumerator *viewResults = (SBCouchEnumerator*) [couchView viewEnumerator];
+
     STAssertNotNil(viewResults,nil);
-    [viewResults totalRows];    
-
-    STAssertTrue([viewResults totalRows] > 0, @"No rows");
-
-    
+  
     BOOL pass = FALSE;
     id doc;
     while (doc = [viewResults nextObject]) {
         pass = TRUE;
     }
-    
+    [viewResults totalRows];  
+    STAssertTrue([viewResults totalRows] > 0, @"No rows");
     STAssertTrue(pass,nil);
     
     [couchView release];

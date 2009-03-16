@@ -39,8 +39,12 @@ static NSString const *REDUCE         = @"reduce";
 @synthesize include_docs;
 
 
+- (NSString*)description{
+    return [self queryString];
+}
+
 // XXX BOOL values should probably not default to true. We are assuming to much. 
--(NSString*) queryString{
+- (NSString*) queryString{
     NSMutableString *queryString = [NSMutableString new];
     NSString *stringFormat = @"&%@=\"%@\"";
     NSString *intFormat = @"&%@=%i";

@@ -2,50 +2,60 @@
 #import "SBCouchDesignDocument.h"
 #import "SBCouchView.h"
 
-static NSString *MAP_FUNCTION = @"function(doc){emit(doc.type, 10);}";
+static NSString *MAP_FUNCTION = @"function(doc){emit(doc._id, doc);}";
 
 @interface SBSlowViewIntegrationTest : AbstractDatabaseTest{
 }
--(void)loadTestDocuments;
+
 @end
 
 @implementation SBSlowViewIntegrationTest
 
 -(void)setUp{
     [super setUp];
-    [self loadTestDocuments];
+    self.numberOfDocumentsToCreate = 20;
+    [super provisionDocuments];
 }
 
--(void)testSimplestThingThatWillWork{
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"franks" andMap:MAP_FUNCTION andReduce:nil];
+-(void)testPostingSlowView{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 2;
+    queryOptions.group = YES;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"testViewSelectEverything" 
+                                            couchDatabase:self.couchDatabase
+                                             queryOptions:queryOptions];
     
-   SBCouchEnumerator *enumerator = (SBCouchEnumerator*) [[self couchDatabase] slowViewEnumerator:view];
-    STAssertTrue(enumerator.totalRows > 0, @"No results returned %@", enumerator.totalRows);
+    [view setMap:MAP_FUNCTION];
     
-    BOOL pass = NO;
-    SBCouchDocument *object;
-    while((object = [enumerator nextObject])){
-        SBDebug(@"*** %@", object);   
-        pass = YES;
+    NSEnumerator *viewResult = [view slowViewEnumerator];
+    STAssertNotNil(viewResult, nil);
+    
+    
+    id doc;
+    while(doc = [viewResult nextObject]){
+        NSLog(@"    %@", doc);
     }
-    STAssertTrue(pass, @"Could not loop through the enumerator");
-    
 
-    [view release];
+    NSArray *allDocs = [viewResult allObjects];
+    STAssertTrue([allDocs count] == self.numberOfDocumentsToCreate, @"%i : %i", [allDocs count], self.numberOfDocumentsToCreate);
+    
+    
 }
 
--(void)loadTestDocuments{
-    SBCouchDocument *document = [[SBCouchDocument alloc] init];     
-    [document setObject:@"jazz" forKey:@"type"];
-    
-    SBCouchResponse *response = [self.couchDatabase postDocument:document];
-    if(!response.ok)
-        STFail(@"Never got a ok response from the document post");
-   
-    [document setObject:@"funk" forKey:@"type"];
-    response = [self.couchDatabase postDocument:document];
-        
-    [document release];
+-(void)testPostingView{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 2;
+    queryOptions.group = YES;
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"testViewSelectEverything" 
+                                            couchDatabase:self.couchDatabase
+                                             queryOptions:queryOptions];
+    [view setMap:MAP_FUNCTION];    
+    NSDictionary *response = [self.couchDatabase runSlowView:view];
+    STAssertNotNil(response, nil);
+    // We should be able to make the following call but SBCouchResponse makes some 
+    // assumptions that it should not, like the existend of 'ok' in the result data. 
+    //STAssertTrue(response.ok, nil);
+    [view release];
 }
 
 @end

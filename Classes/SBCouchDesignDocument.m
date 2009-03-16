@@ -19,8 +19,11 @@
 
 
 + (SBCouchDesignDocument*)designDocumentFromDocument:(SBCouchDocument*)aCouchDocument{
-    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument new] autorelease];
-    return designDocument;
+    // XXX Not sure if this is proper way to create factory style methods. Could this introduce 
+    //     memory leaks under some conditions? Does the caller need to be sure to 
+    SBCouchDesignDocument *designDoc = [[[SBCouchDesignDocument alloc] initWithDictionary:aCouchDocument 
+                                                                            couchDatabase:aCouchDocument.couchDatabase] autorelease];
+    return designDoc;
 }
 -(id)initWithDesignDomain:(NSString*)domain couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil{
     self = [super init];
@@ -49,6 +52,22 @@
             if([@"doc" isEqualToString:key])
                 continue;
             
+            NSDictionary *valueObject = [aDictionary objectForKey:@"value"];
+            if(valueObject){
+                id rev = [valueObject objectForKey:@"rev"];
+                [self setObject:rev forKey:@"_rev"];
+            }
+            
+            // calls to _all_docs will place the revision number in "value": {"rev":"74EC24"}
+            /*
+            if(@"value" isEqualToString:key){
+                NSDictionary *value = [aDictionary objectForKey:key];
+                NSSTring *rev = [value objectForKey:@"rev"];
+                if(rev)
+                    [self setObject:rev forKey:@"_rev"];
+                //continue;
+            }
+            */
             NSLog(@" %@ => %@", key, [aDictionary objectForKey:key]);
             [self setObject:[aDictionary objectForKey:key] forKey:key];
         }   
@@ -59,14 +78,18 @@
         if(doc){
             NSLog(@"%@", doc);            
             //[self setObject:[aDictionary objectForKey:key] forKey:key];
-             [self setObject:[doc objectForKey:COUCH_KEY_LANGUAGE] forKey:COUCH_KEY_LANGUAGE];
+            // XXX DONT MAKE ASSUMTIONS
+            if([doc objectForKey:COUCH_KEY_LANGUAGE])
+                [self setObject:[doc objectForKey:COUCH_KEY_LANGUAGE] forKey:COUCH_KEY_LANGUAGE];
+            
             id views = [doc objectForKey:COUCH_KEY_VIEWS];
             if(views){
                 NSMutableDictionary *v = [NSMutableDictionary dictionaryWithCapacity:2];
                 [self setObject:v forKey:COUCH_KEY_VIEWS];
                 
                 for(id viewName in views){
-                 [self createAndAddView:[views objectForKey:viewName] withName:viewName];   
+                    SBCouchView *childView = [views objectForKey:viewName];
+                    [self createAndAddView:childView withName:viewName];   
                 }
                 NSLog(@"%@", doc);
             }
@@ -89,7 +112,7 @@
 }
 
 -(void) createAndAddView:(NSDictionary*)viewDictionary withName:(NSString*)viewName{
-    SBCouchView *view = [[SBCouchView alloc] initWithName:viewName dictionary:viewDictionary couchDatabase:self.couchDatabase];
+    SBCouchView *view = [[SBCouchView alloc] initWithName:viewName couchDatabase:self.couchDatabase dictionary:viewDictionary ];
    
     // Once CouchDB 0.9 is released, _view will be something like _design/designName/_view/viewName
     NSString *viewIdentity = [NSString stringWithFormat:@"_view/%@/%@", [[self identity] lastPathComponent], view.name];
@@ -108,7 +131,7 @@
 }
 
 -(NSDictionary*)views{
-    NSLog(@"%@", [self objectForKey:COUCH_KEY_VIEWS]);
+    NSLog(@" Views ---> %@", [self objectForKey:COUCH_KEY_VIEWS]);
     return [self objectForKey:COUCH_KEY_VIEWS];
 }
 

@@ -16,9 +16,10 @@
 @synthesize couchDatabase;
 @synthesize identity;
 @synthesize queryOptions;
+@synthesize runAsSlowView;
 
 
-- (id)initWithName:(NSString*)viewName dictionary:(NSDictionary*)viewDictionary couchDatabase:(SBCouchDatabase*)database{
+- (id)initWithName:(NSString*)viewName couchDatabase:(SBCouchDatabase*)database dictionary:(NSDictionary*)viewDictionary{
     self = [super initWithDictionary:viewDictionary];
     if(self){
         self.name = viewName;
@@ -26,10 +27,9 @@
     }
     return self;    
 }
-- (id)initWithName:(NSString*)viewName queryOptions:(SBCouchQueryOptions*)options couchDatabase:(SBCouchDatabase*)database{
+- (id)initWithName:(NSString*)viewName couchDatabase:(SBCouchDatabase*)database{
     self = [super init];
     if(self){        
-        self.queryOptions = options;
         self.name = viewName;
         self.couchDatabase = database;
         self.identity = viewName;
@@ -37,18 +37,14 @@
     return self;    
 }
 
--(id)initWithName:(NSString*)viewName andMap:(NSString*)map andReduce:(NSString*)reduceOrNil{    
-    self = [super init];
-    if(self){
-        [self setObject:map forKey:@"map"];
-        if(reduceOrNil != Nil)
-            [self setObject:reduceOrNil forKey:@"reduce"];
-        // The view name is not included in the dictionary as it's a propety of the 
-        // design dictionary. 
-        self.name = viewName;
+- (id)initWithName:(NSString*)viewName couchDatabase:(SBCouchDatabase*)database queryOptions:(SBCouchQueryOptions*)options {
+    self = [self initWithName:viewName couchDatabase:database];
+    if(self){        
+        self.queryOptions = options;
     }
-    return self;
+    return self;    
 }
+
 -(NSString*)map{
     return [self objectForKey:@"map"];
 }
@@ -69,7 +65,12 @@
     return [self JSONRepresentation];
 }
 
-- (NSEnumerator*) getEnumerator{
+- (NSEnumerator*) slowViewEnumerator{
+    self.runAsSlowView = YES;
+    return [[[SBCouchEnumerator alloc] initWithView:self] autorelease];
+}
+
+- (NSEnumerator*) viewEnumerator{
     return [[[SBCouchEnumerator alloc] initWithView:self] autorelease];
 }
 

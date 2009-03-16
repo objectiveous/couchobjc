@@ -25,7 +25,7 @@
  Should the SBCouchView have an identity of /database/_design/view-name? If so, it will be 
  impossible to issue the following without swapping out the path element _design or _view: 
  
-    [view getEnumerator]
+    [view viewEnumerator]
  
  Also, an SBCouchView plucked from a SBCouchDocument is not really Resource in the sense that 
  there's no referencable "things" at location /database/_design/*. In other words, the only 
