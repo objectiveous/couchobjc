@@ -15,7 +15,7 @@
 @end
 
 @implementation SBCouchDesignDocument
-@synthesize designDomain;
+//@synthesize designDomain;
 
 
 + (SBCouchDesignDocument*)designDocumentFromDocument:(SBCouchDocument*)aCouchDocument{
@@ -23,15 +23,16 @@
                                                                             couchDatabase:aCouchDocument.couchDatabase] autorelease];
     return designDoc;
 }
--(id)initWithDesignDomain:(NSString*)domain couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil{
+-(id)initWithName:(NSString*)domain couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil{
     self = [super init];
     if(self != nil){
         self.couchDatabase = aCouchDatabaseOrNil;
         SBOrderedDictionary *views = [SBOrderedDictionary dictionaryWithCapacity:5];
         [self setObject:views forKey:@"views"];
         [self setObject:COUCH_KEY_LANGUAGE_DEFAULT forKey:COUCH_KEY_LANGUAGE];
-        self.designDomain = [NSString stringWithFormat:@"%@%@", COUCH_KEY_DESIGN_PREFIX, domain];
-        self.identity = [NSString stringWithFormat:@"%@%@", COUCH_KEY_DESIGN_PREFIX, domain];
+        NSString *properID = [NSString stringWithFormat:@"%@%@", COUCH_KEY_DESIGN_PREFIX, domain];
+        [self setObject:properID forKey:COUCH_KEY_ID];
+        //self.identity = [NSString stringWithFormat:@"%@%@", COUCH_KEY_DESIGN_PREFIX, domain];
     }
     return self;
 }
@@ -79,7 +80,6 @@
 }
 
 -(void)dealloc{
-    self.designDomain = nil;
     [super dealloc];
 }
 

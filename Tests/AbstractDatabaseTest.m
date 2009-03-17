@@ -50,7 +50,7 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
         [view setReduce:REDUCE_FUNCTION];
         
         NSString *testDesignDocumentName = [NSString stringWithFormat:@"%@-%u", TEST_DESIGN_NAME, random()];
-        SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:testDesignDocumentName couchDatabase:couchDatabase];
+        SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithName:testDesignDocumentName couchDatabase:couchDatabase];
         [designDocument addView:view withName:TEST_VIEW_NAME_1];
         [designDocument addView:view withName:TEST_VIEW_NAME_2];
         [designDocument addView:view withName:TEST_VIEW_NAME_3];

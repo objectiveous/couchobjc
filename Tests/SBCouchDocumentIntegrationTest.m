@@ -30,7 +30,7 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
 
 - (void)testCreateView{
     // TODO DesignDomain needs to go away makes no real sense. 
-    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_NAME 
+    SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithName:DESIGN_NAME 
                                                                                   couchDatabase:self.couchDatabase];
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"Franks" couchDatabase:self.couchDatabase];
     view.map = MAP_FUNCTION;

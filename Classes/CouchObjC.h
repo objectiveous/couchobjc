@@ -25,6 +25,7 @@
 #define COUCH_KEY_VIEWS            @"views"
 #define COUCH_KEY_MAP              @"map"
 #define COUCH_KEY_REDUCE           @"reduce"
+#define COUCH_KEY_ID               @"_id"
 #define COUCH_VIEW_SLOW            @"_slow_view";
 #define COUCH_VIEW_ALL             @"_all_docs";
 

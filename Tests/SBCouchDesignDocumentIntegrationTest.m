@@ -33,6 +33,16 @@
     
     SBCouchDesignDocument *designDoc;
     while (designDoc = [resultEnumerator nextObject]) {
+        
+    }
+}
+
+-(void)testSavingAdditionsToDesignDocs{
+    SBCouchView *allDesignDocumentsView = [self.couchDatabase designDocumentsView];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[allDesignDocumentsView viewEnumerator];
+    
+    SBCouchDesignDocument *designDoc;
+    while (designDoc = [resultEnumerator nextObject]) {
         STAssertNotNil([designDoc identity], nil);
         
         //SBCouchDesignDocument *designDoc = [SBCouchDesignDocument designDocumentFromDocument:couchDocument];
@@ -55,7 +65,7 @@
     }
 }
 
--(void)estSimpleDesignDocsEnumerator{
+-(void)testSimpleDesignDocsEnumerator{
     SBCouchView *viewFromTheDocument = [self.couchDatabase designDocumentsView];
     SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[viewFromTheDocument viewEnumerator];
 
