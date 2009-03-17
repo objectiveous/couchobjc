@@ -19,8 +19,6 @@
 
 
 + (SBCouchDesignDocument*)designDocumentFromDocument:(SBCouchDocument*)aCouchDocument{
-    // XXX Not sure if this is proper way to create factory style methods. Could this introduce 
-    //     memory leaks under some conditions? Does the caller need to be sure to 
     SBCouchDesignDocument *designDoc = [[[SBCouchDesignDocument alloc] initWithDictionary:aCouchDocument 
                                                                             couchDatabase:aCouchDocument.couchDatabase] autorelease];
     return designDoc;
@@ -38,13 +36,10 @@
     return self;
 }
 
-
 -(id)initWithDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil{
     self = [super init];
     if(self){
         self.couchDatabase = aCouchDatabaseOrNil;
-   
-
         // Copy all the keys from the NSDictionary *except* for doc. If doc is shows up
         // include_docs=true was used in the GET and we need to create proper SBCouchView 
         // documents. 
@@ -58,25 +53,11 @@
                 [self setObject:rev forKey:@"_rev"];
             }
             
-            // calls to _all_docs will place the revision number in "value": {"rev":"74EC24"}
-            /*
-            if(@"value" isEqualToString:key){
-                NSDictionary *value = [aDictionary objectForKey:key];
-                NSSTring *rev = [value objectForKey:@"rev"];
-                if(rev)
-                    [self setObject:rev forKey:@"_rev"];
-                //continue;
-            }
-            */
-            NSLog(@" %@ => %@", key, [aDictionary objectForKey:key]);
             [self setObject:[aDictionary objectForKey:key] forKey:key];
         }   
-        
-        NSLog(@"%@", [self identity] );
-        //[self setObject:views forKey:COUCH_KEY_VIEWS];
+                        
         id doc = [aDictionary objectForKey:@"doc"];
-        if(doc){
-            NSLog(@"%@", doc);            
+        if(doc){        
             //[self setObject:[aDictionary objectForKey:key] forKey:key];
             // XXX DONT MAKE ASSUMTIONS
             if([doc objectForKey:COUCH_KEY_LANGUAGE])
@@ -91,28 +72,20 @@
                     SBCouchView *childView = [views objectForKey:viewName];
                     [self createAndAddView:childView withName:viewName];   
                 }
-                NSLog(@"%@", doc);
             }
         }
-        
-        
-        /*
-        [self setObject:[aDictionary objectForKey:COUCH_KEY_LANGUAGE] forKey:COUCH_KEY_LANGUAGE];
-        [self setObject:[aDictionary objectForKey:@"_rev"] forKey:@"_rev"];
-        [self setObject:[aDictionary objectForKey:@"_id"] forKey:@"_id"];
-        NSDictionary *viewsDictionary = [aDictionary objectForKey:@"views"];         
-        self.designDomain = [self objectForKey:@"_id"];
-        
-        for(NSString *viewName in viewsDictionary){
-            [self createAndAddView:[viewsDictionary objectForKey:viewName] withName:viewName];
-        }        
-      */
     }
     return self;
 }
 
+-(void)dealloc{
+    self.designDomain = nil;
+    [super dealloc];
+}
+
+#pragma mark -
 -(void) createAndAddView:(NSDictionary*)viewDictionary withName:(NSString*)viewName{
-    SBCouchView *view = [[SBCouchView alloc] initWithName:viewName couchDatabase:self.couchDatabase dictionary:viewDictionary ];
+    SBCouchView *view = [[[SBCouchView alloc] initWithName:viewName couchDatabase:self.couchDatabase dictionary:viewDictionary ] autorelease];
    
     // Once CouchDB 0.9 is released, _view will be something like _design/designName/_view/viewName
     NSString *viewIdentity = [NSString stringWithFormat:@"_view/%@/%@", [[self identity] lastPathComponent], view.name];
@@ -125,28 +98,21 @@
         return;
     view.couchDatabase = self.couchDatabase;
     NSMutableDictionary *views = [self objectForKey:COUCH_KEY_VIEWS];
-    NSLog(@"%@", views);
     [views setObject:view forKey:viewName];
-    NSLog(@"%@", [self objectForKey:COUCH_KEY_VIEWS]);
 }
 
 -(NSDictionary*)views{
-    NSLog(@" Views ---> %@", [self objectForKey:COUCH_KEY_VIEWS]);
     return [self objectForKey:COUCH_KEY_VIEWS];
 }
-
-/*
--(NSString*)identity{
-    return self.designDomain;
-}
-*/
  
 -(NSString*)description{
     return [super description];
 }
+
 -(NSString*)language{
     return [self objectForKey:COUCH_KEY_LANGUAGE];
 }
+
 -(SBCouchView*)view:(NSString*)viewName{
     return [[self views] objectForKey:viewName]; 
 }

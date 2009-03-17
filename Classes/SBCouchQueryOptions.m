@@ -38,6 +38,14 @@ static NSString const *REDUCE         = @"reduce";
 @synthesize reduce;
 @synthesize include_docs;
 
+-(void)dealloc{
+    self.key = nil;
+    self.startkey = nil;
+    self.startkey_docid = nil;
+    self.endkey = nil;
+    self.endkey_docid = nil;
+    [super dealloc];
+}
 
 - (NSString*)description{
     return [self queryString];

@@ -43,6 +43,7 @@
 }
 
 -(void)dealloc{
+    self.couchDatabase = nil;
     [super dealloc];
 }
 

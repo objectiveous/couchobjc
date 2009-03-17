@@ -45,17 +45,19 @@
 }
 
 -(void) dealloc{
-    [self.rows release];
+    self.couchView = nil;
+    self.rows = nil;
+    self.queryOptions = nil;    
     [super dealloc];
 }
 
+#pragma mark -
 -(id)itemAtIndex:(NSInteger)idx{
     if(self.currentIndex == -1)
         [self fetchNextPage];
     
     if([self.rows count] >= idx){        
-        NSDictionary *row = [self.rows objectAtIndex:idx];
-        return [[SBCouchDocument alloc] initWithNSDictionary:row couchDatabase:self.couchView.couchDatabase];
+        return [self.rows objectAtIndex:idx];
     }else{
         self.currentIndex = self.currentIndex + self.queryOptions.limit; 
     }
@@ -81,10 +83,10 @@
 }
 
 -(void)logIndexes{
-    NSLog(@"----------------------------------------------- \n");
-    NSLog(@"sizeOfLastFetch = %i", self.sizeOfLastFetch);
-    NSLog(@"limit           = %i", self.queryOptions.limit);
-    NSLog(@"currentIndex    = %i", self.currentIndex);
+    SBDebug(@"----------------------------------------------- \n");
+    SBDebug(@"sizeOfLastFetch = %i", self.sizeOfLastFetch);
+    SBDebug(@"limit           = %i", self.queryOptions.limit);
+    SBDebug(@"currentIndex    = %i", self.currentIndex);
     
 }
 
@@ -145,8 +147,6 @@
         contructedUrl = [NSString stringWithFormat:@"%@", [self.couchView identity]];
     }
         
-    NSLog(contructedUrl);
-
     if(self.couchView.runAsSlowView){            
         self.couchView.queryOptions = self.queryOptions;
         etf = [self.couchView.couchDatabase runSlowView:self.couchView];        
@@ -187,9 +187,9 @@
         NSString *designDocPath = [documentType stringByDeletingLastPathComponent];
         
         if(designDocPath != nil && [designDocPath isEqualToString:@"_design"]){
-            doc = [[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchView.couchDatabase];            
+            doc = [[[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchView.couchDatabase] autorelease];  
         }else{
-            doc = [[SBCouchDocument alloc] initWithNSDictionary:dict couchDatabase:self.couchView.couchDatabase];            
+            doc = [[[SBCouchDocument alloc] initWithNSDictionary:dict couchDatabase:self.couchView.couchDatabase] autorelease];
         }
         [self.rows addObject:doc];
     }    

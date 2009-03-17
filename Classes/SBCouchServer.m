@@ -29,7 +29,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #import "SBCouchServer.h"
 #import "SBCouchDatabase.h"
-
+#import "CouchObjC.h"
 #import <JSON/JSON.h>
 
 @implementation SBCouchServer
@@ -76,7 +76,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         return [dict valueForKey:@"version"];
     }
     
-    NSLog(@"Error occured.\nError: %@\nResponse: %@", error, response);
+    SBDebug(@"Error occured.\nError: %@\nResponse: %@", error, response);
     return nil;
 }
 

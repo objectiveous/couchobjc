@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 @class SBCouchDatabase;
 
 /// Interface to a CouchDB server

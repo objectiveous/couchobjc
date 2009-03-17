@@ -146,13 +146,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                          returningResponse:&response
                                                      error:&error];
     
-    NSLog(@" URL Status Code %i", [response statusCode]);
+    SBDebug(@" URL Status Code %i", [response statusCode]);
     if (200 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         return [json JSONValue];
     }else{
-        NSLog(@"HTTP GET FAILED:  %@",  encodedString );
-        NSLog(@"        STATUS CODE %i",  [response statusCode]);
+        SBDebug(@"HTTP GET FAILED:  %@",  encodedString );
+        SBDebug(@"        STATUS CODE %i",  [response statusCode]);
     }
     
     return nil;
@@ -223,7 +223,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSString *encodedURL = [urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     NSURL *url = [NSURL URLWithString:encodedURL];
-    NSLog(@"Encoded URL : %@" , encodedURL);
+    SBDebug(@"Encoded URL : %@" , encodedURL);
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url]; 
     
     [request setValue:@"application/json; charset=UTF-8" forHTTPHeaderField:@"Content-Type"];
@@ -235,12 +235,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSData *data = [NSURLConnection sendSynchronousRequest:request
                                          returningResponse:&response
                                                      error:&error];
-    NSLog(@"status code %i", [response statusCode]);
-    NSLog(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
+    SBDebug(@"status code %i", [response statusCode]);
+    SBDebug(@"headers %@", [[response allHeaderFields] JSONRepresentation]);
     
     if (200 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@", [json JSONValue]);
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         // The following makes no sense in this context as there is no 'ok' value 
         // in the dictionary.
         //return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
@@ -272,8 +271,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (201 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
     }
     
     return nil;    
@@ -298,8 +297,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (201 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
     }
     
     return nil;    
@@ -311,8 +310,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     NSData *body = [[couchDocument JSONRepresentation] dataUsingEncoding:NSUTF8StringEncoding];
     NSString *urlString = [NSString stringWithFormat:@"http://%@:%u/%@/%@", couchServer.host, couchServer.port, self.name, [couchDocument identity]];
     NSURL *url = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];    
-    NSLog(@"%@", urlString);
-    NSLog(@"%@", [couchDocument JSONRepresentation]);
+    SBDebug(@"%@", urlString);
+    SBDebug(@"%@", [couchDocument JSONRepresentation]);
     
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];    
@@ -326,14 +325,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     
     if (201 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         NSDictionary *jsonValue = [json JSONValue];
         [couchDocument setRevision:[jsonValue objectForKey:@"rev"]];
-        return [[SBCouchResponse alloc] initWithDictionary:jsonValue];
+        return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
     }
-    
-    return nil;    
-    
+    return nil;        
 }
 
 
@@ -357,10 +354,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
                                                      error:&error];
     // 412 == conflict
     // 200 == OK
-    NSLog(@"response code from the delete %i", [response statusCode]);
+    SBDebug(@"response code from the delete %i", [response statusCode]);
     if (200 == [response statusCode]) {
-        NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
     }
     
     return nil;

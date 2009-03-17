@@ -45,6 +45,14 @@
     return self;    
 }
 
+- (void)dealloc{
+    self.name = nil;
+    self.couchDatabase = nil;
+    self.identity = nil;
+    self.queryOptions = nil;
+    [super dealloc];
+}
+
 -(NSString*)map{
     return [self objectForKey:@"map"];
 }
