@@ -49,6 +49,8 @@
 /// When using this initializer, the string "_design/" will be prepended to name in order to create a proper _id. 
 - (id)initWithName:(NSString*)name couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
 - (id)initWithDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
+
+#pragma mark -
 - (void)addView:(SBCouchView*)view withName:(NSString*)viewName;
 - (SBCouchView*)view:(NSString*)viewName;
 - (NSString*)language;

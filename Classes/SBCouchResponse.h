@@ -10,6 +10,7 @@
 
 /// Encapsulates a response from SBCouchDatabase.
 @interface SBCouchResponse : NSObject {
+
 @private
     BOOL _ok;
     NSString *_name;

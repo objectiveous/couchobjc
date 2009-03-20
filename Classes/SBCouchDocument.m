@@ -11,6 +11,7 @@
 #import "SBOrderedDictionary.h"
 #import "SBCouchServer.h";
 #import "SBCouchDatabase.h"
+#import "CouchObjC.h"
 
 @interface SBCouchDocument (Private)
 -(SBOrderedDictionary*) makeDictionaryOrderly:(NSDictionary*)aDictionary;
@@ -181,9 +182,18 @@
 }
 
 - (void)detach{
-    [self removeObjectForKey:@"_id"];
+    // XXX removing _id can, at times, cause a segfault. At the moment, I'm not sure why. 
+    /*
+    if([self objectForKey:@"id"]){
+        id identity = [self objectForKey:@"id"];
+        SBDebug(@"id value %@", identity);
+        SBDebug(@"retain count %i", [identity retainCount] );
+        //[self removeObjectForKey:@"id"];
+    }
+    */
+    [self removeObjectForKey:@"_id"];        
+    [self removeObjectForKey:@"key"];
     [self removeObjectForKey:@"_rev"];
-    [self removeObjectForKey:@"_revs"];
 }
 
 #pragma mark -
@@ -195,8 +205,13 @@
 - (SBCouchResponse*)put{
     return [self.couchDatabase putDocument:self];
 }
+
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument{
     return [self.couchDatabase putDocument:couchDocument];
+}
+
+- (SBCouchResponse*)post{
+    //return [self.couchDatabase post:self];
 }
 
 @end

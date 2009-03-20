@@ -27,14 +27,18 @@
 #pragma mark -
 
 
--(void)testSavingChangesToViews{
+-(void)testRenamingAndSavingDesignDocument{
     SBCouchView *allDesignDocumentsView = [self.couchDatabase designDocumentsView];
     SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[allDesignDocumentsView viewEnumerator];
     
     SBCouchDesignDocument *designDoc;
-    while (designDoc = [resultEnumerator nextObject]) {
-        
+    while (designDoc = [resultEnumerator nextObject]) {        
+        [designDoc detach];
+        designDoc.identity = [NSString stringWithFormat:@"%@-%i", @"_design/wow", random()];
+        SBCouchResponse *response = [designDoc put];
+        STAssertTrue(response.ok, nil);
     }
+    NSLog(@"hrm",nil);
 }
 
 -(void)testSavingAdditionsToDesignDocs{

@@ -14,6 +14,24 @@ static NSString *REDUCE_FUNCTION     = @"function(k, v, rereduce) { return sum(v
 
 @implementation SBCouchViewTest
 
+-(void)testSupportForCopying{
+    SBCouchView *view = [[SBCouchView alloc] initWithName:VIEW_NAME couchDatabase:nil];
+    view.map = MAP_FUNCTION;
+    view.reduce = REDUCE_FUNCTION;
+    
+    SBCouchView *viewCopy = [view copy];
+    
+    view.map = @"function(doc){return 1;}";
+    
+    STAssertTrue([viewCopy isKindOfClass:[SBCouchView class]], @"Copy is not of correct class: %@", [viewCopy class]);
+    STAssertFalse(&view == &viewCopy, @"%p %p", &view, &viewCopy);
+    
+    STAssertTrue(view.map != viewCopy.map, @"Map is the same");
+    
+    NSLog(@" %@ : %@", view.map, viewCopy.map);
+
+}
+
 -(void)testCouchViewsCreatingSimpleURLs{
     NSString *shouldMatch = @"_all_docs?startkey=\"_design\"&endkey=\"_design0\"&limit=10";
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
@@ -21,8 +39,9 @@ static NSString *REDUCE_FUNCTION     = @"function(k, v, rereduce) { return sum(v
     queryOptions.startkey = @"_design";
     queryOptions.endkey = @"_design0";
     
-    SBCouchView *couchView = [[SBCouchView alloc] initWithQueryOptions:queryOptions];
-    couchView.name = @"_all_docs";    
+    SBCouchView *couchView = [[SBCouchView alloc] initWithName:@"_all_docs" 
+                                                     couchDatabase:nil  
+                                                      queryOptions:queryOptions];
     
     STAssertNotNil([couchView urlString], nil);
     NSLog(@"--> %@",[couchView urlString]);
@@ -30,7 +49,10 @@ static NSString *REDUCE_FUNCTION     = @"function(k, v, rereduce) { return sum(v
 }
 
 -(void)testSimplestThingThatWillWork{
-    SBCouchView *view = [[SBCouchView alloc] initWithName:VIEW_NAME andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION];
+    SBCouchView *view = [[SBCouchView alloc] initWithName:VIEW_NAME couchDatabase:nil];
+    view.map = MAP_FUNCTION;
+    view.reduce = REDUCE_FUNCTION;
+    
     STAssertNotNil(view, nil);
     
     [view setMap:MAP_FUNCTION_UPDATE];

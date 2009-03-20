@@ -40,6 +40,8 @@
 -(id)initWithDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil{
     self = [super init];
     if(self){
+        SBOrderedDictionary *views = [SBOrderedDictionary dictionaryWithCapacity:5];
+        [self setObject:views forKey:@"views"];
         self.couchDatabase = aCouchDatabaseOrNil;
         // Copy all the keys from the NSDictionary *except* for doc. If doc is shows up
         // include_docs=true was used in the GET and we need to create proper SBCouchView 
@@ -54,8 +56,21 @@
                 [self setObject:rev forKey:@"_rev"];
             }
             
-            [self setObject:[aDictionary objectForKey:key] forKey:key];
-        }   
+            id o = [aDictionary objectForKey:key];
+            id someObject = [o copy]; 
+            if([@"views" isEqualToString:key]){
+                NSMutableDictionary *viewDictionary = [self objectForKey:@"views"];
+
+                for(id viewKey in someObject){
+                    SBCouchView *view = [someObject objectForKey:viewKey];
+                    
+                    [viewDictionary setObject:[view copy] forKey:viewKey];
+                }
+
+            }else{
+                [self setObject:someObject forKey:key];                
+            }        
+        }
                         
         id doc = [aDictionary objectForKey:@"doc"];
         if(doc){        
@@ -117,5 +132,11 @@
     return [[self views] objectForKey:viewName]; 
 }
 
+#pragma mark -
+- (id)copy{
+    // I don't think this will work as it doesn't actually do a deep copy
+    // and that's really what we want. 
+    return [SBCouchDesignDocument designDocumentFromDocument:self];
+}
 
 @end

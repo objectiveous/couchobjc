@@ -21,7 +21,32 @@ static NSString *VIEW_3           = @"wonderousThings";
 @implementation SBCouchDesignDocumentTest
 @synthesize designDocument;
 
-#pragma mark -
+#pragma mark - 
+
+-(void)testCopy{
+    SBCouchDesignDocument *designDocCopy = [self.designDocument copy];
+    NSDictionary *originalViews = [self.designDocument views];
+    
+    BOOL isDesignDocument = [designDocCopy isKindOfClass:[SBCouchDesignDocument class]];
+    STAssertTrue(isDesignDocument, @"Class didn't work. %@", [designDocCopy class]);
+    
+    NSDictionary *copyViews = [designDocCopy views];
+    STAssertFalse(&originalViews == &copyViews, @"View Dictionary is the same: %p %p", &originalViews, &copyViews);
+
+    for(id key in originalViews){
+        SBCouchView *view = [originalViews objectForKey:key]; 
+        view.map = @"Some Bullshit";
+    }
+    
+    for(id key in copyViews){
+        SBCouchView *view = [originalViews objectForKey:key]; 
+        SBCouchView *viewCopy = [copyViews objectForKey:key];
+        NSLog(@"%@", view.map);
+        STAssertFalse([viewCopy.map isEqualToString:@"Some Bullshit"], @"Map pointers are the same" );
+        STAssertTrue(viewCopy.map != view.map, @"Map pointers are the same" );
+        STAssertFalse([viewCopy.map isEqualToString:view.map], @"Map pointers are the same" );
+    }
+}
 
 /*
  Here's what a typical view might look like: 
@@ -40,6 +65,7 @@ static NSString *VIEW_3           = @"wonderousThings";
     [dict setObject:@"1508484904" forKey:@"_rev"];
     [dict setObject:@"javascript" forKey:@"language"];    
     
+    
     NSMutableDictionary *view1Dict = [[NSMutableDictionary alloc] init];
     [view1Dict setObject:MAP_FUNCTION forKey:@"map"];    
     [view1Dict setObject:REDUCE_FUNCTION forKey:@"reduce"];    
@@ -51,17 +77,16 @@ static NSString *VIEW_3           = @"wonderousThings";
     
     [dict setObject:views forKey:@"views"];
     
-    SBCouchDesignDocument *designDoc = [[SBCouchDesignDocument alloc] initWithDictionary:dict];
+    SBCouchDesignDocument *designDoc = [[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchDatabase];
+    
     
     NSDictionary *returnedViews = [designDoc views];
     STAssertNotNil(returnedViews, @"Views were not returned");
-    //SBDebug(@"--> %@", [designDoc JSONRepresentation]);
-    //SBDebug(@"--> %i", [[returnedViews allKeys] count]);
-
     STAssertTrue([[returnedViews allKeys] count] == 2, @"Missing views [%i]", [[returnedViews allKeys] count]);
     
     [dict release];
     [designDoc release];
+    
 }
 
 -(void)testRetrievingViewsMapsAndWhatNot{
@@ -108,14 +133,18 @@ static NSString *VIEW_3           = @"wonderousThings";
 #pragma mark - 
 -(void)setUp{
     [super setUp];
-    SBCouchView *view = [[[SBCouchView alloc] initWithName:@"totals" andMap:MAP_FUNCTION andReduce:REDUCE_FUNCTION] autorelease];
+    SBCouchView *view = [[[SBCouchView alloc] initWithName:@"totals" couchDatabase:self.couchDatabase] autorelease];    
+    view.map = MAP_FUNCTION;
+    view.reduce = REDUCE_FUNCTION;
     
-    designDocument = [[SBCouchDesignDocument alloc] initWithDesignDomain:DESIGN_DOC_NAME couchDatabase:self.couchDatabase];
+    designDocument = [[SBCouchDesignDocument alloc] initWithName:DESIGN_DOC_NAME couchDatabase:self.couchDatabase];
     [designDocument addView:view withName:VIEW_1];
     [designDocument addView:view withName:VIEW_2];
     [designDocument addView:view withName:VIEW_3];
 
     [self.couchDatabase putDocument:designDocument];
+    NSString *expectedID = [NSString stringWithFormat:@"_design/%@", DESIGN_DOC_NAME];
+    STAssertTrue([designDocument.identity isEqualToString:expectedID], @"%@ : %@", designDocument.identity , expectedID);
 }
 -(void)tearDown{
     [designDocument release];

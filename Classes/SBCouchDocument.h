@@ -57,11 +57,13 @@
 // removes _id, _rev and _revs from a document. 
 - (void)detach;
 
+#pragma mark -
+#pragma mark REST
 // REST Methods. The idea here is that document having an identity ought to be able to fetch, update and delete its self. 
 - (SBCouchDocument*)getWithRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil;
 // This very questionable. 
 - (SBCouchResponse*)putDocument:(SBCouchDocument*)couchDocument;
 - (SBCouchResponse*)put;
-
+- (SBCouchResponse*)post;
 
 @end

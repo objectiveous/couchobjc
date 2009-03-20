@@ -53,6 +53,16 @@
     [super dealloc];
 }
 
+-(id)copy{
+    SBCouchView *view = [[[SBCouchView alloc] initWithName:self.name 
+                                             couchDatabase:self.couchDatabase 
+                                                dictionary:self] autorelease];
+    return view;
+}
+
+#pragma mark -
+
+
 -(NSString*)map{
     return [self objectForKey:@"map"];
 }
