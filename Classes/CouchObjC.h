@@ -26,6 +26,9 @@
 #define COUCH_KEY_MAP              @"map"
 #define COUCH_KEY_REDUCE           @"reduce"
 #define COUCH_KEY_ID               @"_id"
+#define COUCH_KEY_REV              @"_rev"
+#define COUCH_KEY_REVISIONS        @"_revisions"
+#define COUCH_KEY_IDS              @"ids"
 #define COUCH_VIEW_SLOW            @"_slow_view";
 #define COUCH_VIEW_ALL             @"_all_docs";
 
