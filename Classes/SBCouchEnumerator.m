@@ -137,7 +137,7 @@
 -(void)fetchNextPage{   
     // contruct a new URL using our own copy of the query options
     // View URLs are expected to have names like
-    // _view/designdocName/viewName?xx=xx  && _all_docs
+    // _design/designdocName/_view/viewName?xx=xx  && _all_docs
     // This format will be changing in the 0.9 release of CouchDB
     NSDictionary *etf;
     NSString *contructedUrl;

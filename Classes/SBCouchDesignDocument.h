@@ -15,7 +15,7 @@
  Couple a facts about couchDB are important to understand when working with this class. 
  
  1] Design documents currently get stored in database/_design.  
- 2] Views get executed via HTTP GET calls to database/_view 
+ 2] Views get executed via HTTP GET calls to database/_design/DesignName/_view/viewName
  
  Now, given that SBCouchDocument and SBCouchView are intend to be Resources in the REST sense 
  of the word both these types (SBCouchDocument and SBCouchView) have an identity property which 
@@ -55,4 +55,7 @@
 - (SBCouchView*)view:(NSString*)viewName;
 - (NSString*)language;
 - (NSDictionary*)views;
+/// Returns the name of the design document which is the last path part. For example, given a SBCouchDesignDocument 
+/// with an identity of _design/docName, a call to designDocumentName would yield docName.
+- (NSString*)designDocumentName;
 @end

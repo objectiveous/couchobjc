@@ -51,7 +51,11 @@
 
 #pragma mark -
 -(NSArray*)revs{
-    return [self objectForKey:@"_revs"];
+    id revisionDict = [self objectForKey:COUCH_KEY_REVISIONS];
+    NSLog(@"%@", revisionDict);
+    
+    NSArray *ids = [revisionDict objectForKey:COUCH_KEY_IDS];    
+    return ids;
 }
 
 
@@ -98,14 +102,19 @@
 
 -(NSString*)previousRevision{           
     NSUInteger index = [self revisionIndex];
-    if(index == NSNotFound)
+    if(index == NSNotFound || index == 0)
         return nil;
     
+    id previousR = [[self revs] objectAtIndex:index-1];
+    
+    /*
+     Old revision work 0.9
     if([[self revs] count] > index){
         return [[self revs] objectAtIndex:index+1];     
     }
         
     return nil;
+     */
 }
 
 -(NSInteger)revisionIndex{
@@ -113,15 +122,24 @@
     if([revArray count] <= 0)
         return NSNotFound;
     
-    NSString *thisRevision = [self objectForKey:@"_rev"];
+    NSString *thisRevision = [self objectForKey:COUCH_KEY_REV];
+    // XXX 
+    // strip leading x- value from _rev. Not sure how these work leading values work yet. 
+    // the API just changed.
+    NSArray *revisonParts = [thisRevision componentsSeparatedByString:@"-"];
+    NSString *indexPart = [revisonParts objectAtIndex:0];
+    NSString *versionPart = [revisonParts objectAtIndex:1];
     
-    BOOL inThere = [revArray containsObject:thisRevision];
+    BOOL inThere = [revArray containsObject:versionPart];
     if(! inThere)
         return NSNotFound; 
+        
+    //NSUInteger index = [revArray indexOfObject:versionPart];
+    //return index;
     
-    NSUInteger index = [revArray indexOfObject:thisRevision];
+    NSInteger index = [indexPart integerValue];
     return index;
-    
+
 }
 
 
@@ -143,7 +161,7 @@
 }
 
 -(NSInteger)numberOfRevisions{
-    NSDictionary *revs = [self objectForKey:@"_revs"];
+    NSDictionary *revs = [self objectForKey:COUCH_KEY_REVISIONS];
     return [revs count];
 }
 
@@ -162,7 +180,18 @@
 
 
 - (NSString*)revision {
-    return [self objectForKey:@"_rev"];
+    // pre 0.9 code
+    //return [self objectForKey:@"_rev"];
+    
+    NSString *thisRevision = [self objectForKey:COUCH_KEY_REV];
+    // XXX 
+    // strip leading x- value from _rev. Not sure how these work leading values work yet. 
+    // the API just changed.
+    NSArray *revisonParts = [thisRevision componentsSeparatedByString:@"-"];
+    NSString *indexPart = [revisonParts objectAtIndex:0];
+    NSString *versionPart = [revisonParts objectAtIndex:1];
+    return versionPart;
+    
 }
 
 - (NSString*)identity {
@@ -177,8 +206,10 @@
     [self setObject:someId forKey:@"_id"];
 }
 
+// XXX This is a mess. Which is it _rev or rev?
 - (void)setRevision:(NSString*)aRevision {
     [self setObject:aRevision forKey:@"_rev"];
+    [self setObject:aRevision forKey:@"rev"];
 }
 
 - (void)detach{
