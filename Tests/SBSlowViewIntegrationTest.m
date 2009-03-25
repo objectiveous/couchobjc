@@ -20,7 +20,7 @@ static NSString *MAP_FUNCTION = @"function(doc){emit(doc._id, doc);}";
 -(void)testPostingSlowView{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 2;
-    queryOptions.group = YES;
+    //queryOptions.group = YES;
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"testViewSelectEverything" 
                                             couchDatabase:self.couchDatabase
                                              queryOptions:queryOptions];
@@ -45,7 +45,7 @@ static NSString *MAP_FUNCTION = @"function(doc){emit(doc._id, doc);}";
 -(void)testPostingView{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 2;
-    queryOptions.group = YES;
+    //queryOptions.group = YES;
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"testViewSelectEverything" 
                                             couchDatabase:self.couchDatabase
                                              queryOptions:queryOptions];

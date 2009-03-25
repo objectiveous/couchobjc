@@ -42,6 +42,8 @@ static NSString *VIEW_3           = @"wonderousThings";
         SBCouchView *view = [originalViews objectForKey:key]; 
         SBCouchView *viewCopy = [copyViews objectForKey:key];
         NSLog(@"%@", view.map);
+        STAssertNotNil(viewCopy.map, nil);
+        STAssertNotNil(viewCopy.reduce, nil);
         STAssertFalse([viewCopy.map isEqualToString:@"Some Bullshit"], @"Map pointers are the same" );
         STAssertTrue(viewCopy.map != view.map, @"Map pointers are the same" );
         STAssertFalse([viewCopy.map isEqualToString:view.map], @"Map pointers are the same" );
@@ -78,11 +80,10 @@ static NSString *VIEW_3           = @"wonderousThings";
     [dict setObject:views forKey:@"views"];
     
     SBCouchDesignDocument *designDoc = [[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchDatabase];
-    
-    
+        
     NSDictionary *returnedViews = [designDoc views];
     STAssertNotNil(returnedViews, @"Views were not returned");
-    STAssertTrue([[returnedViews allKeys] count] == 2, @"Missing views [%i]", [[returnedViews allKeys] count]);
+    STAssertTrue([[returnedViews allKeys] count] == 2, @"Missing views. [%i]", [[returnedViews allKeys] count]);
     
     [dict release];
     [designDoc release];
@@ -129,6 +130,9 @@ static NSString *VIEW_3           = @"wonderousThings";
     }
 }
 
+-(void)testDocumentNameSupport{
+    STAssertNotNil([self.designDocument designDocumentName], nil); 
+}
 
 #pragma mark - 
 -(void)setUp{

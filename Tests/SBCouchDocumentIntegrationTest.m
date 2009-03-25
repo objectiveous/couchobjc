@@ -26,8 +26,6 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
 
 @implementation SBCouchDocumentIntegrationTest
 
-
-
 - (void)testCreateView{
     // TODO DesignDomain needs to go away makes no real sense. 
     SBCouchDesignDocument *designDocument = [[SBCouchDesignDocument alloc] initWithName:DESIGN_NAME 
@@ -72,13 +70,11 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
 -(void)testPostAndPutOfSBCouchDocument{
 
     NSDictionary *doc = [NSDictionary dictionaryWithObject:VALUE forKey:KEY];
-    // POST
-    SBCouchResponse *response = [couchDatabase postDocument:doc];
-    STIGDebug(@"post response [%@]", response);
-    STIGDebug(@"Calling PUT for [%@], with name [%@]", doc, response.name);
-           
+
+    SBCouchResponse *response = [couchDatabase postDocument:doc];           
     SBCouchDocument *couchDocument = [couchDatabase getDocument:response.name withRevisionCount:YES andInfo:YES revision:nil];
-    NSString *firstRevision = [couchDocument objectForKey:@"_rev"];
+    NSString *firstRevision = [couchDocument revision];
+
     STAssertNotNil(firstRevision, nil);
     
     [self assertTheDocIsComplete:couchDocument];
@@ -92,10 +88,9 @@ static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return sum(v);}
     
     STAssertTrue([VALUE_2 isEqualToString:[couchDocument objectForKey:KEY]], @"Did not update properly [%@]", [couchDocument objectForKey:KEY]);
     
-    STIGDebug(@"***** %@", [couchDocument objectForKey:KEY]);
-    STIGDebug(@"***** %@", couchDocument);
+    NSLog(@" previousRevision ----> [ %@ ] " , [couchDocument previousRevision]);
     
-    STAssertTrue([[couchDocument previousRevision] isEqualToString:firstRevision], @"revision [%@]", [couchDocument previousRevision]);
+    STAssertTrue([[couchDocument previousRevision] isEqualToString:firstRevision], @"[%@] [%@]", firstRevision, [couchDocument previousRevision]);
 }
 
 -(void)assertTheDocIsComplete:(SBCouchDocument*)couchDocument{
