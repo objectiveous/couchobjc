@@ -244,7 +244,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         // in the dictionary.
         //return [[SBCouchResponse alloc] initWithDictionary:[json JSONValue]];
         return [json JSONValue];
-    }    
+    }else{
+        SBDebug(@"HTTP POST FAILED:  %@",  encodedURL  );
+        SBDebug(@"        STATUS CODE %i",  [response statusCode]);
+        
+    }
     return nil;
 }
 
@@ -273,6 +277,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (201 == [response statusCode]) {
         NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+    }else{
+        SBDebug(@"HTTP POST FAILED:  %@",  urlString );
+        SBDebug(@"        STATUS CODE %i",  [response statusCode]);
+        
     }
     
     return nil;    
@@ -299,6 +307,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     if (201 == [response statusCode]) {
         NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
         return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+    }else{
+        SBDebug(@"HTTP PUT FAILED:  %@",  urlString);
+        SBDebug(@"        STATUS CODE %i",  [response statusCode]);
+        
     }
     
     return nil;    
@@ -329,6 +341,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         NSDictionary *jsonValue = [json JSONValue];
         [couchDocument setRevision:[jsonValue objectForKey:@"rev"]];
         return [[[SBCouchResponse alloc] initWithDictionary:jsonValue] autorelease];
+    }else{
+        SBDebug(@"HTTP PUT FAILED:  %@", urlString);
+        SBDebug(@"        STATUS CODE %i",  [response statusCode]);
+
     }
     return nil;        
 }
