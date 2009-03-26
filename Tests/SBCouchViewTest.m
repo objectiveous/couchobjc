@@ -44,7 +44,7 @@ static NSString *REDUCE_FUNCTION     = @"function(k, v, rereduce) { return sum(v
                                                       queryOptions:queryOptions];
     
     STAssertNotNil([couchView urlString], nil);
-    NSLog(@"--> %@",[couchView urlString]);
+    NSLog(@"XXX --> %@",[couchView urlString]);
     STAssertTrue([shouldMatch isEqualToString:[couchView urlString]],@"%@", [couchView urlString]);
 }
 

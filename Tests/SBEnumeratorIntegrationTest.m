@@ -81,9 +81,9 @@
     int count = 0;
     NSMutableDictionary *seenDocuments = [[NSMutableDictionary alloc] init];
     SBCouchDocument *doc;
-    
     while (doc = [resultEnumerator nextObject]) {
         count++;
+        STAssertNotNil(doc.identity, @"Document is missing an identity");
         SBCouchDocument *object = (SBCouchDocument*) [seenDocuments objectForKey:doc.identity];
         if(object){
             NSLog(@"Enumerator for _all_doc returned a duplicate document. %@", doc.identity);
@@ -112,9 +112,9 @@
 }
 
 -(void)simpleAllDocsEnumeration{
-    
+    // Look at all the docs in the database, 5 at a time. 
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
-    queryOptions.limit = 10;
+    queryOptions.limit = 5;
     
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ];
   

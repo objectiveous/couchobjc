@@ -11,13 +11,13 @@
 
 
 
-static NSString *MAP_FUNCTION     = @"function(doc)            { emit(doc._id, doc);  }";
-static NSString *REDUCE_FUNCTION  = @"function(k, v, rereduce) { return 1;            }";
+static NSString *MAP_FUNCTION     = @"function(doc){emit(doc._id, doc);}";
+static NSString *REDUCE_FUNCTION  = @"function(k,v,rereduce){return 1;}";
 
-static NSString *TEST_DESIGN_NAME = @"test-views";
-static NSString *TEST_VIEW_NAME_1 = @"frankCount";
-static NSString *TEST_VIEW_NAME_2 = @"funnyMen";
-static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
+static NSString *TEST_DESIGN_NAME = @"test-design";
+static NSString *TEST_VIEW_NAME_1 = @"view1";
+static NSString *TEST_VIEW_NAME_2 = @"view2";
+static NSString *TEST_VIEW_NAME_3 = @"view3";
 
 
 @implementation AbstractDatabaseTest
@@ -27,25 +27,41 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
 @synthesize numberOfDocumentsToCreate;
 
 -(void) setUp{
-    self.numberOfViewsToCreate = 10;
-    self.numberOfDocumentsToCreate = 10;    
-    couchServer = [SBCouchServer new];
-    srandom(time(NULL));
-    NSString *name = [NSString stringWithFormat:@"int-couchobjc-%u", random()];
-
-    if([couchServer createDatabase:name]){
-        couchDatabase = [[couchServer database:name] retain];
-    }else{
-        STFail(@"Could not create database %@", name);
+    self.numberOfViewsToCreate = 3;
+    self.numberOfDocumentsToCreate = 2;    
+    self.couchServer = [SBCouchServer new];
+    NSString *testDatabaseName = [NSString stringWithFormat:@"test_database-%@", [[self newUUID] lowercaseString]];
+    
+    if([self.couchServer createDatabase:testDatabaseName]){
+        self.couchDatabase = [self.couchServer database:testDatabaseName];
+    }else{        
+        STFail(@"Could not create database %@", testDatabaseName);
     }
+    STAssertNotNil(self.couchDatabase, nil);
 }
 
-// XXX Need to autorelease 
+
+-(NSString*) newUUID {
+    CFUUIDRef uuidObj = CFUUIDCreate(nil);//create a new UUID
+    //get the string representation of the UUID
+    NSString *uuidString = (NSString*)CFUUIDCreateString(nil, uuidObj);
+    CFRelease(uuidObj);
+    return [uuidString autorelease];
+}
+
+- (void)tearDown {
+    [couchServer deleteDatabase:couchDatabase.name];
+    [couchServer release], couchServer = nil;
+    [couchDatabase release], couchDatabase = nil;
+    //self.couchServer = nil;
+    //self.couchDatabase = nil;
+}
+
 -(void)provisionViews{
         int count = self.numberOfViewsToCreate;
     int i;
     for (i = 0; i < count; i++) {
-        SBCouchView *view = [[SBCouchView alloc] initWithName:@"totals" couchDatabase:self.couchDatabase];
+        SBCouchView *view = [ [[SBCouchView alloc] initWithName:@"totals" couchDatabase:self.couchDatabase] autorelease];
         [view setMap:MAP_FUNCTION];
         [view setReduce:REDUCE_FUNCTION];
         
@@ -56,6 +72,7 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
         [designDocument addView:view withName:TEST_VIEW_NAME_3];
         
         [self.couchDatabase createDocument:designDocument];
+        [designDocument release], designDocument = nil;
     }
 }
 
@@ -74,10 +91,6 @@ static NSString *TEST_VIEW_NAME_3 = @"jazzMen";
     [couchDocument release];    
 }
 
-- (void)tearDown {
-    [couchServer deleteDatabase:couchDatabase.name];
-    [couchServer release];
-    [couchDatabase release];
-}
+
 
 @end

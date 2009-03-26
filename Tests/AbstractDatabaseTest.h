@@ -25,4 +25,5 @@
 
 - (void)provisionViews;
 - (void)provisionDocuments;
+- (NSString*) newUUID;
 @end
