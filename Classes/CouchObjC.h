@@ -27,10 +27,11 @@
 #define COUCH_KEY_REDUCE           @"reduce"
 #define COUCH_KEY_ID               @"_id"
 #define COUCH_KEY_REV              @"_rev"
+#define COUCH_KEY_REVS_INFO        @"_revs_info"
 #define COUCH_KEY_REVISIONS        @"_revisions"
 #define COUCH_KEY_IDS              @"ids"
-#define COUCH_VIEW_SLOW            @"_slow_view";
-#define COUCH_VIEW_ALL             @"_all_docs";
+#define COUCH_VIEW_SLOW            @"_slow_view"
+#define COUCH_VIEW_ALL             @"_all_docs"
 
 /*
  Send logging information to syslog and use the console to filter out what you need. 

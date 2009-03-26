@@ -20,6 +20,18 @@
 
 - (SBCouchDocument*)initWithNSDictionary:(NSDictionary*)aDictionary couchDatabase:(SBCouchDatabase*)aCouchDatabaseOrNil;
 - (NSInteger)numberOfRevisions;
+/* Returns and array of revision strings with prefixes included. As of CouchDB 0.9, its not 
+   clear how to interpret the prefix. At the moment this method requires that the revs_info
+   query string be used. 
+
+   http://localhost:5984/database/docID?revs_info=true
+ 
+    _revs_info":[
+                  {"rev":"2-1735408827","status":"available"},
+                  {"rev":"1-4271393452","status":"available"}
+                ]
+ */
+- (NSArray*)revisions;
 - (NSString *)previousRevision;
 - (NSInteger)revisionIndex;
 

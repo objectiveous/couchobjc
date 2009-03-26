@@ -8,6 +8,8 @@
 
 #import "SBCouchQueryOptions.h"
 
+// XXX Perhapse these should be global and have a prefix 
+//     like COUCH_QUERY_OPTIONS_
 static NSString const *INCLUDE_DOCS   = @"include_docs";
 static NSString const *KEY            = @"key";
 static NSString const *STARTKEY       = @"startkey";
@@ -21,6 +23,7 @@ static NSString const *SKIP           = @"skip";
 static NSString const *GROUP          = @"group";
 static NSString const *GROUP_LEVEL    = @"group_level";
 static NSString const *REDUCE         = @"reduce";
+static NSString const *REVS_INFO      = @"revs_info";
 
 @implementation SBCouchQueryOptions
 
@@ -37,6 +40,7 @@ static NSString const *REDUCE         = @"reduce";
 @synthesize group_level;
 @synthesize reduce;
 @synthesize include_docs;
+@synthesize revs_info; 
 
 -(void)dealloc{
     self.key = nil;
@@ -97,6 +101,9 @@ static NSString const *REDUCE         = @"reduce";
     if(self.include_docs)
         [queryString appendFormat:boolFormat, INCLUDE_DOCS];
 
+    if(self.revs_info)
+        [queryString appendFormat:boolFormat, REVS_INFO];
+    
     NSCharacterSet *characterSet = [NSCharacterSet characterSetWithCharactersInString:@"&"];
     return [queryString stringByTrimmingCharactersInSet:characterSet];
 }
@@ -118,6 +125,7 @@ static NSString const *REDUCE         = @"reduce";
     clone.group_level    = self.group_level;
     clone.reduce         = self.reduce;
     clone.include_docs   = self.include_docs;
+    clone.revs_info      = self.revs_info;
     
     return  clone;
 }

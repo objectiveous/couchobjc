@@ -25,7 +25,7 @@
     NSInteger group_level;       //int
     BOOL      reduce;            //false Trunk only (0.9)
     BOOL      include_docs;      //true Trunk only (0.9)
-    
+    BOOL      revs_info;         //
     //POST
     //{"keys": ["key1", "key2", ...]} Trunk only (0.9)    
 }
@@ -43,7 +43,7 @@
 @property          NSInteger group_level;
 @property          BOOL      reduce;
 @property          BOOL      include_docs;
-
+@property          BOOL      revs_info;
 
 -(NSString*) queryString;
 

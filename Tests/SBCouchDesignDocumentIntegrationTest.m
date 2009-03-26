@@ -32,9 +32,11 @@
     
     SBCouchDesignDocument *designDoc;
     while (designDoc = [resultEnumerator nextObject]) {
+        NSArray *revs = [designDoc revisions];
+        STAssertNotNil(revs, nil);
+        
         STAssertNotNil([designDoc identity], nil);
         
-        //SBCouchDesignDocument *designDoc = [SBCouchDesignDocument designDocumentFromDocument:couchDocument];
         SBCouchView *aNewView = [SBCouchView new];
         aNewView.map = @"function(doc){emit(doc._id, doc.id);}";
         NSLog(@"identity %@", [designDoc identity]);

@@ -104,17 +104,10 @@
     NSUInteger index = [self revisionIndex];
     if(index == NSNotFound || index == 0)
         return nil;
-    
-    id previousR = [[self revs] objectAtIndex:index-1];
+    NSArray *revisions = [self revisions];
+    id previousR = [revisions objectAtIndex:index-1];
     return previousR;
-    /*
-     Old revision work 0.9
-    if([[self revs] count] > index){
-        return [[self revs] objectAtIndex:index+1];     
-    }
-        
-    return nil;
-     */
+    
 }
 
 -(NSInteger)revisionIndex{
@@ -178,7 +171,19 @@
 #pragma mark -
 
 
-
+- (NSArray*)revisions{
+    NSArray *revsInfoList = [self objectForKey:COUCH_KEY_REVS_INFO];
+    if(! revsInfoList)
+        return nil;
+    
+    NSMutableArray *revs = [NSMutableArray arrayWithCapacity:[revsInfoList count]];
+    for(NSDictionary *revInforDictionary in revsInfoList){
+        NSString *rev = [revInforDictionary objectForKey:@"rev"];
+        if(rev)
+            [revs addObject:rev];
+    }
+    return [revs autorelease];
+}
 - (NSString*)revision {
     // pre 0.9 code
     //return [self objectForKey:@"_rev"];
@@ -238,7 +243,7 @@
 #pragma mark -
 #pragma mark REST Methods
 - (SBCouchDocument*)getWithRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil{
-    NSLog(@"-->", self.identity);
+    NSLog(@"document identity [%@] ", self.identity);
     NSAssert(self.identity, @"CouchDocument has no identity");
     return [self.couchDatabase getDocument:self.identity withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
 }
@@ -254,5 +259,7 @@
 - (SBCouchResponse*)post{
     //return [self.couchDatabase post:self];
 }
+
+
 
 @end
