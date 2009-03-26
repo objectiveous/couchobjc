@@ -45,8 +45,8 @@
         SBOrderedDictionary *views = [SBOrderedDictionary dictionaryWithCapacity:5];
         [self setObject:views forKey:@"views"];
         self.couchDatabase = aCouchDatabaseOrNil;
-        // Do a straight ahead copy;
-        for(id key in aDictionary){
+        // We should ignore doc, value, rev, id         
+        for(id key in aDictionary){            
             // When aDictionary is actually an instance of SBCouchDocument, we need to 
             // make copies of the SBCouchViews held in the views key. 
             if([key isEqualToString:@"views"]){
@@ -55,9 +55,11 @@
                 [self setObject:[aDictionary objectForKey:key] forKey:key];                                
             }            
         }
+        
         [self reifyViews];
     }
-    NSLog(@" --> %i ", [[self views] count]);
+    [self removeObjectForKey:@"doc"];
+    //NSLog(@" --> %i ", [[self views] count]);
     return self;
 }
 
@@ -113,6 +115,8 @@
     if(viewName == Nil)
         return;
     view.couchDatabase = self.couchDatabase;
+    // Views have identities like: _design/designDoc/_view/viewName
+    view.identity = [NSString stringWithFormat:@"%@/_view/%@", self.identity , view.name];
     NSMutableDictionary *views = [self objectForKey:COUCH_KEY_VIEWS];
     [views setObject:view forKey:viewName];
 }

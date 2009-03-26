@@ -90,10 +90,19 @@
     
 }
 
-
+/// XXX This could probably use a rethink. 
 -(BOOL)shouldFetchNextBatch{
     if(self.currentIndex == -1)
         return YES;
+    
+    // If there has been no limit set, then we are not paginating through a set of results. 
+    // If currentIndex not zero, we've already performed a fetch
+    // So, we're done. 
+    if(self.queryOptions.limit == 0 && currentIndex != -1)
+        return NO;
+    
+    if(self.totalRows == self.currentIndex && [rows count])
+        return NO;
     
     // if the index is >= to the number of rows we can fetch more, 
     // but if the size of the last fetch was larger than the batch size (i.e limit)
@@ -108,7 +117,7 @@
     // At some point lastObjectsID will 
     if([self shouldFetchNextBatch]){
         //[self setStartKey:[[rows lastObject] objectForKey:@"id"]];
-        NSString *lastObjectsID = [[self.rows lastObject] objectForKey:@"id"];
+        NSString *lastObjectsID = [[self.rows lastObject] objectForKey:COUCH_KEY_ID];
         // The first time through, we won't have any rows
         if(lastObjectsID)
             self.queryOptions.startkey = lastObjectsID;
@@ -172,7 +181,7 @@
         self.sizeOfLastFetch = -1;
     }else{
         self.sizeOfLastFetch = [newRows count];
-         NSString *lastObjectsID = [[self.rows lastObject] objectForKey:@"id"];
+         NSString *lastObjectsID = [[self.rows lastObject] objectForKey:COUCH_KEY_ID];
          if(self.queryOptions.limit > 0)
              self.queryOptions.startkey = lastObjectsID;
     }
@@ -186,10 +195,19 @@
         NSString *documentType = [dict objectForKey:@"id"];
         NSString *designDocPath = [documentType stringByDeletingLastPathComponent];
         
-        if(designDocPath != nil && [designDocPath isEqualToString:@"_design"]){
-            doc = [[[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchView.couchDatabase] autorelease];  
-        }else{
+        if(designDocPath != nil && [designDocPath isEqualToString:@"_design"] && [dict objectForKey:@"doc"]){
+            // Snag the actual document out of the row and use that to instatiate a DesignDocument. 
+            NSDictionary *documentDictionary = [dict objectForKey:@"doc"];
+            doc = [[[SBCouchDesignDocument alloc] initWithDictionary:documentDictionary couchDatabase:self.couchView.couchDatabase] autorelease];  
+            //doc = [[[SBCouchDesignDocument alloc] initWithDictionary:dict couchDatabase:self.couchView.couchDatabase] autorelease];  
+
+        }else{            
             doc = [[[SBCouchDocument alloc] initWithNSDictionary:dict couchDatabase:self.couchView.couchDatabase] autorelease];
+            // We are seeting the identity here because calls like _all_docs return identities using the key id and not _id
+            // and it would be a mistake to assume that anytime we have an 'id' key in the dict that it is an actual identity. 
+            // For example, someone could create a view that returns the keys: _id, id, and key. Then what would we do? 
+            // CouchDB may move _id into the HTTP headers, so we won't get to worried just yet. 
+            [(SBCouchDocument*)doc setIdentity:documentType];
         }
         [self.rows addObject:doc];
     }    

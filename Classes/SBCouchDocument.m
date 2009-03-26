@@ -106,7 +106,7 @@
         return nil;
     
     id previousR = [[self revs] objectAtIndex:index-1];
-    
+    return previousR;
     /*
      Old revision work 0.9
     if([[self revs] count] > index){
@@ -196,13 +196,21 @@
 
 - (NSString*)identity {
     NSString *docID = [self objectForKey:@"_id"];
+   
+    /*
     if(!docID)
         docID = [self objectForKey:@"id"];
-    
+    */
     return docID;
 }
 
 - (void)setIdentity:(NSString*)someId {
+    if(! someId){
+        NSLog(@"Something is trying to set an identity to nil.... hrm.");
+        return;        
+    }
+        
+    
     [self setObject:someId forKey:@"_id"];
 }
 
@@ -230,6 +238,8 @@
 #pragma mark -
 #pragma mark REST Methods
 - (SBCouchDocument*)getWithRevisionCount:(BOOL)withCount andInfo:(BOOL)andInfo revision:(NSString*)revisionOrNil{
+    NSLog(@"-->", self.identity);
+    NSAssert(self.identity, @"CouchDocument has no identity");
     return [self.couchDatabase getDocument:self.identity withRevisionCount:withCount andInfo:andInfo revision:revisionOrNil];
 }
 

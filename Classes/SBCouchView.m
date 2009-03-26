@@ -95,9 +95,9 @@
 - (NSString*)urlString{
     NSString *queryString = [self.queryOptions queryString];
     if(queryString)
-        return [NSString stringWithFormat:@"%@?%@", self.name, queryString];
+        return [NSString stringWithFormat:@"%@?%@", self.identity, queryString];
     else
-        return [NSString stringWithFormat:@"%@", self.name];
+        return [NSString stringWithFormat:@"%@", self.identity];
 
 }
 @end
