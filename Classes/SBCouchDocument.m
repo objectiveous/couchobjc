@@ -155,7 +155,8 @@
 
 -(NSInteger)numberOfRevisions{
     NSDictionary *revs = [self objectForKey:COUCH_KEY_REVISIONS];
-    return [revs count];
+    NSArray *ids = [revs objectForKey:@"ids"];
+    return  [ids count];
 }
 
 - (NSString *)description{
@@ -189,14 +190,18 @@
     //return [self objectForKey:@"_rev"];
     
     NSString *thisRevision = [self objectForKey:COUCH_KEY_REV];
+    return thisRevision;
     // XXX 
     // strip leading x- value from _rev. Not sure how these work leading values work yet. 
     // the API just changed.
+    // 
+    // Don't know whether to kep the prefix or not. 
+    /*
     NSArray *revisonParts = [thisRevision componentsSeparatedByString:@"-"];
     NSString *indexPart = [revisonParts objectAtIndex:0];
     NSString *versionPart = [revisonParts objectAtIndex:1];
     return versionPart;
-    
+    */
 }
 
 - (NSString*)identity {

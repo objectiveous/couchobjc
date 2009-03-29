@@ -57,6 +57,8 @@
     SBCouchView *view = [[[SBCouchView alloc] initWithName:self.name 
                                              couchDatabase:self.couchDatabase 
                                                 dictionary:self] autorelease];
+    if(self.queryOptions)
+        view.queryOptions = [self.queryOptions copy];
     return view;
 }
 
@@ -75,7 +77,12 @@
     return [self objectForKey:@"reduce"];    
 }
 -(void)setReduce:(NSString*)reduce{
-
+    // Give us an empty string and we'll remove the reduce key. If we don't do this 
+    // and we PUT the view back, GETs will fail and life will suck. 
+    if(reduce == nil || [reduce length] == 0){
+        [self removeObjectForKey:COUCH_KEY_REDUCE];
+        return;
+    }            
     [self setObject:[reduce copy] forKey:COUCH_KEY_REDUCE];
 }
 

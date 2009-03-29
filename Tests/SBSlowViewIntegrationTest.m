@@ -15,9 +15,32 @@ static NSString *MAP_FUNCTION = @"function(doc){emit(doc._id, doc);}";
     [super setUp];
     self.numberOfDocumentsToCreate = 20;
     [super provisionDocuments];
+    [super provisionViews];
 }
 
--(void)testPostingSlowView{
+-(void)testRemovingReduceFunctions{
+    SBCouchView *allDesignDocumentsView = [self.couchDatabase designDocumentsView];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[allDesignDocumentsView viewEnumerator];
+    
+    SBCouchDesignDocument *designDoc;
+    while (designDoc = [resultEnumerator nextObject]) {        
+        NSDictionary *viewList = [designDoc views];
+        STAssertNotNil(viewList, nil);
+        STAssertTrue([viewList count] > 0 , nil);
+        for(id viewNameKey in viewList){
+          SBCouchView *view = [viewList objectForKey:viewNameKey];
+            view.reduce = @"";
+            SBCouchResponse *response = [designDoc put];
+            if(! response.ok)
+                NSLog(@"response = %i", response.ok);
+            STAssertTrue(response.ok, nil);
+            id doc = [[view viewEnumerator] nextObject];
+            //STAssertNotNil(doc, nil);
+        }        
+    }
+}
+
+-(void)estPostingSlowView{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 2;
     //queryOptions.group = YES;
@@ -42,7 +65,7 @@ static NSString *MAP_FUNCTION = @"function(doc){emit(doc._id, doc);}";
     
 }
 
--(void)testPostingView{
+-(void)estPostingView{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 2;
     //queryOptions.group = YES;

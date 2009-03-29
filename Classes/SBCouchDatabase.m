@@ -109,7 +109,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     queryOptions.startkey = @"_design";
     queryOptions.endkey = @"_design0";
     queryOptions.include_docs = YES;
-    queryOptions.revs_info = YES;
+    //queryOptions.revs_info = YES;
 
     return [[[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:queryOptions] autorelease];
 }
