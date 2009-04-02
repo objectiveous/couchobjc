@@ -65,6 +65,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma mark -
 #pragma mark GET Document Calls
 #pragma mark methods that return collections
+
 -(NSEnumerator*) allDocs{
     NSDictionary *list = [self get:@"_all_docs"];
     
@@ -116,6 +117,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 #pragma mark methods that return docs
+
+- (SBCouchDatabaseInfoDocument*)databaseInfo{
+    NSDictionary *dictionary = [self get:@""];
+    return [[[SBCouchDatabaseInfoDocument alloc] initWithNSDictionary:dictionary couchDatabase:self] autorelease];
+}
 
 /**
  You can use this to query database information by simply passing an empty string. You can also

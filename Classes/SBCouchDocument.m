@@ -23,6 +23,7 @@
 
 @synthesize couchDatabase;
 
+
 -(id)init{
     self = [super initWithCapacity:0];
     if(self){
@@ -263,8 +264,6 @@
 
 - (SBCouchResponse*)post{
     //return [self.couchDatabase post:self];
+    return nil;
 }
-
-
-
 @end

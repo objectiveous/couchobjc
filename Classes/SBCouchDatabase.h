@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "SBCouchDocument.h"
 #import "SBCouchDesignDocument.h"
+#import "SBCouchDatabaseInfoDocument.h"
 #import "SBCouchView.h"
 
 @class SBCouchServer;
@@ -30,6 +31,7 @@
 #pragma mark -
 #pragma mark GET Calls
 #pragma mark methods that return collections
+- (SBCouchDatabaseInfoDocument*)databaseInfo;
 - (NSEnumerator*)getViewEnumerator:(NSString*)viewName;
 - (NSEnumerator*)viewEnumerator:(SBCouchView*)view;
 - (NSEnumerator*)allDocsInBatchesOf:(NSInteger)count;

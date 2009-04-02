@@ -9,6 +9,7 @@
 #import <CouchObjC/CouchObjC.h>
 #import <SenTestingKit/SenTestingKit.h>
 
+
 @class SBCouchServer;
 @class SBCouchDatabase;
 @interface Database : SenTestCase {
@@ -36,6 +37,22 @@
 }
 
 #pragma mark -
+
+-(void)testProvidesInformation{
+    SBCouchDatabaseInfoDocument *databaseInformation = [db databaseInfo];
+
+    STAssertNotNil(databaseInformation, nil);
+    STAssertTrue([databaseInformation isKindOfClass:[SBCouchDatabaseInfoDocument class]], nil);
+    STAssertNotNil(databaseInformation.db_name, nil);
+    STAssertNotNil(databaseInformation.doc_count, nil);
+    STAssertNotNil(databaseInformation.doc_del_count, nil);
+    STAssertNotNil(databaseInformation.update_seq, nil);
+    STAssertNotNil(databaseInformation.purge_seq, nil);
+    STAssertNotNil(databaseInformation.compact_running, nil);
+    STAssertNotNil(databaseInformation.disk_size, nil);
+    STAssertNotNil(databaseInformation.instance_start_time, nil);
+    
+}
 
 -(void)testProvidesProperDescription{
     NSString *description = [db description];
