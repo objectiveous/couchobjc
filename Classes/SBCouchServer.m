@@ -147,4 +147,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
     return [NSString stringWithFormat:@"http://%@:%u", self.host, self.port];  
 }
 
+-(NSString*)name{
+    return [NSString stringWithFormat:@"%@:%u", self.host, self.port];  
+}
+
 @end

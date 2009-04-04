@@ -46,4 +46,6 @@
 // Returns the fully qalified URL of the server. 
 -(NSString*)serverURLAsString;
 
+-(NSString*)name;
+
 @end
