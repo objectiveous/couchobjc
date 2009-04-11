@@ -93,6 +93,7 @@ asl_log(NULL, msg, ASL_LEVEL_DEBUG, "%s", [[NSString stringWithFormat:[NSString 
 
 #define STIGDebug(format, ...){}
 #define STIGInfo(format, ...){}
+#define SBDebug(format, ...){}
 #define STIGLog(level, format, ...){}
 
 #endif

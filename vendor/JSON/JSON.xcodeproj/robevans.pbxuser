@@ -84,11 +84,8 @@
 			PBXWorkspaceStateSaveDate = 261178109;
 		};
 		perUserProjectItems = {
-			54957EDC0F9142D20011A3CC /* PBXTextBookmark */ = 54957EDC0F9142D20011A3CC /* PBXTextBookmark */;
-			54957EDD0F9142D20011A3CC /* PBXTextBookmark */ = 54957EDD0F9142D20011A3CC /* PBXTextBookmark */;
 			54957F080F9143080011A3CC /* PBXTextBookmark */ = 54957F080F9143080011A3CC /* PBXTextBookmark */;
-			54957F100F91432A0011A3CC /* PBXTextBookmark */ = 54957F100F91432A0011A3CC /* PBXTextBookmark */;
-			54957FAD0F9145BD0011A3CC /* PBXTextBookmark */ = 54957FAD0F9145BD0011A3CC /* PBXTextBookmark */;
+			54957FB10F91464A0011A3CC /* PBXTextBookmark */ = 54957FB10F91464A0011A3CC /* PBXTextBookmark */;
 		};
 		sourceControlManager = 540108F00F1DA7B0002AC9E5 /* Source Control */;
 		userBuildSettings = {
@@ -125,26 +122,6 @@
 			sepNavVisRange = "{0, 152}";
 		};
 	};
-	54957EDC0F9142D20011A3CC /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */;
-		name = "NSCalendarDate+SBJSON.h: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 152;
-		vrLoc = 0;
-	};
-	54957EDD0F9142D20011A3CC /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */;
-		name = "NSCalendarDate+SBJSON.h: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 152;
-		vrLoc = 0;
-	};
 	54957F080F9143080011A3CC /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */;
@@ -155,17 +132,7 @@
 		vrLen = 152;
 		vrLoc = 0;
 	};
-	54957F100F91432A0011A3CC /* PBXTextBookmark */ = {
-		isa = PBXTextBookmark;
-		fRef = 54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */;
-		name = "NSCalendarDate+SBJSON.h: 1";
-		rLen = 0;
-		rLoc = 0;
-		rType = 0;
-		vrLen = 152;
-		vrLoc = 0;
-	};
-	54957FAD0F9145BD0011A3CC /* PBXTextBookmark */ = {
+	54957FB10F91464A0011A3CC /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = 54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */;
 		name = "NSCalendarDate+SBJSON.h: 1";
