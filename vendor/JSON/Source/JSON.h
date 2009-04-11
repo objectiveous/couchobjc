@@ -30,4 +30,4 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #import <Foundation/Foundation.h>
 #import <JSON/NSObject+SBJSON.h>
 #import <JSON/NSString+SBJSON.h>
-
+#import <JSON/NSCalendarDate+SBJSON.h>

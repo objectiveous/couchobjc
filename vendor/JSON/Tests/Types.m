@@ -216,4 +216,21 @@
     eqo([ds JSONValue], dict);
 }
 
+- (void)testNSCalendarDate{
+    
+    NSCalendarDate *date = [NSCalendarDate calendarDate];
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                           date, @"date", nil];
+    
+    id ds = [dict JSONRepresentation];
+    
+    NSLog(@"************* %@", ds);
+    
+    //id fragment = [date JSONFragmentValue];
+    //NSString *string = @"\"foo\"";    
+    //id fragment = [string JSONValue];    
+    STAssertNotNil(ds, nil);
+}
+
 @end

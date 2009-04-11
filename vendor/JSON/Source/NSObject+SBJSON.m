@@ -104,6 +104,16 @@ static opts_t defaults(NSDictionary *x)
 
 @end
 
+@implementation NSCalendarDate (NSObject_SBJSON)
+
+- (void)JSONFragmentWithOptions:(opts_t *)x into: (NSMutableString *)json{
+    [json appendString: @"\""];
+    [json appendString: [self description]];
+    [json appendString: @"\""];
+}
+
+@end
+
 
 @implementation NSString (NSObject_SBJSON)
 

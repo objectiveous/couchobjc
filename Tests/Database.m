@@ -31,7 +31,7 @@
 }
 
 - (void)tearDown {
-    [couch deleteDatabase:db.name];
+    [db delete];
     [couch release];
     [db release];
 }

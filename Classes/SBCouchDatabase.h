@@ -68,7 +68,8 @@
 
 #pragma mark -
 #pragma mark DELETE Calls
-
+// Delete this database
+-(SBCouchResponse*)delete;
 /// Delete a document.
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc;
 

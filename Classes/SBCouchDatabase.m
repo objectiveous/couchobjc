@@ -361,6 +361,30 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #pragma mark DELETE Calls
 
 /**
+ Deletes the database. 
+ */
+-(SBCouchResponse*)delete{
+    NSURL *url = [NSURL URLWithString:[self urlString]];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request setHTTPMethod:@"DELETE"];
+    
+    NSError *error;
+    NSHTTPURLResponse *response;
+    NSData *data = [NSURLConnection sendSynchronousRequest:request
+                                         returningResponse:&response
+                                                     error:&error];
+    
+    SBDebug(@"response code from the delete %i", [response statusCode]);
+    if (200 == [response statusCode]) {
+        NSString *json = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+        return [[[SBCouchResponse alloc] initWithDictionary:[json JSONValue]] autorelease];
+    }
+    
+    return nil;
+}
+
+/**
  This method extracts the name and revision from the document and attempts to delete that.
  */
 - (SBCouchResponse*)deleteDocument:(NSDictionary*)doc

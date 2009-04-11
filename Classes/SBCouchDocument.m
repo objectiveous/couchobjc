@@ -263,7 +263,11 @@
 }
 
 - (SBCouchResponse*)post{
-    //return [self.couchDatabase post:self];
-    return nil;
+    return [self.couchDatabase postDocument:self];
 }
+
+- (SBCouchResponse*)delete{
+    return [self.couchDatabase deleteDocument:self];
+}
+
 @end
