@@ -13,6 +13,8 @@
 		53D2299C0C96129800276605 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 53D2299A0C96129800276605 /* JSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		53D229A20C9612E000276605 /* Types.m in Sources */ = {isa = PBXBuildFile; fileRef = 53D229A10C9612E000276605 /* Types.m */; };
 		53D229AD0C961B9900276605 /* JSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53D229810C96121600276605 /* JSON.framework */; };
+		54957ED20F9142A20011A3CC /* NSCalendarDate+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 54957ED00F9142A20011A3CC /* NSCalendarDate+SBJSON.m */; };
+		54957ED30F9142A20011A3CC /* NSCalendarDate+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E7153EE90CAAABDB00054ADB /* Pretty.m in Sources */ = {isa = PBXBuildFile; fileRef = E7153EE80CAAABDB00054ADB /* Pretty.m */; };
 		E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = E75716430C96DB530084A449 /* NSObject+SBJSON.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = E75716440C96DB530084A449 /* NSObject+SBJSON.m */; };
@@ -59,6 +61,8 @@
 		53D2299A0C96129800276605 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		53D229A00C9612E000276605 /* Tests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tests.h; sourceTree = "<group>"; };
 		53D229A10C9612E000276605 /* Types.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Types.m; sourceTree = "<group>"; };
+		54957ED00F9142A20011A3CC /* NSCalendarDate+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSCalendarDate+SBJSON.m"; sourceTree = "<group>"; };
+		54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSCalendarDate+SBJSON.h"; sourceTree = "<group>"; };
 		E7153EE80CAAABDB00054ADB /* Pretty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pretty.m; sourceTree = "<group>"; };
 		E75716430C96DB530084A449 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		E75716440C96DB530084A449 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 		53D229950C96123C00276605 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				54957ED00F9142A20011A3CC /* NSCalendarDate+SBJSON.m */,
+				54957ED10F9142A20011A3CC /* NSCalendarDate+SBJSON.h */,
 				53D2299A0C96129800276605 /* JSON.h */,
 				E75716430C96DB530084A449 /* NSObject+SBJSON.h */,
 				E75716440C96DB530084A449 /* NSObject+SBJSON.m */,
@@ -164,6 +170,7 @@
 				E75716450C96DB530084A449 /* NSObject+SBJSON.h in Headers */,
 				E757164D0C96E39B0084A449 /* NSString+SBJSON.h in Headers */,
 				5390660B0D828B8B0022B8B8 /* SBJSONScanner.h in Headers */,
+				54957ED30F9142A20011A3CC /* NSCalendarDate+SBJSON.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +342,7 @@
 				E75716460C96DB530084A449 /* NSObject+SBJSON.m in Sources */,
 				E757164E0C96E39B0084A449 /* NSString+SBJSON.m in Sources */,
 				5390660C0D828B8B0022B8B8 /* SBJSONScanner.m in Sources */,
+				54957ED20F9142A20011A3CC /* NSCalendarDate+SBJSON.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
