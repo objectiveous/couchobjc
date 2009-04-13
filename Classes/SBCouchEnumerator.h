@@ -83,6 +83,7 @@
 -(NSInteger)startIndexOfPage:(NSInteger)aPageNumber;
 -(NSInteger)endIndexOfPage:(NSInteger)aPageNumber;
 
+-(NSInteger)numberOfRowsForPage:(NSInteger)aPageNumber;
 
 #pragma mark Abstract Methods from NSEnumerator
 - (id)nextObject;

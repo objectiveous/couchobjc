@@ -7,6 +7,7 @@
 
 @interface SBEnumeratorIntegrationTest : AbstractDatabaseTest{
 }
+
 - (void)simpleAllDocsEnumeration;
 - (void)simplestThingThatWillWork;
 - (void)simpleDesignDocsEnumerator;
@@ -16,6 +17,8 @@
 - (void)previousAndNextKnowledge;
 - (void)indexforPageNumber;
 - (void)startAndEndPageNumbers;
+- (void)numberOfRowsForPage;
+
 @end
 
 @implementation SBEnumeratorIntegrationTest
@@ -41,10 +44,10 @@
     // We're doing this because we want to setup a single database for testing. 
     // We could add support for this to AbstractDatabaseTest at some point but 
     // doing it this way makes it really clear what's going on. 
-    [self startAndEndPageNumbers];
-    [self indexforPageNumber];
-    
+    [self numberOfRowsForPage];
+
     /*
+    [self startAndEndPageNumbers];
     [self previousAndNextKnowledge];
 
     [self simplestThingThatWillWork];
@@ -55,6 +58,20 @@
     [self noLimitInQueryOptionsMeansFetchEveryThing];
     */
 }
+-(void) numberOfRowsForPage{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 5;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ];
+    SBCouchEnumerator *viewEnumerator = (SBCouchEnumerator*)[view viewEnumerator];
+    
+    STAssertTrue([viewEnumerator numberOfRowsForPage:1] == 5, nil);
+    STAssertTrue([viewEnumerator numberOfRowsForPage:14] == 2, @" %i ", [viewEnumerator numberOfRowsForPage:14]);
+    
+    [view release];
+    [queryOptions release];
+}
+
 -(void)startAndEndPageNumbers{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 5;

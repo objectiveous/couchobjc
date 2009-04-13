@@ -55,12 +55,23 @@
 }
 
 #pragma mark -
+- (id)objectAtIndex:(NSInteger)index ofPage:(NSInteger)aPageNumber{        
+    aPageNumber--;
+    if(index < 0 || index > self.queryOptions.limit)
+        return nil;
+    // decrement the index to account for the fact that rows are stored in an NSArray that is 0th based. 
+    //index--;
+    self.pageNumber = aPageNumber;
+    NSInteger startIndex = self.queryOptions.limit * aPageNumber;
+    NSInteger itemIndex = startIndex + index;
+    return [self itemAtIndex:itemIndex];
+}
+
 -(id)itemAtIndex:(NSInteger)idx{
     if(self.currentIndex == -1)
         [self fetchNextPage];
     
     if([self.rows count] >= idx){
-        // XXX Keep track of where we are. 
         self.currentIndex = idx;
         return [self.rows objectAtIndex:idx];
     }else{
@@ -83,8 +94,7 @@
     }
     if(idx > self.currentIndex)
         return nil;
-    
-    // TODO Might want to autorelease this. 
+     
     SBCouchDocument *doc = [self.rows objectAtIndex:idx];
     return doc;
 }
@@ -97,23 +107,7 @@
     
 }
 
-// XXX Once this is working, we really need to clean things up. 
--(BOOL)hasNextBatch{
-    if(metadataLoaded == NO)
-        [self loadMetadata];
-    // Remember that total rows can be greater than the number of rows returned when using filters. 
-    // http://localhost:5984/twitter/_all_docs?startkey=%22_design%2F%22&endkey=%22_design0%22
-    
-    if(self.pageNumber * self.queryOptions.limit > self.totalRows)
-        return NO;
-    
-    if([self.rows count] >= self.totalRows && ! self.currentIndex < [self.rows count])
-        return NO;
-    
-    if(self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch)
-        return YES;
-    return NO;
-}
+
 
 /// XXX This could probably use a rethink. 
 -(BOOL)shouldFetchNextBatch{
@@ -144,19 +138,7 @@
     return NO;
 }
 
-- (id)objectAtIndex:(NSInteger)index ofPage:(NSInteger)aPageNumber{    
-    // Page Numbers should start at zero so that the start index works properly. 
-    
-    aPageNumber--;
-    if(index <= 0 || index > self.queryOptions.limit)
-        return nil;
-    // decrement the index to account for the fact that rows are stored in an NSArray that is 0th based. 
-    index--;
-    
-    NSInteger startIndex = self.queryOptions.limit * aPageNumber;
-    NSInteger itemIndex = startIndex + index;
-    return [self itemAtIndex:itemIndex];
-}
+
 
 - (id)nextObject{
     // At some point lastObjectsID will 
@@ -290,6 +272,27 @@
     self.metadataLoaded = YES;
 }
 
+// XXX Once this is working, we really need to clean things up. 
+-(BOOL)hasNextBatch{
+    if(metadataLoaded == NO)
+        [self loadMetadata];
+    // Remember that total rows can be greater than the number of rows returned when using filters. 
+    // http://localhost:5984/twitter/_all_docs?startkey=%22_design%2F%22&endkey=%22_design0%22
+    
+    //if(self.pageNumber * self.queryOptions.limit > self.totalRows)
+    //    return NO;
+    
+    //if([self.rows count] >= self.totalRows && ! self.currentIndex < [self.rows count])
+    //    return NO;
+    
+    if(self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch && self.totalRows != [self.rows count])
+        return YES;
+
+    if(self.currentIndex + self.queryOptions.limit + 1 < self.totalRows)
+        return YES;
+    
+    return NO;
+}
 
 -(BOOL)hasPreviousBatch{
     if(metadataLoaded == NO)
@@ -322,4 +325,8 @@
     
     return endIndex;
 }
+-(NSInteger)numberOfRowsForPage:(NSInteger)aPageNumber{
+    return ([self endIndexOfPage:aPageNumber] +1 ) - [self startIndexOfPage:aPageNumber];
+}
+
 @end

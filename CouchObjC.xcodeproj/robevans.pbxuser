@@ -13,9 +13,9 @@
 			5495B4A70F587B0C007CEAEB /* StandAloneDocumentsIntegrationTest.m:46 */,
 			5434CF370F5F062100ACD8FC /* SBCouchDatabase.m:174 */,
 			54111F5C0F607E45007EE391 /* SBQueryOptionsIntegrationTest.m:20 */,
-			541120F40F632559007EE391 /* SBEnumeratorIntegrationTest.m:205 */,
+			541120F40F632559007EE391 /* SBEnumeratorIntegrationTest.m:222 */,
 			544C10720F65786F006BF954 /* SBCouchEnumerator.m:33 */,
-			547E932F0F6741C200F05CF5 /* SBEnumeratorIntegrationTest.m:120 */,
+			547E932F0F6741C200F05CF5 /* SBEnumeratorIntegrationTest.m:137 */,
 			54A70FE30F699623004F7D2D /* SBCouchDesignDocumentIntegrationTest.m:128 */,
 			54A70FEF0F6998F6004F7D2D /* SBCouchDesignDocumentIntegrationTest.m:122 */,
 			54A70FFC0F699A96004F7D2D /* SBCouchDesignDocumentIntegrationTest.m:126 */,
@@ -55,11 +55,11 @@
 			544133FD0F7AD3BF006FFC9E /* SBCouchDesignDocumentIntegrationTest.m:98 */,
 			544134710F7ADE3C006FFC9E /* SBQueryOptionsIntegrationTest.m:39 */,
 			544134790F7ADE95006FFC9E /* AbstractDatabaseTest.m:34 */,
-			544134DA0F7AE9C6006FFC9E /* SBEnumeratorIntegrationTest.m:196 */,
+			544134DA0F7AE9C6006FFC9E /* SBEnumeratorIntegrationTest.m:213 */,
 			544134E40F7AEB28006FFC9E /* SBCouchEnumerator.m:33 */,
 			544135120F7AEF22006FFC9E /* SBCouchDocument.m:252 */,
-			5441351E0F7AEFB3006FFC9E /* SBEnumeratorIntegrationTest.m:163 */,
-			544135240F7AF04D006FFC9E /* SBEnumeratorIntegrationTest.m:155 */,
+			5441351E0F7AEFB3006FFC9E /* SBEnumeratorIntegrationTest.m:180 */,
+			544135240F7AF04D006FFC9E /* SBEnumeratorIntegrationTest.m:172 */,
 			5441352C0F7AF197006FFC9E /* SBCouchEnumerator.m:33 */,
 			5441355B0F7AF4C1006FFC9E /* SBCouchDocument.m:220 */,
 			543209630F7C3AA400473D7E /* SBSlowViewIntegrationTest.m:22 */,
@@ -70,15 +70,15 @@
 			544E9CC50F7FFDE8003F6025 /* Database.m:45 */,
 			544E9D8D0F8037D3003F6025 /* SBCouchDatabaseInfoDocument.m:23 */,
 			544E9D970F803813003F6025 /* Database.m:42 */,
-			5464DD6B0F92637900D052E0 /* SBEnumeratorIntegrationTest.m:109 */,
-			5464DDF30F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m:107 */,
-			5464DDFD0F926AF100D052E0 /* SBEnumeratorIntegrationTest.m:105 */,
-			5464DE820F92755D00D052E0 /* SBEnumeratorIntegrationTest.m:100 */,
-			5464DE870F92760B00D052E0 /* SBEnumeratorIntegrationTest.m:112 */,
-			5464DED90F927A9600D052E0 /* SBCouchEnumerator.m:195 */,
-			5464DF580F92853D00D052E0 /* SBEnumeratorIntegrationTest.m:81 */,
-			5464E01E0F929A2300D052E0 /* SBEnumeratorIntegrationTest.m:70 */,
-			5464E0680F92A1E800D052E0 /* SBEnumeratorIntegrationTest.m:44 */,
+			5464DD6B0F92637900D052E0 /* SBEnumeratorIntegrationTest.m:126 */,
+			5464DDF30F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m:124 */,
+			5464DDFD0F926AF100D052E0 /* SBEnumeratorIntegrationTest.m:122 */,
+			5464DE820F92755D00D052E0 /* SBEnumeratorIntegrationTest.m:117 */,
+			5464DE870F92760B00D052E0 /* SBEnumeratorIntegrationTest.m:129 */,
+			5464DED90F927A9600D052E0 /* SBCouchEnumerator.m:177 */,
+			5464DF580F92853D00D052E0 /* SBEnumeratorIntegrationTest.m:98 */,
+			5464E01E0F929A2300D052E0 /* SBEnumeratorIntegrationTest.m:87 */,
+			5464E0680F92A1E800D052E0 /* SBEnumeratorIntegrationTest.m:48 */,
 		);
 		codeSenseManager = 545E8DD30F17D10E00E96BEA /* Code sense */;
 		executables = (
@@ -158,7 +158,7 @@
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
 					934,
-					136,
+					296,
 				);
 				PBXFileTableDataSourceColumnsKey = (
 					PBXErrorsWarningsDataSource_TypeID,
@@ -185,7 +185,7 @@
 				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Target_ColumnID;
 				PBXFileTableDataSourceColumnWidthsKey = (
 					20,
-					847,
+					880,
 					20,
 					48,
 					43,
@@ -559,6 +559,47 @@
 			5464E0A00F92A48D00D052E0 /* PBXTextBookmark */ = 5464E0A00F92A48D00D052E0 /* PBXTextBookmark */;
 			5464E0A10F92A48D00D052E0 /* PBXTextBookmark */ = 5464E0A10F92A48D00D052E0 /* PBXTextBookmark */;
 			5464E0A20F92A48D00D052E0 /* PBXTextBookmark */ = 5464E0A20F92A48D00D052E0 /* PBXTextBookmark */;
+			5464E0D40F93760600D052E0 /* PBXTextBookmark */ = 5464E0D40F93760600D052E0 /* PBXTextBookmark */;
+			5464E0D50F93760600D052E0 /* PBXTextBookmark */ = 5464E0D50F93760600D052E0 /* PBXTextBookmark */;
+			5464E0D60F93760600D052E0 /* PBXTextBookmark */ = 5464E0D60F93760600D052E0 /* PBXTextBookmark */;
+			5464E0D70F93760600D052E0 /* PBXTextBookmark */ = 5464E0D70F93760600D052E0 /* PBXTextBookmark */;
+			5464E0DA0F9376F500D052E0 /* PBXTextBookmark */ = 5464E0DA0F9376F500D052E0 /* PBXTextBookmark */;
+			5464E0DC0F93772600D052E0 /* PBXTextBookmark */ = 5464E0DC0F93772600D052E0 /* PBXTextBookmark */;
+			5464E0E30F93776800D052E0 /* PBXTextBookmark */ = 5464E0E30F93776800D052E0 /* PBXTextBookmark */;
+			5464E0EA0F9379C800D052E0 /* PBXTextBookmark */ = 5464E0EA0F9379C800D052E0 /* PBXTextBookmark */;
+			5464E0EB0F9379C800D052E0 /* PBXTextBookmark */ = 5464E0EB0F9379C800D052E0 /* PBXTextBookmark */;
+			5464E0EC0F9379C800D052E0 /* PBXTextBookmark */ = 5464E0EC0F9379C800D052E0 /* PBXTextBookmark */;
+			5464E0FC0F937B8B00D052E0 /* PBXTextBookmark */ = 5464E0FC0F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E0FD0F937B8B00D052E0 /* PBXTextBookmark */ = 5464E0FD0F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E0FE0F937B8B00D052E0 /* PBXTextBookmark */ = 5464E0FE0F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E0FF0F937B8B00D052E0 /* PBXTextBookmark */ = 5464E0FF0F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E1000F937B8B00D052E0 /* PBXTextBookmark */ = 5464E1000F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E1010F937B8B00D052E0 /* PBXTextBookmark */ = 5464E1010F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E1020F937B8B00D052E0 /* PBXTextBookmark */ = 5464E1020F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E1030F937B8B00D052E0 /* PBXTextBookmark */ = 5464E1030F937B8B00D052E0 /* PBXTextBookmark */;
+			5464E10B0F937C3A00D052E0 /* PBXTextBookmark */ = 5464E10B0F937C3A00D052E0 /* PBXTextBookmark */;
+			5464E10C0F937C3A00D052E0 /* PBXTextBookmark */ = 5464E10C0F937C3A00D052E0 /* PBXTextBookmark */;
+			5464E1120F937C8A00D052E0 /* PBXTextBookmark */ = 5464E1120F937C8A00D052E0 /* PBXTextBookmark */;
+			5464E1130F937C8A00D052E0 /* PBXTextBookmark */ = 5464E1130F937C8A00D052E0 /* PBXTextBookmark */;
+			5464E1310F9380DF00D052E0 /* PBXTextBookmark */ = 5464E1310F9380DF00D052E0 /* PBXTextBookmark */;
+			5464E1320F9380DF00D052E0 /* PBXTextBookmark */ = 5464E1320F9380DF00D052E0 /* PBXTextBookmark */;
+			5464E1390F93817200D052E0 /* PBXTextBookmark */ = 5464E1390F93817200D052E0 /* PBXTextBookmark */;
+			5464E13A0F93817200D052E0 /* PBXTextBookmark */ = 5464E13A0F93817200D052E0 /* PBXTextBookmark */;
+			5464E1410F93821C00D052E0 /* PBXTextBookmark */ = 5464E1410F93821C00D052E0 /* PBXTextBookmark */;
+			5464E1420F93821C00D052E0 /* PBXTextBookmark */ = 5464E1420F93821C00D052E0 /* PBXTextBookmark */;
+			5464E14A0F93829800D052E0 /* PBXTextBookmark */ = 5464E14A0F93829800D052E0 /* PBXTextBookmark */;
+			5464E14B0F93829800D052E0 /* PBXTextBookmark */ = 5464E14B0F93829800D052E0 /* PBXTextBookmark */;
+			5464E1530F93845F00D052E0 /* PBXTextBookmark */ = 5464E1530F93845F00D052E0 /* PBXTextBookmark */;
+			5464E1540F93845F00D052E0 /* PBXTextBookmark */ = 5464E1540F93845F00D052E0 /* PBXTextBookmark */;
+			5464E1550F93845F00D052E0 /* PBXTextBookmark */ = 5464E1550F93845F00D052E0 /* PBXTextBookmark */;
+			5464E1560F93845F00D052E0 /* PBXTextBookmark */ = 5464E1560F93845F00D052E0 /* PBXTextBookmark */;
+			5464E1570F93845F00D052E0 /* PBXTextBookmark */ = 5464E1570F93845F00D052E0 /* PBXTextBookmark */;
+			5464E15D0F93850C00D052E0 /* PBXTextBookmark */ = 5464E15D0F93850C00D052E0 /* PBXTextBookmark */;
+			5464E15E0F93850C00D052E0 /* PBXTextBookmark */ = 5464E15E0F93850C00D052E0 /* PBXTextBookmark */;
+			5464E1640F93855900D052E0 /* PBXTextBookmark */ = 5464E1640F93855900D052E0 /* PBXTextBookmark */;
+			5464E1650F93855900D052E0 /* PBXTextBookmark */ = 5464E1650F93855900D052E0 /* PBXTextBookmark */;
+			5464E16E0F93865500D052E0 /* PBXTextBookmark */ = 5464E16E0F93865500D052E0 /* PBXTextBookmark */;
+			5464E16F0F93865500D052E0 /* PBXTextBookmark */ = 5464E16F0F93865500D052E0 /* PBXTextBookmark */;
 			54E2C9A70F914D07002D6326 = 54E2C9A70F914D07002D6326 /* PBXTextBookmark */;
 			54E2C9A80F914D07002D6326 = 54E2C9A80F914D07002D6326 /* PBXTextBookmark */;
 			54E2C9A90F914D07002D6326 = 54E2C9A90F914D07002D6326 /* PBXTextBookmark */;
@@ -733,7 +774,7 @@
 			sepNavVisRange = "{0, 1239}";
 		};
 	};
-	541120F40F632559007EE391 /* SBEnumeratorIntegrationTest.m:205 */ = {
+	541120F40F632559007EE391 /* SBEnumeratorIntegrationTest.m:222 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -745,7 +786,7 @@
 		functionName = "-testSimplestThingThatWillWork";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 205;
+		lineNumber = 222;
 		location = Tests;
 		modificationTime = 261268274.637303;
 		state = 2;
@@ -1307,7 +1348,7 @@
 		modificationTime = 261268274.717753;
 		state = 2;
 	};
-	544134DA0F7AE9C6006FFC9E /* SBEnumeratorIntegrationTest.m:196 */ = {
+	544134DA0F7AE9C6006FFC9E /* SBEnumeratorIntegrationTest.m:213 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1319,7 +1360,7 @@
 		functionName = "-simpleAllDocsEnumeration";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 196;
+		lineNumber = 213;
 		location = Tests;
 		modificationTime = 261268274.721137;
 		state = 2;
@@ -1358,7 +1399,7 @@
 		modificationTime = 261268274.723824;
 		state = 2;
 	};
-	5441351E0F7AEFB3006FFC9E /* SBEnumeratorIntegrationTest.m:163 */ = {
+	5441351E0F7AEFB3006FFC9E /* SBEnumeratorIntegrationTest.m:180 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1370,12 +1411,12 @@
 		functionName = "-ensureSkipIsWorkingAndThereAreNoDuplicates";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 163;
+		lineNumber = 180;
 		location = Tests;
 		modificationTime = 261268274.726312;
 		state = 2;
 	};
-	544135240F7AF04D006FFC9E /* SBEnumeratorIntegrationTest.m:155 */ = {
+	544135240F7AF04D006FFC9E /* SBEnumeratorIntegrationTest.m:172 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -1387,7 +1428,7 @@
 		functionName = "-ensureSkipIsWorkingAndThereAreNoDuplicates";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 155;
+		lineNumber = 172;
 		location = Tests;
 		modificationTime = 261268278.810833;
 		state = 1;
@@ -1837,7 +1878,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1086;
 		vrLoc = 1218;
@@ -1877,7 +1918,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 72";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1116;
 		vrLoc = 1062;
@@ -1887,7 +1928,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 72";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1116;
 		vrLoc = 1062;
@@ -1971,7 +2012,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 72";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1116;
 		vrLoc = 1062;
@@ -2091,7 +2132,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 32";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 1082;
 		vrLoc = 64;
@@ -2121,7 +2162,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 51";
 		rLen = 0;
-		rLoc = 3373;
+		rLoc = 3989;
 		rType = 0;
 		vrLen = 1579;
 		vrLoc = 1072;
@@ -2131,7 +2172,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1670;
 		vrLoc = 1072;
@@ -2151,7 +2192,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 231";
 		rLen = 0;
-		rLoc = 10289;
+		rLoc = 9467;
 		rType = 0;
 		vrLen = 1163;
 		vrLoc = 7183;
@@ -2161,7 +2202,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1670;
 		vrLoc = 1072;
@@ -2171,7 +2212,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 228";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 1814;
 		vrLoc = 6380;
@@ -2211,7 +2252,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 231";
 		rLen = 0;
-		rLoc = 10289;
+		rLoc = 9467;
 		rType = 0;
 		vrLen = 1163;
 		vrLoc = 7183;
@@ -2231,7 +2272,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 230";
 		rLen = 0;
-		rLoc = 10258;
+		rLoc = 9436;
 		rType = 0;
 		vrLen = 1205;
 		vrLoc = 7156;
@@ -2241,7 +2282,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 238";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 1255;
 		vrLoc = 7154;
@@ -2251,7 +2292,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 238";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 359;
 		vrLoc = 8056;
@@ -2261,7 +2302,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 238";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 981;
 		vrLoc = 7434;
@@ -2281,7 +2322,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1402;
 		vrLoc = 1072;
@@ -2291,7 +2332,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 238";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 981;
 		vrLoc = 7434;
@@ -2311,7 +2352,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1403;
 		vrLoc = 1072;
@@ -2321,7 +2362,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 238";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 359;
 		vrLoc = 8056;
@@ -2331,7 +2372,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 882;
 		vrLoc = 1326;
@@ -2341,7 +2382,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1427;
 		vrLoc = 1154;
@@ -2351,7 +2392,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1083;
 		vrLoc = 1388;
@@ -2361,7 +2402,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1403;
 		vrLoc = 1109;
@@ -2371,7 +2412,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 235";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 364;
 		vrLoc = 8051;
@@ -2381,7 +2422,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 58";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 827;
 		vrLoc = 1380;
@@ -2391,7 +2432,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 235";
 		rLen = 0;
-		rLoc = 10293;
+		rLoc = 10302;
 		rType = 0;
 		vrLen = 364;
 		vrLoc = 8051;
@@ -2401,7 +2442,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 53";
 		rLen = 0;
-		rLoc = 3467;
+		rLoc = 4083;
 		rType = 0;
 		vrLen = 931;
 		vrLoc = 1380;
@@ -2411,7 +2452,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 53";
 		rLen = 0;
-		rLoc = 3468;
+		rLoc = 4084;
 		rType = 0;
 		vrLen = 1403;
 		vrLoc = 1109;
@@ -2421,7 +2462,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 53";
 		rLen = 0;
-		rLoc = 3468;
+		rLoc = 4084;
 		rType = 0;
 		vrLen = 1420;
 		vrLoc = 787;
@@ -2431,7 +2472,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 53";
 		rLen = 0;
-		rLoc = 3468;
+		rLoc = 4084;
 		rType = 0;
 		vrLen = 828;
 		vrLoc = 1154;
@@ -2440,7 +2481,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 292;
+		rLoc = 274;
 		rType = 1;
 	};
 	5464DD640F9262B700D052E0 /* PBXTextBookmark */ = {
@@ -2448,7 +2489,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 53";
 		rLen = 0;
-		rLoc = 3468;
+		rLoc = 4084;
 		rType = 0;
 		vrLen = 828;
 		vrLoc = 1154;
@@ -2458,12 +2499,12 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 99";
 		rLen = 0;
-		rLoc = 3215;
+		rLoc = 3061;
 		rType = 0;
 		vrLen = 1129;
 		vrLoc = 2089;
 	};
-	5464DD6B0F92637900D052E0 /* SBEnumeratorIntegrationTest.m:109 */ = {
+	5464DD6B0F92637900D052E0 /* SBEnumeratorIntegrationTest.m:126 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2475,7 +2516,7 @@
 		functionName = "-previousAndNextKnowledge";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 109;
+		lineNumber = 126;
 		location = Tests;
 		modificationTime = 261268278.912251;
 		state = 1;
@@ -2485,7 +2526,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 99";
 		rLen = 0;
-		rLoc = 3215;
+		rLoc = 3061;
 		rType = 0;
 		vrLen = 1323;
 		vrLoc = 1997;
@@ -2495,7 +2536,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 56";
 		rLen = 0;
-		rLoc = 3607;
+		rLoc = 4223;
 		rType = 0;
 		vrLen = 1572;
 		vrLoc = 787;
@@ -2505,7 +2546,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 99";
 		rLen = 0;
-		rLoc = 3215;
+		rLoc = 3061;
 		rType = 0;
 		vrLen = 1323;
 		vrLoc = 1997;
@@ -2515,7 +2556,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4018;
+		rLoc = 4634;
 		rType = 0;
 		vrLen = 1442;
 		vrLoc = 1007;
@@ -2525,7 +2566,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 59";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1144;
 		vrLoc = 1391;
@@ -2534,7 +2575,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 298;
+		rLoc = 301;
 		rType = 1;
 	};
 	5464DD740F92645700D052E0 /* PBXTextBookmark */ = {
@@ -2542,7 +2583,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 63";
 		rLen = 0;
-		rLoc = 3956;
+		rLoc = 4572;
 		rType = 0;
 		vrLen = 1061;
 		vrLoc = 1388;
@@ -2552,7 +2593,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 247";
 		rLen = 0;
-		rLoc = 10400;
+		rLoc = 10409;
 		rType = 0;
 		vrLen = 509;
 		vrLoc = 8199;
@@ -2562,7 +2603,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 59";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1144;
 		vrLoc = 1391;
@@ -2572,7 +2613,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 253";
 		rLen = 0;
-		rLoc = 10439;
+		rLoc = 10448;
 		rType = 0;
 		vrLen = 500;
 		vrLoc = 8319;
@@ -2582,7 +2623,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 253";
 		rLen = 0;
-		rLoc = 10439;
+		rLoc = 10448;
 		rType = 0;
 		vrLen = 966;
 		vrLoc = 7853;
@@ -2592,7 +2633,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4018;
+		rLoc = 4634;
 		rType = 0;
 		vrLen = 1518;
 		vrLoc = 1285;
@@ -2602,7 +2643,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 253";
 		rLen = 0;
-		rLoc = 10439;
+		rLoc = 10448;
 		rType = 0;
 		vrLen = 966;
 		vrLoc = 7853;
@@ -2612,7 +2653,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4020;
+		rLoc = 4636;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 1285;
@@ -2622,7 +2663,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4020;
+		rLoc = 4636;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 1285;
@@ -2632,7 +2673,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4020;
+		rLoc = 4636;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 1285;
@@ -2642,7 +2683,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4020;
+		rLoc = 4636;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 1285;
@@ -2651,7 +2692,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 13;
-		rLoc = 5961;
+		rLoc = 5139;
 		rType = 0;
 	};
 	5464DDD80F92695600D052E0 /* PBXTextBookmark */ = {
@@ -2659,7 +2700,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 4020;
+		rLoc = 4636;
 		rType = 0;
 		vrLen = 1517;
 		vrLoc = 1285;
@@ -2669,7 +2710,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 1792;
 		vrLoc = 7079;
@@ -2679,7 +2720,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 752;
 		vrLoc = 8275;
@@ -2689,7 +2730,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 752;
 		vrLoc = 8275;
@@ -2699,7 +2740,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 752;
 		vrLoc = 8275;
@@ -2709,7 +2750,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 1066;
 		vrLoc = 7805;
@@ -2718,7 +2759,7 @@
 		isa = PBXTextBookmark;
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		rLen = 0;
-		rLoc = 108;
+		rLoc = 125;
 		rType = 1;
 	};
 	5464DDE70F9269F200D052E0 /* PBXTextBookmark */ = {
@@ -2726,7 +2767,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 1066;
 		vrLoc = 7805;
@@ -2736,7 +2777,7 @@
 		fRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3962;
+		rLoc = 4578;
 		rType = 0;
 		vrLen = 1375;
 		vrLoc = 1425;
@@ -2764,7 +2805,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 245";
 		rLen = 0;
-		rLoc = 10230;
+		rLoc = 9408;
 		rType = 0;
 		vrLen = 752;
 		vrLoc = 8275;
@@ -2773,7 +2814,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5464DDEA0F9269FC00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		rLen = 1;
-		rLoc = 108;
+		rLoc = 125;
 		rType = 1;
 	};
 	5464DDEF0F926A0E00D052E0 /* PBXTextBookmark */ = {
@@ -2781,7 +2822,7 @@
 		fRef = 5464DDEC0F9269FC00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 63";
 		rLen = 0;
-		rLoc = 3956;
+		rLoc = 4572;
 		rType = 0;
 		vrLen = 1451;
 		vrLoc = 1390;
@@ -2791,7 +2832,7 @@
 		fRef = 5464DDEC0F9269FC00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 63";
 		rLen = 0;
-		rLoc = 3956;
+		rLoc = 4572;
 		rType = 0;
 		vrLen = 1451;
 		vrLoc = 1390;
@@ -2803,12 +2844,12 @@
 		path = /Users/robevans/Projects/cocoa/couchobjc/Tests/SBEnumeratorIntegrationTest.m;
 		sourceTree = "<group>";
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1218, 4538}}";
-			sepNavSelRange = "{845, 0}";
-			sepNavVisRange = "{566, 720}";
+			sepNavIntBoundsRect = "{{0, 0}, {1218, 4671}}";
+			sepNavSelRange = "{2564, 16}";
+			sepNavVisRange = "{1849, 1753}";
 		};
 	};
-	5464DDF30F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m:107 */ = {
+	5464DDF30F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m:124 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2820,7 +2861,7 @@
 		functionName = "-previousAndNextKnowledge";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 107;
+		lineNumber = 124;
 		location = Tests;
 		modificationTime = 261268278.990848;
 		state = 1;
@@ -2830,7 +2871,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 63";
 		rLen = 0;
-		rLoc = 3922;
+		rLoc = 4538;
 		rType = 0;
 		vrLen = 1277;
 		vrLoc = 1525;
@@ -2839,7 +2880,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 294;
+		rLoc = 297;
 		rType = 1;
 	};
 	5464DDF60F926ACD00D052E0 /* PBXTextBookmark */ = {
@@ -2847,7 +2888,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 63";
 		rLen = 0;
-		rLoc = 3956;
+		rLoc = 4572;
 		rType = 0;
 		vrLen = 1215;
 		vrLoc = 1425;
@@ -2857,7 +2898,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 132";
 		rLen = 0;
-		rLoc = 5039;
+		rLoc = 4217;
 		rType = 0;
 		vrLen = 911;
 		vrLoc = 3992;
@@ -2867,7 +2908,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3962;
+		rLoc = 4578;
 		rType = 0;
 		vrLen = 1263;
 		vrLoc = 1425;
@@ -2877,7 +2918,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 97";
 		rLen = 0;
-		rLoc = 2755;
+		rLoc = 3061;
 		rType = 0;
 		vrLen = 946;
 		vrLoc = 2167;
@@ -2887,7 +2928,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 63";
 		rLen = 0;
-		rLoc = 3922;
+		rLoc = 4538;
 		rType = 0;
 		vrLen = 1277;
 		vrLoc = 1525;
@@ -2897,12 +2938,12 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 253";
 		rLen = 0;
-		rLoc = 10319;
+		rLoc = 10328;
 		rType = 0;
 		vrLen = 487;
 		vrLoc = 8540;
 	};
-	5464DDFD0F926AF100D052E0 /* SBEnumeratorIntegrationTest.m:105 */ = {
+	5464DDFD0F926AF100D052E0 /* SBEnumeratorIntegrationTest.m:122 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -2914,7 +2955,7 @@
 		functionName = "-previousAndNextKnowledge";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 105;
+		lineNumber = 122;
 		location = Tests;
 		modificationTime = 261268279.032131;
 		state = 1;
@@ -2924,7 +2965,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 253";
 		rLen = 0;
-		rLoc = 10319;
+		rLoc = 10328;
 		rType = 0;
 		vrLen = 690;
 		vrLoc = 8337;
@@ -2934,7 +2975,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 253";
 		rLen = 0;
-		rLoc = 10319;
+		rLoc = 10328;
 		rType = 0;
 		vrLen = 690;
 		vrLoc = 8337;
@@ -2944,7 +2985,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 62";
 		rLen = 0;
-		rLoc = 3921;
+		rLoc = 4537;
 		rType = 0;
 		vrLen = 1515;
 		vrLoc = 1285;
@@ -2954,7 +2995,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 3852;
+		rLoc = 4468;
 		rType = 0;
 		vrLen = 1145;
 		vrLoc = 1391;
@@ -2963,7 +3004,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 162;
+		rLoc = 144;
 		rType = 1;
 	};
 	5464DE030F926BC900D052E0 /* PBXTextBookmark */ = {
@@ -2971,7 +3012,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 62";
 		rLen = 0;
-		rLoc = 3921;
+		rLoc = 4537;
 		rType = 0;
 		vrLen = 1145;
 		vrLoc = 1391;
@@ -2981,7 +3022,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 132";
 		rLen = 0;
-		rLoc = 5039;
+		rLoc = 4217;
 		rType = 0;
 		vrLen = 1075;
 		vrLoc = 3378;
@@ -2991,7 +3032,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 3852;
+		rLoc = 4468;
 		rType = 0;
 		vrLen = 1145;
 		vrLoc = 1391;
@@ -3001,7 +3042,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 129";
 		rLen = 0;
-		rLoc = 4338;
+		rLoc = 4046;
 		rType = 0;
 		vrLen = 1113;
 		vrLoc = 2945;
@@ -3011,7 +3052,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 115";
 		rLen = 0;
-		rLoc = 3725;
+		rLoc = 3433;
 		rType = 0;
 		vrLen = 1557;
 		vrLoc = 2614;
@@ -3021,7 +3062,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 62";
 		rLen = 0;
-		rLoc = 3921;
+		rLoc = 4537;
 		rType = 0;
 		vrLen = 1609;
 		vrLoc = 1191;
@@ -3031,7 +3072,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 115";
 		rLen = 0;
-		rLoc = 3725;
+		rLoc = 3433;
 		rType = 0;
 		vrLen = 1557;
 		vrLoc = 2614;
@@ -3041,7 +3082,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 64";
 		rLen = 0;
-		rLoc = 3961;
+		rLoc = 4577;
 		rType = 0;
 		vrLen = 1609;
 		vrLoc = 1191;
@@ -3051,7 +3092,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 64";
 		rLen = 0;
-		rLoc = 3961;
+		rLoc = 4577;
 		rType = 0;
 		vrLen = 1609;
 		vrLoc = 1191;
@@ -3071,7 +3112,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 74";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1396;
 		vrLoc = 1020;
@@ -3081,7 +3122,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 64";
 		rLen = 0;
-		rLoc = 3961;
+		rLoc = 4577;
 		rType = 0;
 		vrLen = 1609;
 		vrLoc = 1191;
@@ -3091,7 +3132,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 165";
 		rLen = 13;
-		rLoc = 5961;
+		rLoc = 5139;
 		rType = 0;
 		vrLen = 1326;
 		vrLoc = 4326;
@@ -3101,7 +3142,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 74";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1396;
 		vrLoc = 1020;
@@ -3121,7 +3162,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 976;
@@ -3131,7 +3172,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 976;
@@ -3141,12 +3182,12 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 976;
 	};
-	5464DE820F92755D00D052E0 /* SBEnumeratorIntegrationTest.m:100 */ = {
+	5464DE820F92755D00D052E0 /* SBEnumeratorIntegrationTest.m:117 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -3158,12 +3199,12 @@
 		functionName = "-previousAndNextKnowledge";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 100;
+		lineNumber = 117;
 		location = Tests;
 		modificationTime = 261268279.060253;
 		state = 1;
 	};
-	5464DE870F92760B00D052E0 /* SBEnumeratorIntegrationTest.m:112 */ = {
+	5464DE870F92760B00D052E0 /* SBEnumeratorIntegrationTest.m:129 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -3175,7 +3216,7 @@
 		functionName = "-previousAndNextKnowledge";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 112;
+		lineNumber = 129;
 		location = Tests;
 		modificationTime = 261268279.095991;
 		state = 1;
@@ -3185,7 +3226,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 976;
@@ -3195,7 +3236,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1169;
 		vrLoc = 1273;
@@ -3205,7 +3246,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 68";
 		rLen = 0;
-		rLoc = 4157;
+		rLoc = 4773;
 		rType = 0;
 		vrLen = 1258;
 		vrLoc = 1425;
@@ -3214,7 +3255,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 207;
+		rLoc = 189;
 		rType = 1;
 	};
 	5464DE9C0F9277FE00D052E0 /* PBXTextBookmark */ = {
@@ -3222,7 +3263,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1169;
 		vrLoc = 1273;
@@ -3232,7 +3273,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 3852;
+		rLoc = 4468;
 		rType = 0;
 		vrLen = 1375;
 		vrLoc = 1425;
@@ -3242,7 +3283,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 194";
 		rLen = 0;
-		rLoc = 7451;
+		rLoc = 6629;
 		rType = 0;
 		vrLen = 1064;
 		vrLoc = 5843;
@@ -3252,7 +3293,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 3852;
+		rLoc = 4468;
 		rType = 0;
 		vrLen = 1375;
 		vrLoc = 1425;
@@ -3262,7 +3303,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 259";
 		rLen = 0;
-		rLoc = 10319;
+		rLoc = 10328;
 		rType = 0;
 		vrLen = 487;
 		vrLoc = 8781;
@@ -3272,7 +3313,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 59";
 		rLen = 0;
-		rLoc = 3757;
+		rLoc = 4373;
 		rType = 0;
 		vrLen = 1375;
 		vrLoc = 1425;
@@ -3282,7 +3323,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 97";
 		rLen = 0;
-		rLoc = 2755;
+		rLoc = 3061;
 		rType = 0;
 		vrLen = 1235;
 		vrLoc = 5338;
@@ -3292,7 +3333,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 68";
 		rLen = 0;
-		rLoc = 4157;
+		rLoc = 4773;
 		rType = 0;
 		vrLen = 1258;
 		vrLoc = 1425;
@@ -3302,7 +3343,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 172";
 		rLen = 0;
-		rLoc = 6491;
+		rLoc = 5669;
 		rType = 0;
 		vrLen = 1235;
 		vrLoc = 5338;
@@ -3312,7 +3353,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1466;
 		vrLoc = 976;
@@ -3322,7 +3363,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 160";
 		rLen = 0;
-		rLoc = 5860;
+		rLoc = 5038;
 		rType = 0;
 		vrLen = 1349;
 		vrLoc = 4489;
@@ -3342,7 +3383,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 166";
 		rLen = 0;
-		rLoc = 6193;
+		rLoc = 5371;
 		rType = 0;
 		vrLen = 1365;
 		vrLoc = 4494;
@@ -3362,7 +3403,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 71";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 1497;
 		vrLoc = 945;
@@ -3372,7 +3413,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 166";
 		rLen = 0;
-		rLoc = 6193;
+		rLoc = 5371;
 		rType = 0;
 		vrLen = 1365;
 		vrLoc = 4494;
@@ -3392,7 +3433,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 163";
 		rLen = 0;
-		rLoc = 5914;
+		rLoc = 5092;
 		rType = 0;
 		vrLen = 1340;
 		vrLoc = 4489;
@@ -3402,7 +3443,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 170";
 		rLen = 0;
-		rLoc = 6193;
+		rLoc = 5371;
 		rType = 0;
 		vrLen = 1262;
 		vrLoc = 4489;
@@ -3422,7 +3463,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 170";
 		rLen = 0;
-		rLoc = 6193;
+		rLoc = 5371;
 		rType = 0;
 		vrLen = 1338;
 		vrLoc = 4494;
@@ -3452,7 +3493,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 168";
 		rLen = 0;
-		rLoc = 6187;
+		rLoc = 5365;
 		rType = 0;
 		vrLen = 1267;
 		vrLoc = 4489;
@@ -3462,12 +3503,12 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 168";
 		rLen = 0;
-		rLoc = 6177;
+		rLoc = 5355;
 		rType = 0;
 		vrLen = 1414;
 		vrLoc = 4489;
 	};
-	5464DED90F927A9600D052E0 /* SBCouchEnumerator.m:195 */ = {
+	5464DED90F927A9600D052E0 /* SBCouchEnumerator.m:177 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -3479,7 +3520,7 @@
 		functionName = "-fetchNextPage";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 195;
+		lineNumber = 177;
 		location = CouchObjC;
 		modificationTime = 261268274.753654;
 		state = 2;
@@ -3489,7 +3530,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 168";
 		rLen = 0;
-		rLoc = 6177;
+		rLoc = 5355;
 		rType = 0;
 		vrLen = 1414;
 		vrLoc = 4489;
@@ -3499,7 +3540,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 168";
 		rLen = 0;
-		rLoc = 6177;
+		rLoc = 5355;
 		rType = 0;
 		vrLen = 1411;
 		vrLoc = 4489;
@@ -3509,7 +3550,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 159";
 		rLen = 0;
-		rLoc = 5828;
+		rLoc = 5006;
 		rType = 0;
 		vrLen = 1356;
 		vrLoc = 4489;
@@ -3519,7 +3560,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 162";
 		rLen = 0;
-		rLoc = 5828;
+		rLoc = 5006;
 		rType = 0;
 		vrLen = 1336;
 		vrLoc = 4537;
@@ -3529,7 +3570,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 165";
 		rLen = 0;
-		rLoc = 5828;
+		rLoc = 5006;
 		rType = 0;
 		vrLen = 1200;
 		vrLoc = 4053;
@@ -3539,7 +3580,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 165";
 		rLen = 0;
-		rLoc = 5828;
+		rLoc = 5006;
 		rType = 0;
 		vrLen = 1495;
 		vrLoc = 3343;
@@ -3549,7 +3590,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 166";
 		rLen = 0;
-		rLoc = 5828;
+		rLoc = 5006;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 2541;
@@ -3559,7 +3600,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 166";
 		rLen = 0;
-		rLoc = 5828;
+		rLoc = 5006;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 2541;
@@ -3569,7 +3610,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 116";
 		rLen = 0;
-		rLoc = 3459;
+		rLoc = 3167;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 2541;
@@ -3579,7 +3620,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 116";
 		rLen = 0;
-		rLoc = 3459;
+		rLoc = 3167;
 		rType = 0;
 		vrLen = 1471;
 		vrLoc = 2541;
@@ -3615,7 +3656,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 6;
-		rLoc = 2942;
+		rLoc = 3558;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 1038;
@@ -3635,7 +3676,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 144";
 		rLen = 0;
-		rLoc = 4879;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 1469;
 		vrLoc = 3664;
@@ -3665,7 +3706,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 2950;
+		rLoc = 3566;
 		rType = 0;
 		vrLen = 1581;
 		vrLoc = 877;
@@ -3717,7 +3758,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 6;
-		rLoc = 2942;
+		rLoc = 3558;
 		rType = 0;
 		vrLen = 1455;
 		vrLoc = 1038;
@@ -3737,7 +3778,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 144";
 		rLen = 0;
-		rLoc = 4879;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 1469;
 		vrLoc = 3664;
@@ -3747,7 +3788,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 145";
 		rLen = 0;
-		rLoc = 4935;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 1469;
 		vrLoc = 3664;
@@ -3757,7 +3798,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 145";
 		rLen = 0;
-		rLoc = 4935;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 1469;
 		vrLoc = 3664;
@@ -3767,12 +3808,12 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 2941;
+		rLoc = 3557;
 		rType = 0;
 		vrLen = 1570;
 		vrLoc = 958;
 	};
-	5464DF580F92853D00D052E0 /* SBEnumeratorIntegrationTest.m:81 */ = {
+	5464DF580F92853D00D052E0 /* SBEnumeratorIntegrationTest.m:98 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -3784,7 +3825,7 @@
 		functionName = "-indexforPageNumber";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 81;
+		lineNumber = 98;
 		location = Tests;
 		modificationTime = 261268274.754588;
 		state = 2;
@@ -3794,7 +3835,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 2941;
+		rLoc = 3557;
 		rType = 0;
 		vrLen = 831;
 		vrLoc = 958;
@@ -3804,7 +3845,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 61";
 		rLen = 0;
-		rLoc = 2941;
+		rLoc = 3557;
 		rType = 0;
 		vrLen = 831;
 		vrLoc = 958;
@@ -3814,7 +3855,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 145";
 		rLen = 0;
-		rLoc = 4819;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 508;
 		vrLoc = 4118;
@@ -3824,7 +3865,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 614;
 		vrLoc = 1382;
@@ -3834,7 +3875,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 960;
 		vrLoc = 1171;
@@ -3843,7 +3884,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 154;
+		rLoc = 140;
 		rType = 1;
 	};
 	5464DF610F92862200D052E0 /* PBXTextBookmark */ = {
@@ -3851,7 +3892,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 960;
 		vrLoc = 1171;
@@ -3861,7 +3902,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 79";
 		rLen = 0;
-		rLoc = 2095;
+		rLoc = 2531;
 		rType = 0;
 		vrLen = 942;
 		vrLoc = 1287;
@@ -3871,7 +3912,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 118";
 		rLen = 77;
-		rLoc = 5502;
+		rLoc = 6118;
 		rType = 0;
 		vrLen = 1181;
 		vrLoc = 3451;
@@ -3881,7 +3922,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 79";
 		rLen = 0;
-		rLoc = 2095;
+		rLoc = 2531;
 		rType = 0;
 		vrLen = 647;
 		vrLoc = 1582;
@@ -3891,7 +3932,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 118";
 		rLen = 77;
-		rLoc = 5502;
+		rLoc = 6118;
 		rType = 0;
 		vrLen = 1181;
 		vrLoc = 3451;
@@ -3901,7 +3942,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 77";
 		rLen = 0;
-		rLoc = 2067;
+		rLoc = 2503;
 		rType = 0;
 		vrLen = 908;
 		vrLoc = 1398;
@@ -3911,7 +3952,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 237;
 		vrLoc = 1794;
@@ -3921,7 +3962,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 146";
 		rLen = 0;
-		rLoc = 4819;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 808;
 		vrLoc = 1857;
@@ -3930,7 +3971,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		rLen = 0;
-		rLoc = 99;
+		rLoc = 116;
 		rType = 1;
 	};
 	5464DF700F92876000D052E0 /* PBXTextBookmark */ = {
@@ -3938,7 +3979,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 1054;
 		vrLoc = 1210;
@@ -3948,7 +3989,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 146";
 		rLen = 0;
-		rLoc = 4819;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 808;
 		vrLoc = 1857;
@@ -3958,7 +3999,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 66";
 		rLen = 0;
-		rLoc = 2995;
+		rLoc = 3611;
 		rType = 0;
 		vrLen = 833;
 		vrLoc = 1353;
@@ -3968,7 +4009,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 147";
 		rLen = 0;
-		rLoc = 4698;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 970;
 		vrLoc = 3957;
@@ -3978,7 +4019,7 @@
 		comments = "error: -[SBEnumeratorIntegrationTest testANumberOfThingsWithASingleSetup] : \"(([resultEnumerator objectAtIndex:0 ofPage:1]) != nil)\" should be true. ";
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		rLen = 1;
-		rLoc = 86;
+		rLoc = 103;
 		rType = 1;
 	};
 	5464DF9F0F928BF900D052E0 /* PBXTextBookmark */ = {
@@ -3986,7 +4027,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 66";
 		rLen = 13;
-		rLoc = 3028;
+		rLoc = 3644;
 		rType = 0;
 		vrLen = 960;
 		vrLoc = 1298;
@@ -3996,7 +4037,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 146";
 		rLen = 0;
-		rLoc = 4805;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 956;
 		vrLoc = 3957;
@@ -4006,7 +4047,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 68";
 		rLen = 13;
-		rLoc = 3203;
+		rLoc = 3819;
 		rType = 0;
 		vrLen = 906;
 		vrLoc = 1448;
@@ -4016,7 +4057,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 147";
 		rLen = 0;
-		rLoc = 4698;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 970;
 		vrLoc = 3957;
@@ -4026,7 +4067,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 71";
 		rLen = 0;
-		rLoc = 3311;
+		rLoc = 3927;
 		rType = 0;
 		vrLen = 591;
 		vrLoc = 1455;
@@ -4036,7 +4077,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 450;
 		vrLoc = 1802;
@@ -4046,7 +4087,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 3304;
+		rLoc = 3920;
 		rType = 0;
 		vrLen = 450;
 		vrLoc = 1802;
@@ -4066,7 +4107,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 71";
 		rLen = 0;
-		rLoc = 3311;
+		rLoc = 3927;
 		rType = 0;
 		vrLen = 591;
 		vrLoc = 1455;
@@ -4086,7 +4127,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 1912;
+		rLoc = 2528;
 		rType = 0;
 		vrLen = 992;
 		vrLoc = 1420;
@@ -4106,7 +4147,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 306";
 		rLen = 0;
-		rLoc = 10838;
+		rLoc = 10847;
 		rType = 0;
 		vrLen = 448;
 		vrLoc = 10119;
@@ -4116,7 +4157,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 65";
 		rLen = 0;
-		rLoc = 1912;
+		rLoc = 2528;
 		rType = 0;
 		vrLen = 992;
 		vrLoc = 1420;
@@ -4126,7 +4167,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 306";
 		rLen = 0;
-		rLoc = 10838;
+		rLoc = 10847;
 		rType = 0;
 		vrLen = 448;
 		vrLoc = 10119;
@@ -4146,7 +4187,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 310";
 		rLen = 0;
-		rLoc = 10949;
+		rLoc = 10958;
 		rType = 0;
 		vrLen = 562;
 		vrLoc = 10255;
@@ -4166,7 +4207,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 290";
 		rLen = 0;
-		rLoc = 10292;
+		rLoc = 9470;
 		rType = 0;
 		vrLen = 298;
 		vrLoc = 10010;
@@ -4176,7 +4217,7 @@
 		comments = "error: -[SBEnumeratorIntegrationTest testANumberOfThingsWithASingleSetup] : \"start == 1\" should be true. ";
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		rLen = 0;
-		rLoc = 63;
+		rLoc = 80;
 		rType = 1;
 	};
 	5464E0160F92991B00D052E0 /* PBXTextBookmark */ = {
@@ -4194,7 +4235,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 290";
 		rLen = 0;
-		rLoc = 10292;
+		rLoc = 9470;
 		rType = 0;
 		vrLen = 298;
 		vrLoc = 10010;
@@ -4204,12 +4245,12 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 2395;
+		rLoc = 3011;
 		rType = 0;
 		vrLen = 982;
 		vrLoc = 1650;
 	};
-	5464E01E0F929A2300D052E0 /* SBEnumeratorIntegrationTest.m:70 */ = {
+	5464E01E0F929A2300D052E0 /* SBEnumeratorIntegrationTest.m:87 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4221,7 +4262,7 @@
 		functionName = "-startAndEndPageNumbers";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 70;
+		lineNumber = 87;
 		location = Tests;
 		modificationTime = 261268274.756278;
 		state = 2;
@@ -4231,7 +4272,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 306";
 		rLen = 0;
-		rLoc = 10553;
+		rLoc = 10562;
 		rType = 0;
 		vrLen = 674;
 		vrLoc = 10328;
@@ -4241,7 +4282,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 2511;
+		rLoc = 3127;
 		rType = 0;
 		vrLen = 979;
 		vrLoc = 1650;
@@ -4251,7 +4292,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 2511;
+		rLoc = 3127;
 		rType = 0;
 		vrLen = 1252;
 		vrLoc = 1515;
@@ -4260,7 +4301,7 @@
 		isa = PBXTextBookmark;
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		rLen = 0;
-		rLoc = 315;
+		rLoc = 318;
 		rType = 1;
 	};
 	5464E0230F929A4100D052E0 /* PBXTextBookmark */ = {
@@ -4268,7 +4309,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 2511;
+		rLoc = 3127;
 		rType = 0;
 		vrLen = 1252;
 		vrLoc = 1515;
@@ -4278,7 +4319,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 314";
 		rLen = 0;
-		rLoc = 10893;
+		rLoc = 10902;
 		rType = 0;
 		vrLen = 717;
 		vrLoc = 10308;
@@ -4298,7 +4339,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 301";
 		rLen = 0;
-		rLoc = 10442;
+		rLoc = 10451;
 		rType = 0;
 		vrLen = 629;
 		vrLoc = 10308;
@@ -4308,7 +4349,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 301";
 		rLen = 0;
-		rLoc = 10442;
+		rLoc = 10451;
 		rType = 0;
 		vrLen = 629;
 		vrLoc = 10308;
@@ -4328,7 +4369,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 304";
 		rLen = 0;
-		rLoc = 10443;
+		rLoc = 10452;
 		rType = 0;
 		vrLen = 775;
 		vrLoc = 10236;
@@ -4338,7 +4379,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 46";
 		rLen = 0;
-		rLoc = 1240;
+		rLoc = 1233;
 		rType = 0;
 		vrLen = 417;
 		vrLoc = 908;
@@ -4358,7 +4399,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 301";
 		rLen = 0;
-		rLoc = 10442;
+		rLoc = 10451;
 		rType = 0;
 		vrLen = 789;
 		vrLoc = 10236;
@@ -4368,7 +4409,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 301";
 		rLen = 0;
-		rLoc = 10442;
+		rLoc = 10451;
 		rType = 0;
 		vrLen = 789;
 		vrLoc = 10236;
@@ -4388,7 +4429,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 797;
 		vrLoc = 854;
@@ -4398,7 +4439,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 46";
 		rLen = 0;
-		rLoc = 1240;
+		rLoc = 1233;
 		rType = 0;
 		vrLen = 417;
 		vrLoc = 908;
@@ -4408,7 +4449,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 797;
 		vrLoc = 854;
@@ -4418,7 +4459,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 46";
 		rLen = 0;
-		rLoc = 1240;
+		rLoc = 1233;
 		rType = 0;
 		vrLen = 417;
 		vrLoc = 908;
@@ -4428,7 +4469,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 148;
 		vrLoc = 382;
@@ -4470,7 +4511,7 @@
 		vrLen = 1235;
 		vrLoc = 2007;
 	};
-	5464E0680F92A1E800D052E0 /* SBEnumeratorIntegrationTest.m:44 */ = {
+	5464E0680F92A1E800D052E0 /* SBEnumeratorIntegrationTest.m:48 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4482,7 +4523,7 @@
 		functionName = "-testANumberOfThingsWithASingleSetup";
 		hitCount = 1;
 		ignoreCount = 0;
-		lineNumber = 44;
+		lineNumber = 48;
 		location = Tests;
 		modificationTime = 261268281.158073;
 		state = 1;
@@ -4492,7 +4533,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 148;
 		vrLoc = 382;
@@ -4522,7 +4563,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 41";
 		rLen = 0;
-		rLoc = 960;
+		rLoc = 991;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 610;
@@ -4532,7 +4573,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 110;
 		vrLoc = 382;
@@ -4542,7 +4583,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 36";
 		rLen = 0;
-		rLoc = 896;
+		rLoc = 927;
 		rType = 0;
 		vrLen = 640;
 		vrLoc = 610;
@@ -4552,7 +4593,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 110;
 		vrLoc = 382;
@@ -4562,7 +4603,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 36";
 		rLen = 0;
-		rLoc = 896;
+		rLoc = 927;
 		rType = 0;
 		vrLen = 677;
 		vrLoc = 611;
@@ -4572,7 +4613,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 148;
 		vrLoc = 382;
@@ -4582,7 +4623,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 36";
 		rLen = 0;
-		rLoc = 896;
+		rLoc = 927;
 		rType = 0;
 		vrLen = 714;
 		vrLoc = 611;
@@ -4592,7 +4633,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 70";
 		rLen = 0;
-		rLoc = 2511;
+		rLoc = 3127;
 		rType = 0;
 		vrLen = 1427;
 		vrLoc = 1523;
@@ -4602,7 +4643,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 155";
 		rLen = 0;
-		rLoc = 4819;
+		rLoc = 4156;
 		rType = 0;
 		vrLen = 866;
 		vrLoc = 1802;
@@ -4622,7 +4663,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 97";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 648;
 		vrLoc = 1818;
@@ -4632,7 +4673,7 @@
 		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
 		name = "SBCouchEnumerator.h: 97";
 		rLen = 0;
-		rLoc = 2983;
+		rLoc = 3039;
 		rType = 0;
 		vrLen = 648;
 		vrLoc = 1818;
@@ -4652,7 +4693,7 @@
 		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
 		name = "SBCouchEnumerator.m: 69";
 		rLen = 0;
-		rLoc = 1655;
+		rLoc = 2091;
 		rType = 0;
 		vrLen = 148;
 		vrLoc = 382;
@@ -4672,7 +4713,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 36";
 		rLen = 0;
-		rLoc = 896;
+		rLoc = 927;
 		rType = 0;
 		vrLen = 678;
 		vrLoc = 610;
@@ -4692,7 +4733,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 714;
 		vrLoc = 610;
@@ -4712,7 +4753,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 714;
 		vrLoc = 610;
@@ -4732,7 +4773,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 676;
 		vrLoc = 610;
@@ -4752,7 +4793,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 714;
 		vrLoc = 610;
@@ -4772,7 +4813,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 714;
 		vrLoc = 610;
@@ -4792,7 +4833,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 637;
 		vrLoc = 611;
@@ -4812,7 +4853,7 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 185;
 		vrLoc = 661;
@@ -4822,10 +4863,418 @@
 		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
 		name = "SBEnumeratorIntegrationTest.m: 35";
 		rLen = 0;
-		rLoc = 845;
+		rLoc = 876;
 		rType = 0;
 		vrLen = 720;
 		vrLoc = 566;
+	};
+	5464E0D40F93760600D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 30";
+		rLen = 0;
+		rLoc = 797;
+		rType = 0;
+		vrLen = 185;
+		vrLoc = 662;
+	};
+	5464E0D50F93760600D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 69";
+		rLen = 0;
+		rLoc = 2091;
+		rType = 0;
+		vrLen = 1178;
+		vrLoc = 382;
+	};
+	5464E0D60F93760600D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 30";
+		rLen = 0;
+		rLoc = 797;
+		rType = 0;
+		vrLen = 185;
+		vrLoc = 662;
+	};
+	5464E0D70F93760600D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 65";
+		rLen = 0;
+		rLoc = 1982;
+		rType = 0;
+		vrLen = 1436;
+		vrLoc = 955;
+	};
+	5464E0DA0F9376F500D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 60";
+		rLen = 0;
+		rLoc = 1877;
+		rType = 0;
+		vrLen = 1171;
+		vrLoc = 886;
+	};
+	5464E0DC0F93772600D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 60";
+		rLen = 0;
+		rLoc = 1877;
+		rType = 0;
+		vrLen = 1171;
+		vrLoc = 886;
+	};
+	5464E0E30F93776800D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 60";
+		rLen = 0;
+		rLoc = 1877;
+		rType = 0;
+		vrLen = 1166;
+		vrLoc = 886;
+	};
+	5464E0EA0F9379C800D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 60";
+		rLen = 0;
+		rLoc = 1877;
+		rType = 0;
+		vrLen = 992;
+		vrLoc = 411;
+	};
+	5464E0EB0F9379C800D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 60";
+		rLen = 0;
+		rLoc = 1877;
+		rType = 0;
+		vrLen = 992;
+		vrLoc = 411;
+	};
+	5464E0EC0F9379C800D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 68";
+		rLen = 0;
+		rLoc = 1937;
+		rType = 0;
+		vrLen = 1212;
+		vrLoc = 877;
+	};
+	5464E0FC0F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 68";
+		rLen = 19;
+		rLoc = 1970;
+		rType = 0;
+		vrLen = 1436;
+		vrLoc = 1849;
+	};
+	5464E0FD0F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 68";
+		rLen = 0;
+		rLoc = 1937;
+		rType = 0;
+		vrLen = 504;
+		vrLoc = 1585;
+	};
+	5464E0FE0F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
+		name = "SBCouchEnumerator.h: 86";
+		rLen = 0;
+		rLoc = 2522;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 2286;
+	};
+	5464E0FF0F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 50";
+		rLen = 0;
+		rLoc = 1183;
+		rType = 0;
+		vrLen = 376;
+		vrLoc = 1027;
+	};
+	5464E1000F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 68";
+		rLen = 0;
+		rLoc = 1937;
+		rType = 0;
+		vrLen = 504;
+		vrLoc = 1585;
+	};
+	5464E1010F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 50";
+		rLen = 0;
+		rLoc = 1183;
+		rType = 0;
+		vrLen = 376;
+		vrLoc = 1027;
+	};
+	5464E1020F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302E0F18442600A9B002 /* SBCouchEnumerator.h */;
+		name = "SBCouchEnumerator.h: 86";
+		rLen = 0;
+		rLoc = 2522;
+		rType = 0;
+		vrLen = 753;
+		vrLoc = 2286;
+	};
+	5464E1030F937B8B00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 324";
+		rLen = 0;
+		rLoc = 11251;
+		rType = 0;
+		vrLen = 276;
+		vrLoc = 10927;
+	};
+	5464E10B0F937C3A00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 68";
+		rLen = 19;
+		rLoc = 1970;
+		rType = 0;
+		vrLen = 275;
+		vrLoc = 1849;
+	};
+	5464E10C0F937C3A00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 63";
+		rLen = 0;
+		rLoc = 1583;
+		rType = 0;
+		vrLen = 1035;
+		vrLoc = 886;
+	};
+	5464E1120F937C8A00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 68";
+		rLen = 19;
+		rLoc = 1970;
+		rType = 0;
+		vrLen = 275;
+		vrLoc = 1849;
+	};
+	5464E1130F937C8A00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 63";
+		rLen = 0;
+		rLoc = 1583;
+		rType = 0;
+		vrLen = 1034;
+		vrLoc = 886;
+	};
+	5464E1310F9380DF00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 82";
+		rLen = 16;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 1849;
+	};
+	5464E1320F9380DF00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E1390F93817200D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 82";
+		rLen = 16;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 1849;
+	};
+	5464E13A0F93817200D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E1410F93821C00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 82";
+		rLen = 16;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 1849;
+	};
+	5464E1420F93821C00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E14A0F93829800D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 82";
+		rLen = 16;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 1849;
+	};
+	5464E14B0F93829800D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E1530F93845F00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 82";
+		rLen = 16;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 1849;
+	};
+	5464E1540F93845F00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		comments = "error: syntax error before ‘]’ token";
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		rLen = 1;
+		rLoc = 290;
+		rType = 1;
+	};
+	5464E1550F93845F00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5464DDF10F926A4D00D052E0 /* SBEnumeratorIntegrationTest.m */;
+		name = "SBEnumeratorIntegrationTest.m: 82";
+		rLen = 16;
+		rLoc = 2564;
+		rType = 0;
+		vrLen = 1753;
+		vrLoc = 1849;
+	};
+	5464E1560F93845F00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 291";
+		rLen = 0;
+		rLoc = 10244;
+		rType = 0;
+		vrLen = 1036;
+		vrLoc = 9470;
+	};
+	5464E1570F93845F00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E15D0F93850C00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 291";
+		rLen = 0;
+		rLoc = 10244;
+		rType = 0;
+		vrLen = 1006;
+		vrLoc = 9470;
+	};
+	5464E15E0F93850C00D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E1640F93855900D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 291";
+		rLen = 0;
+		rLoc = 10244;
+		rType = 0;
+		vrLen = 1010;
+		vrLoc = 9470;
+	};
+	5464E1650F93855900D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
+	};
+	5464E16E0F93865500D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 291";
+		rLen = 0;
+		rLoc = 10244;
+		rType = 0;
+		vrLen = 1036;
+		vrLoc = 9470;
+	};
+	5464E16F0F93865500D052E0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 5496302F0F18442600A9B002 /* SBCouchEnumerator.m */;
+		name = "SBCouchEnumerator.m: 282";
+		rLen = 0;
+		rLoc = 9816;
+		rType = 0;
+		vrLen = 110;
+		vrLoc = 9139;
 	};
 	547767ED0F2B80A900E44AFE /* SBCouchDocumentIntegrationTest.m */ = {
 		uiCtxt = {
@@ -4923,7 +5372,7 @@
 		path = /Users/robevans/Projects/cocoa/couchobj/Classes/SBCouchEnumerator.m;
 		sourceTree = "<group>";
 	};
-	547E932F0F6741C200F05CF5 /* SBEnumeratorIntegrationTest.m:120 */ = {
+	547E932F0F6741C200F05CF5 /* SBEnumeratorIntegrationTest.m:137 */ = {
 		isa = PBXFileBreakpoint;
 		actions = (
 		);
@@ -4935,7 +5384,7 @@
 		functionName = "-noLimitInQueryOptionsMeansFetchEveryThing";
 		hitCount = 0;
 		ignoreCount = 0;
-		lineNumber = 120;
+		lineNumber = 137;
 		location = Tests;
 		modificationTime = 261268274.63895;
 		state = 2;
@@ -4973,16 +5422,16 @@
 	};
 	5496302E0F18442600A9B002 /* SBCouchEnumerator.h */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1688, 1859}}";
-			sepNavSelRange = "{2983, 0}";
-			sepNavVisRange = "{1818, 648}";
+			sepNavIntBoundsRect = "{{0, 0}, {1218, 1859}}";
+			sepNavSelRange = "{2522, 0}";
+			sepNavVisRange = "{2286, 753}";
 		};
 	};
 	5496302F0F18442600A9B002 /* SBCouchEnumerator.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1218, 6207}}";
-			sepNavSelRange = "{1655, 0}";
-			sepNavVisRange = "{382, 148}";
+			sepNavIntBoundsRect = "{{0, 0}, {1218, 6416}}";
+			sepNavSelRange = "{9816, 0}";
+			sepNavVisRange = "{9139, 110}";
 			sepNavWindowFrame = "{{346, 157}, {1362, 1021}}";
 		};
 	};
