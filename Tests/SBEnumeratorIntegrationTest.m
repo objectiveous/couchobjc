@@ -7,12 +7,15 @@
 
 @interface SBEnumeratorIntegrationTest : AbstractDatabaseTest{
 }
--(void)simpleAllDocsEnumeration;
--(void)simplestThingThatWillWork;
--(void)simpleDesignDocsEnumerator;
--(void)ensureSkipIsWorkingAndThereAreNoDuplicates;
--(void)itemAtIndexCallsWorkProperly;
--(void)noLimitInQueryOptionsMeansFetchEveryThing;
+- (void)simpleAllDocsEnumeration;
+- (void)simplestThingThatWillWork;
+- (void)simpleDesignDocsEnumerator;
+- (void)ensureSkipIsWorkingAndThereAreNoDuplicates;
+- (void)itemAtIndexCallsWorkProperly;
+- (void)noLimitInQueryOptionsMeansFetchEveryThing;
+- (void)previousAndNextKnowledge;
+- (void)indexforPageNumber;
+- (void)startAndEndPageNumbers;
 @end
 
 @implementation SBEnumeratorIntegrationTest
@@ -22,7 +25,7 @@
 -(void)setUp{
     [super setUp];
     self.numberOfViewsToCreate = 10;
-    self.numberOfDocumentsToCreate = 50; 
+    self.numberOfDocumentsToCreate = 57;
     [super provisionViews];
     [self provisionDocuments];    
 }
@@ -30,17 +33,85 @@
 -(void)tearDown{
     [super tearDown];
 }
-#pragma mark -
+#pragma mark -[NSString stringWithFormat:@"%i", i]
+
+
+
 -(void)testANumberOfThingsWithASingleSetup{
     // We're doing this because we want to setup a single database for testing. 
     // We could add support for this to AbstractDatabaseTest at some point but 
     // doing it this way makes it really clear what's going on. 
+    [self startAndEndPageNumbers];
+    [self indexforPageNumber];
+    
+    /*
+    [self previousAndNextKnowledge];
+
     [self simplestThingThatWillWork];
     [self simpleAllDocsEnumeration];
     [self simpleDesignDocsEnumerator];
     [self ensureSkipIsWorkingAndThereAreNoDuplicates];
     [self itemAtIndexCallsWorkProperly];
     [self noLimitInQueryOptionsMeansFetchEveryThing];
+    */
+}
+-(void)startAndEndPageNumbers{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 5;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view viewEnumerator];
+    
+    STAssertTrue([resultEnumerator startIndexOfPage:1] == 1, @"start idex = %i", [resultEnumerator startIndexOfPage:1]);
+    STAssertTrue([resultEnumerator startIndexOfPage:2] == 6, @"start idex = %i", [resultEnumerator startIndexOfPage:2]);
+    
+    STAssertTrue([resultEnumerator endIndexOfPage:1] == 5, @"start idex = %i", [resultEnumerator endIndexOfPage:1]);
+    STAssertTrue([resultEnumerator endIndexOfPage:2] == 10, @"start idex = %i", [resultEnumerator endIndexOfPage:2]);
+    STAssertTrue([resultEnumerator endIndexOfPage:14] == 67, @"start idex = %i", [resultEnumerator endIndexOfPage:14]);
+    
+    [view release];
+}
+-(void)indexforPageNumber{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 5;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view viewEnumerator];
+    
+    id object = [resultEnumerator objectAtIndex:4 ofPage:4];
+    STAssertNotNil(object, nil);
+    
+    STAssertNotNil([resultEnumerator objectAtIndex:1 ofPage:1], nil);
+    STAssertNotNil([resultEnumerator objectAtIndex:5 ofPage:1], nil);
+    // The indexes start at 1 not 0. 
+    STAssertNil([resultEnumerator objectAtIndex:0 ofPage:1], nil);
+    STAssertNil([resultEnumerator objectAtIndex:100 ofPage:100], nil);
+    
+    
+    [view release];
+}
+
+-(void)previousAndNextKnowledge{
+
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 2;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ];
+    SBCouchEnumerator *resultEnumerator = (SBCouchEnumerator*)[view viewEnumerator];
+    
+    STAssertFalse([resultEnumerator hasPreviousBatch],nil);
+    STAssertTrue([resultEnumerator hasNextBatch], @"There should be a next batch available");
+
+    [resultEnumerator nextObject];
+    [resultEnumerator nextObject];
+    [resultEnumerator nextObject];
+    
+    STAssertTrue([resultEnumerator hasPreviousBatch],nil);
+    
+    STAssertTrue([resultEnumerator hasNextBatch], @"There should be a next batch available");
+    [resultEnumerator fetchNextPage];
+    
+    [view release];
 }
 
 -(void)noLimitInQueryOptionsMeansFetchEveryThing{

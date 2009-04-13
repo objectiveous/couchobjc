@@ -43,9 +43,9 @@
 		5445CBBE0F3B1AA400325ED4 /* SBCouchView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445CBBC0F3B1AA400325ED4 /* SBCouchView.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5445CBBF0F3B1AA400325ED4 /* SBCouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5445CBBD0F3B1AA400325ED4 /* SBCouchView.m */; };
 		5445D1920F3BA45100325ED4 /* SBOrderedDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 5445D1910F3BA45100325ED4 /* SBOrderedDictionary.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		544E9C2C0F7F0F5E003F6025 /* Database.m in Sources */ = {isa = PBXBuildFile; fileRef = 53905A500D9430CD003D62CE /* Database.m */; };
 		544E9CE60F803252003F6025 /* SBCouchDatabaseInfoDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 544E9CE40F803252003F6025 /* SBCouchDatabaseInfoDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		544E9CE70F803252003F6025 /* SBCouchDatabaseInfoDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 544E9CE50F803252003F6025 /* SBCouchDatabaseInfoDocument.m */; };
+		5464DD180F925B7700D052E0 /* SBEnumeratorIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 54111E970F5F1A80007EE391 /* SBEnumeratorIntegrationTest.m */; };
 		5477677B0F2B5B2800E44AFE /* JSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 540108430F1DA0E9002AC9E5 /* JSON.framework */; };
 		5477687B0F2B8ED300E44AFE /* SBCouchDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = 547768790F2B8ED300E44AFE /* SBCouchDocument.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		5477687C0F2B8ED300E44AFE /* SBCouchDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 5477687A0F2B8ED300E44AFE /* SBCouchDocument.m */; };
@@ -549,7 +549,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				544E9C2C0F7F0F5E003F6025 /* Database.m in Sources */,
+				5464DD180F925B7700D052E0 /* SBEnumeratorIntegrationTest.m in Sources */,
 				544131230F7A7243006FFC9E /* AbstractDatabaseTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -733,7 +733,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_ENABLE_OBJC_GC = supported;
+				GCC_ENABLE_OBJC_GC = unsupported;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

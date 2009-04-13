@@ -13,10 +13,11 @@
 
 @interface SBCouchEnumerator (Private)
 
--(BOOL)shouldFetchNextBatch;
--(void)appendCouchDocuments:(NSArray*)listOfDictionaries;
--(void)logIndexes;
--(void)fetchNextPage;
+
+- (void)appendCouchDocuments:(NSArray*)listOfDictionaries;
+- (void)logIndexes;
+
+- (void)loadMetadata;
 @end
 
 
@@ -29,7 +30,8 @@
 @synthesize currentIndex;
 @synthesize queryOptions;
 @synthesize sizeOfLastFetch;
-
+@synthesize metadataLoaded;
+@synthesize pageNumber;
 
 -(id)initWithView:(SBCouchView*)aCouchView{    
     self = [super init];
@@ -37,6 +39,7 @@
         // Setting the currentIndex to -1 is used to indicate that we don't have an index yet. 
         self.currentIndex = -1;
         self.couchView    = aCouchView;
+        self.pageNumber = 0;
         // take a copy of the queryOptions for purposes of pagination. 
         self.queryOptions = aCouchView.queryOptions;
         self.rows = [NSMutableArray arrayWithCapacity:10];
@@ -56,7 +59,9 @@
     if(self.currentIndex == -1)
         [self fetchNextPage];
     
-    if([self.rows count] >= idx){        
+    if([self.rows count] >= idx){
+        // XXX Keep track of where we are. 
+        self.currentIndex = idx;
         return [self.rows objectAtIndex:idx];
     }else{
         self.currentIndex = self.currentIndex + self.queryOptions.limit; 
@@ -70,6 +75,8 @@
         [self logIndexes];
         [self fetchNextPage];
         self.currentIndex = self.currentIndex + self.queryOptions.limit;
+        
+        needMoreData = idx >= self.currentIndex;
         
         if(self.sizeOfLastFetch < self.queryOptions.limit)
             noMoreDataToFetch = TRUE;                
@@ -88,6 +95,24 @@
     SBDebug(@"limit           = %i", self.queryOptions.limit);
     SBDebug(@"currentIndex    = %i", self.currentIndex);
     
+}
+
+// XXX Once this is working, we really need to clean things up. 
+-(BOOL)hasNextBatch{
+    if(metadataLoaded == NO)
+        [self loadMetadata];
+    // Remember that total rows can be greater than the number of rows returned when using filters. 
+    // http://localhost:5984/twitter/_all_docs?startkey=%22_design%2F%22&endkey=%22_design0%22
+    
+    if(self.pageNumber * self.queryOptions.limit > self.totalRows)
+        return NO;
+    
+    if([self.rows count] >= self.totalRows && ! self.currentIndex < [self.rows count])
+        return NO;
+    
+    if(self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch)
+        return YES;
+    return NO;
 }
 
 /// XXX This could probably use a rethink. 
@@ -111,8 +136,28 @@
     if(currentIndex >= [rows count] && self.sizeOfLastFetch >= self.queryOptions.limit)
         return YES;
     
+    // Since we don't need to load a new page of data (we did that already in order to get the metadata),
+    // increment the page count, and return a NO. 
+    if(self.metadataLoaded == YES && self.pageNumber == 0)
+        self.pageNumber++;
+    
     return NO;
 }
+
+- (id)objectAtIndex:(NSInteger)index ofPage:(NSInteger)aPageNumber{    
+    // Page Numbers should start at zero so that the start index works properly. 
+    
+    aPageNumber--;
+    if(index <= 0 || index > self.queryOptions.limit)
+        return nil;
+    // decrement the index to account for the fact that rows are stored in an NSArray that is 0th based. 
+    index--;
+    
+    NSInteger startIndex = self.queryOptions.limit * aPageNumber;
+    NSInteger itemIndex = startIndex + index;
+    return [self itemAtIndex:itemIndex];
+}
+
 - (id)nextObject{
     // At some point lastObjectsID will 
     if([self shouldFetchNextBatch]){
@@ -143,7 +188,17 @@
     return self.rows;
 }
 
--(void)fetchNextPage{   
+-(void)fetchPreviousPage{
+        
+}
+
+-(void)fetchNextPage{
+    if(self.pageNumber * self.queryOptions.limit > self.totalRows)
+        return;
+    
+    //if(! (self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch))
+    //    return;
+    
     // contruct a new URL using our own copy of the query options
     // View URLs are expected to have names like
     // _design/designdocName/_view/viewName?xx=xx  && _all_docs
@@ -165,15 +220,16 @@
         
 
     // If this is our first attempt at a fetch, we need to initialize the currentIndex
-    if(self.currentIndex == -1 ){
-        self.totalRows    = [[etf objectForKey:@"total_rows"] integerValue]; 
-        self.offset       = [[etf objectForKey:@"offset"] integerValue];
+    if(self.currentIndex == -1){
         self.currentIndex = 0;
         // Since this is our first fetch, set the skip value to 1 
         // XXX This should be moved someplace where its only ever called 
         //     once. No need to set this on every fetch. 
         self.queryOptions.skip=1;
     }
+    // Add meta data. 
+    self.totalRows    = [[etf objectForKey:@"total_rows"] integerValue]; 
+    self.offset       = [[etf objectForKey:@"offset"] integerValue];
 
     NSArray *newRows = [etf objectForKey:@"rows"];
     [self appendCouchDocuments:newRows];
@@ -185,6 +241,7 @@
          if(self.queryOptions.limit > 0)
              self.queryOptions.startkey = lastObjectsID;
     }
+    self.pageNumber++;
 }
 
 -(void)appendCouchDocuments:(NSArray*)listOfDictionaries{
@@ -223,5 +280,46 @@
         [self fetchNextPage];
     }
     return [self.rows count];
+}
+
+-(void) loadMetadata{
+    [self fetchNextPage];
+    // XXX This is a hack so that we can reuse fetchNext without it incementing the pagenation page number. 
+    self.pageNumber--;
+    
+    self.metadataLoaded = YES;
+}
+
+
+-(BOOL)hasPreviousBatch{
+    if(metadataLoaded == NO)
+        return NO;
+    
+    if(self.pageNumber > 1)
+        return YES;
+    
+    return NO;
+}
+
+
+-(NSInteger)startIndexOfPage:(NSInteger)aPageNumber{
+    if(! self.metadataLoaded)
+        [self count];
+    
+    aPageNumber--;
+    NSInteger startIndex =  self.queryOptions.limit * aPageNumber;
+    // return startIndex but increment the value by one because these numbers are used 
+    // to represent indexes in a human friendly way. In other words, they start at 1. 
+    return ++startIndex;
+}
+-(NSInteger)endIndexOfPage:(NSInteger)aPageNumber{
+    if(! self.metadataLoaded)
+        [self count];
+    
+    NSInteger endIndex =  self.queryOptions.limit * aPageNumber;
+    if(endIndex > self.totalRows)
+        endIndex =  endIndex - (endIndex - self.totalRows);
+    
+    return endIndex;
 }
 @end

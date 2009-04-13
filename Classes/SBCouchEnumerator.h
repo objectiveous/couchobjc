@@ -13,9 +13,7 @@
 
 @class SBCouchDatabase; 
 
-@interface SBCouchEnumerator : NSEnumerator {
-//@public
-    
+@interface SBCouchEnumerator : NSEnumerator {    
     /*!
      totalRows is the number of items in a view. It does not account for start/end key "filters" 
      that get applied. This means, that you can have instance of SBCouchEnumerator with 10,000 totalRows
@@ -23,22 +21,23 @@
      
      Using a reduce function may also complicate matters. 
      */
-    NSInteger       totalRows; 
-    NSInteger       offset;
-
-//@protected
-    SBCouchView     *couchView;    
-    NSMutableArray  *rows;
-    NSInteger        currentIndex;
-    NSInteger        sizeOfLastFetch; 
-    // These are used to create query params. Might be a good idea to 
-    // to move them into a SBCouchQueryOptions. The rational is that the view name is the 
-    // resource, not its p
+    NSInteger           totalRows; 
+    NSInteger           pageNumber; // The pagination number representing the page number we are on. 
+    NSInteger           offset;
+    NSInteger           currentIndex;
+    NSInteger           sizeOfLastFetch;
     
+    BOOL                metadataLoaded;
+
+    
+    SBCouchView         *couchView;    
+    NSMutableArray      *rows;
     SBCouchQueryOptions *queryOptions; 
 }
 
+
 @property NSInteger                      totalRows;
+@property NSInteger                      pageNumber;
 @property NSInteger                      offset;
 @property (retain) SBCouchView          *couchView;
 @property (retain) NSMutableArray       *rows;
@@ -50,11 +49,43 @@
 @property (copy)   SBCouchQueryOptions  *queryOptions; 
 @property          NSInteger             currentIndex;
 @property          NSInteger             sizeOfLastFetch;
+@property          BOOL                  metadataLoaded;
 
--(id)initWithView:(SBCouchView*)couchView;
+#pragma mark -
+- (id)initWithView:(SBCouchView*)couchView;
+- (id)itemAtIndex:(NSInteger)idx;
+
+/*!
+ * @method      itemAtIndex:ofPage
+ * @discussion  Fetch an item at an index starting at pageNumber. 
+ *              
+ */
+- (id)objectAtIndex:(NSInteger)index ofPage:(NSInteger)pageNumber;
+- (NSInteger)count; // Count returns the number of rows fetched so far.
+
+/*!
+ * @method      
+ * @discussion  
+ *              
+ */
+- (void)fetchNextPage;
+
+/*!
+ * @method     fetchPreviousPage  
+ * @discussion At the moment this method assumes that all previous rows are being 
+ *   cached. 
+ *              
+ */
+- (void)fetchPreviousPage;
+- (BOOL)hasNextBatch;
+- (BOOL)hasPreviousBatch;
+
+-(NSInteger)startIndexOfPage:(NSInteger)aPageNumber;
+-(NSInteger)endIndexOfPage:(NSInteger)aPageNumber;
+
 
 #pragma mark Abstract Methods from NSEnumerator
--(id)nextObject; 
+- (id)nextObject;
 
 // Given the nature of couchDB views, the semantics of allObjects is slightly counter-intuitive. 
 // Since a view can return a huge number of rows and we can't fetch them all *and* becuase we 
@@ -62,12 +93,5 @@
 // an NSArray of objects that have already been fetched. In other words, it only returns a list 
 // of what has already been seen. 
 
--(NSArray *)allObjects;
-
-
-#pragma mark -
--(id)itemAtIndex:(NSInteger)idx;
-// Count returns the number of rows fetched so far.
--(NSInteger)count;
-
+- (NSArray *)allObjects;
 @end

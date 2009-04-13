@@ -85,8 +85,13 @@ static NSString *TEST_VIEW_NAME_3 = @"view3";
         couchDocument.couchDatabase = self.couchDatabase;    
         NSString *name = [NSString stringWithFormat:@"first-%u", random()];
         [couchDocument detach];
-        [couchDocument setObject:name forKey:@"first"];        
-        [couchDatabase postDocument:couchDocument];
+        [couchDocument setObject:name forKey:@"first"];
+        [couchDocument setObject:[NSString stringWithFormat:@"%i", i] forKey:@"_id"];
+        [couchDocument setObject:[NSString stringWithFormat:@"%i", i] forKey:@"id"];
+        [couchDocument setObject:[NSString stringWithFormat:@"%i", i] forKey:@"_key"];
+        [couchDocument setIdentity:[NSString stringWithFormat:@"%i", i]];
+        //[couchDatabase postDocument:couchDocument];
+        [couchDatabase putDocument:couchDocument];
     }
     [couchDocument release];    
 }
