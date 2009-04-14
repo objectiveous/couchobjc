@@ -250,7 +250,8 @@
             // and it would be a mistake to assume that anytime we have an 'id' key in the dict that it is an actual identity. 
             // For example, someone could create a view that returns the keys: _id, id, and key. Then what would we do? 
             // CouchDB may move _id into the HTTP headers, so we won't get to worried just yet. 
-            [(SBCouchDocument*)doc setIdentity:documentType];
+            if(documentType != nil)
+                [(SBCouchDocument*)doc setIdentity:documentType];
         }
         [self.rows addObject:doc];
     }    
@@ -290,7 +291,7 @@
     //if([self.rows count] >= self.totalRows && ! self.currentIndex < [self.rows count])
     //    return NO;
     
-    if(self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch && self.totalRows != [self.rows count])
+    if(self.totalRows > self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch && self.totalRows != [self.rows count])
         return YES;
 
     if(self.currentIndex + self.queryOptions.limit + 1 < self.totalRows)
@@ -350,6 +351,7 @@
     self.queryOptions.skip = 0;
     self.currentIndex = -1;
     self.metadataLoaded = NO;
+    //self.totalRows = -1;
     [self.rows removeAllObjects];
     //self.rows = [NSMutableArray arrayWithCapacity:limit];
     [self count];
