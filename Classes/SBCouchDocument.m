@@ -93,7 +93,7 @@
         
         [orderedDocument setObject:aDictionaryValue forKey:aDictionaryKey];
     }
-    return orderedDocument;
+    return [orderedDocument autorelease];
 }
 
 /*

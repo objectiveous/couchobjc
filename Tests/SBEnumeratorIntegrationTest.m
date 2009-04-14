@@ -18,6 +18,7 @@
 - (void)indexforPageNumber;
 - (void)startAndEndPageNumbers;
 - (void)numberOfRowsForPage;
+- (void)resetLimit;
 
 @end
 
@@ -44,9 +45,10 @@
     // We're doing this because we want to setup a single database for testing. 
     // We could add support for this to AbstractDatabaseTest at some point but 
     // doing it this way makes it really clear what's going on. 
-    [self numberOfRowsForPage];
 
+    [self resetLimit];
     /*
+    [self numberOfRowsForPage];
     [self startAndEndPageNumbers];
     [self previousAndNextKnowledge];
 
@@ -58,6 +60,28 @@
     [self noLimitInQueryOptionsMeansFetchEveryThing];
     */
 }
+
+-(void)resetLimit{
+    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    queryOptions.limit = 5;
+    
+    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self.couchDatabase queryOptions:queryOptions ];
+    SBCouchEnumerator *viewEnumerator = (SBCouchEnumerator*)[view viewEnumerator];
+    
+    NSInteger count = [viewEnumerator count];
+    [viewEnumerator itemAtIndex:4];
+    
+    [viewEnumerator resetLimit:1000];
+    
+    STAssertTrue(viewEnumerator.currentIndex == 0, @" %i ", viewEnumerator.currentIndex);
+    
+    count = [viewEnumerator count];
+    STAssertTrue(count == 67, @"count = [%i]", count);
+    
+    [view release];
+    [queryOptions release]; 
+}
+
 -(void) numberOfRowsForPage{
     SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
     queryOptions.limit = 5;

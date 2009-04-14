@@ -85,7 +85,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 
 -(NSEnumerator*)allDocsInBatchesOf:(NSInteger)count{
-    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    SBCouchQueryOptions *queryOptions = [[SBCouchQueryOptions new] autorelease];
     queryOptions.limit = count;
     SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:queryOptions ];
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];    
@@ -93,20 +93,20 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 }
 - (NSEnumerator*)getDesignDocuments{
     //NSString *url = @"_all_docs?group=true&startkey=\"_design\"&endkey=\"_design0\"";
-    SBCouchQueryOptions *options = [SBCouchQueryOptions new];
+    SBCouchQueryOptions *options = [[SBCouchQueryOptions new] autorelease];
     options.group = YES;
     options.startkey = @"_design";
     options.endkey = @"_design0";
     options.include_docs = YES;
 
-    SBCouchView *view = [[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:options ];
+    SBCouchView *view = [[[SBCouchView alloc] initWithName:@"_all_docs" couchDatabase:self queryOptions:options ] autorelease];
     
     SBCouchEnumerator *enumerator = [[[SBCouchEnumerator alloc] initWithView:view] autorelease];
     
     return (NSEnumerator*)enumerator;
 }
 - (SBCouchView*)designDocumentsView{
-    SBCouchQueryOptions *queryOptions = [SBCouchQueryOptions new];
+    SBCouchQueryOptions *queryOptions = [[SBCouchQueryOptions new] autorelease];
     queryOptions.startkey = @"_design";
     queryOptions.endkey = @"_design0";
     queryOptions.include_docs = YES;

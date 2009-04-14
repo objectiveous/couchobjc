@@ -57,7 +57,7 @@
 #pragma mark -
 - (id)objectAtIndex:(NSInteger)index ofPage:(NSInteger)aPageNumber{        
     aPageNumber--;
-    if(index < 0 || index > self.queryOptions.limit)
+    if(index < 0 || index > self.queryOptions.limit && self.queryOptions.limit != 0)
         return nil;
     // decrement the index to account for the fact that rows are stored in an NSArray that is 0th based. 
     //index--;
@@ -71,7 +71,9 @@
     if(self.currentIndex == -1)
         [self fetchNextPage];
     
-    if([self.rows count] >= idx){
+    //NSLog(@"idx %i rows count %i", idx, [self.rows count]);
+    //NSLog(@"    test %i >= %i ", ([self.rows count] -1), idx);
+    if(([self.rows count] -1) >= idx){
         self.currentIndex = idx;
         return [self.rows objectAtIndex:idx];
     }else{
@@ -167,6 +169,8 @@
 - (NSArray *)allObjects{
     if(self.currentIndex == -1)
         [self fetchNextPage];
+    
+    self.metadataLoaded = YES;
     return self.rows;
 }
 
@@ -175,7 +179,7 @@
 }
 
 -(void)fetchNextPage{
-    if(self.pageNumber * self.queryOptions.limit > self.totalRows)
+    if(self.pageNumber * self.queryOptions.limit > self.totalRows && self.metadataLoaded == YES)
         return;
     
     //if(! (self.totalRows >= self.queryOptions.limit && self.queryOptions.limit >= self.sizeOfLastFetch))
@@ -258,9 +262,10 @@
         return [self.rows count];
     }
     
-    if(self.currentIndex == -1){
+    if(self.currentIndex == -1 && self.metadataLoaded == NO){
         [self fetchNextPage];
     }
+    self.metadataLoaded = YES;
     return [self.rows count];
 }
 
@@ -326,7 +331,27 @@
     return endIndex;
 }
 -(NSInteger)numberOfRowsForPage:(NSInteger)aPageNumber{
-    return ([self endIndexOfPage:aPageNumber] +1 ) - [self startIndexOfPage:aPageNumber];
+    // If there's no limit, then we assume that the resultset is fully 
+    // populated and we return the array count. 
+    if(self.queryOptions.limit == 0)
+        return [self.rows count];
+    
+    // Since we have a limit, we'll return the number of items 
+    // that should be shown per view
+    NSInteger endOfPage = [self endIndexOfPage:aPageNumber]+1;
+    NSInteger startOfPage = [self startIndexOfPage:aPageNumber];
+    return endOfPage - startOfPage;
 }
 
+-(void)resetLimit:(NSInteger)limit{
+    self.queryOptions.limit = limit;
+    self.queryOptions.startkey = nil;
+    self.queryOptions.endkey = nil;
+    self.queryOptions.skip = 0;
+    self.currentIndex = -1;
+    self.metadataLoaded = NO;
+    [self.rows removeAllObjects];
+    //self.rows = [NSMutableArray arrayWithCapacity:limit];
+    [self count];
+}
 @end

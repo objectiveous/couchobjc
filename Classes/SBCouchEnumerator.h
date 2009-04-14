@@ -85,6 +85,8 @@
 
 -(NSInteger)numberOfRowsForPage:(NSInteger)aPageNumber;
 
+-(void)resetLimit:(NSInteger)limit;
+
 #pragma mark Abstract Methods from NSEnumerator
 - (id)nextObject;
 

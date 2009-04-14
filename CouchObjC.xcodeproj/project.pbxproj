@@ -147,7 +147,7 @@
 		54111F3F0F606B53007EE391 /* SBCouchQueryOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchQueryOptions.m; sourceTree = "<group>"; };
 		54111F480F6073D1007EE391 /* SBQueryOptionsIntegrationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBQueryOptionsIntegrationTest.m; sourceTree = "<group>"; };
 		5411200A0F60CFFD007EE391 /* SBCouchQueryOptionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchQueryOptionsTest.m; sourceTree = "<group>"; };
-		544133500F7AC489006FFC9E /* Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		544133500F7AC489006FFC9E /* AllTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AllTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		544133510F7AC489006FFC9E /* Tests-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info copy.plist"; sourceTree = "<group>"; };
 		5445CB900F3B18EE00325ED4 /* SBCouchDesignDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBCouchDesignDocument.h; sourceTree = "<group>"; };
 		5445CB910F3B18EE00325ED4 /* SBCouchDesignDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBCouchDesignDocument.m; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 			children = (
 				8DC2EF5B0486A6940098B216 /* CouchObjC.framework */,
 				5315EE640D94078D001E3B2E /* Tests.octest */,
-				544133500F7AC489006FFC9E /* Tests.octest */,
+				544133500F7AC489006FFC9E /* AllTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -409,7 +409,7 @@
 			);
 			name = "All Tests";
 			productName = Tests;
-			productReference = 544133500F7AC489006FFC9E /* Tests.octest */;
+			productReference = 544133500F7AC489006FFC9E /* AllTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		8DC2EF4F0486A6940098B216 /* CouchObjC */ = {
